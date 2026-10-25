@@ -1,28 +1,43 @@
-// Una misión = cuatro fases cronológicas con guion, mecánica y frase de producción.
-const raw=[
-['La brújula perdida','Hallo! Ich heiße Felix. Wie heißt du?','rot · blau · grün · eins–drei','Atrapar tres manzanas rojas y calibrar cristales','Hallo! Ich heiße … . Ich sehe drei rote Äpfel.','Cristal rojo'],
-['El árbol que cuenta','Wie viele Äpfel? Eins, zwei, drei!','eins–zehn · Wie viele?','Contar frutos que aparecen en ramas y alimentar al búho','Ich sehe fünf Äpfel.','Pluma numérica'],
-['La mochila mágica','Was hast du? Ich habe ein Buch.','ich habe · Buch · Stift · Tasche','Empacar objetos arrastrándolos según pistas','Ich habe einen Stift und ein Buch.','Mochila mágica'],
-['Los colores secretos','Welche Farbe? Das ist blau.','Farben · Das ist …','Mezclar luces y encajar cristales cromáticos','Das ist grün. Ich habe zwei Kristalle.','Prisma'],
-['El guardián del bosque','Ich bin Felix. Wer bist du?','ich bin · du bist · Wiederholung','Abrir portal con tres pistas de identidad','Hallo! Ich heiße … . Ich bin zehn.','Llave del bosque'],
-['Retratos encantados','Das ist meine Mutter.','Familie · mein/meine','Reconstruir árbol genealógico con retratos parlantes','Das ist meine Familie. Das ist mein Vater.','Retrato familiar'],
-['Habitaciones perdidas','Wo wohnst du? Ich wohne hier.','Zimmer · wohnen','Situar muebles en salas del castillo','Ich wohne in … . Das ist mein Zimmer.','Plano del castillo'],
-['El reloj gigante','Wie spät ist es? Es ist drei Uhr.','Uhrzeit · volle Stunden','Mover manecillas para abrir puertas','Es ist vier Uhr.','Engranaje dorado'],
-['El día del fantasma','Ich stehe auf. Ich spiele.','Tagesablauf · morgens/abends','Ordenar escenas de una rutina','Morgens stehe ich auf. Dann spiele ich.','Reloj espectral'],
-['La fiesta del castillo','Das ist dein Geschenk!','mein/dein · Familie · Uhr','Entregar regalos al personaje correcto','Das ist mein Buch. Das ist dein Geschenk.','Corona amable'],
-['El robot desarmado','Das ist der Arm.','Körper · Kopf/Arm/Bein','Construir robot con partes del cuerpo','Das ist mein Kopf. Ich habe zwei Arme.','Brazo robótico'],
-['Alien grande, alien pequeño','Der Alien ist groß.','groß · klein · Farben','Crear alienígena según siluetas','Mein Alien ist klein und grün.','Miniatura alien'],
-['Radar de animales','Der Fuchs kann laufen.','Tiere · können','Conectar animales con habilidades en radar','Der Vogel kann fliegen.','Radar vivo'],
-['La cocina espacial','Ich mag Bananen.','Essen · ich mag / mag nicht','Preparar batido para criaturas con gustos','Ich mag Äpfel. Ich mag Milch nicht.','Receta estelar'],
-['El monstruo hambriento','Was möchtest du?','Essen · bitte · Wiederholung','Alimentar criatura siguiendo peticiones','Ich möchte Wasser, bitte.','Cuchara lunar'],
-['Tormenta temporal','Es regnet. Es ist kalt.','Wetter · regnen/kalt/warm','Activar refugios según meteorología','Es regnet. Es ist kalt.','Paraguas del tiempo'],
-['La rueda de estaciones','Im Winter ist es kalt.','Jahreszeiten','Girar ruleta y reparar paisaje','Im Sommer ist es warm.','Rueda solar'],
-['El armario de Felix','Ich trage eine Jacke.','Kleidung · tragen','Vestir a Felix según clima','Ich trage eine Jacke und Schuhe.','Bufanda mágica'],
-['El calendario roto','Mein Geburtstag ist im Mai.','Monate · Geburtstag','Ordenar meses en calendario móvil','Mein Geburtstag ist im … .','Calendario de plata'],
-['El festival del tiempo','Heute ist es sonnig.','Wetter · Monate · Kleidung','Combinar ropa y fecha para abrir festival','Im Juli ist es warm. Ich trage … .','Reloj de arena'],
-['El tren del regreso','Ich fahre mit dem Zug.','Verkehrsmittel · fahren','Elegir rutas y vehículos en mapa','Ich fahre mit dem Bus.','Billete mágico'],
-['El puente invisible','Der Schlüssel ist unter dem Tisch.','in · auf · unter','Buscar llave colocando objetos en posiciones','Der Ball ist unter dem Tisch.','Llave del puente'],
-['La isla de los juegos','Ich spiele gern. Ich schwimme gern.','Hobbys · gern','Recorrer islas de actividades','Ich spiele gern Fußball.','Insignia de aficiones'],
-['La gran vuelta a casa','Hallo! Ich heiße Felix. Ich bin zu Hause!','Integración A1 · repaso','Resolver cinco enigmas usando inventario','Ich heiße … . Ich mag … . Ich fahre … .','Brújula restaurada']
+// Cada misión aporta cinco verbos en contexto y cinco objetos/acciones ilustradas.
+// Los temas se repasan deliberadamente: no son 120 verbos nuevos independientes.
+const data=[
+ ['La brújula de los nombres','sein,haben,heißen,kommen,wohnen','hier,einen Kompass,Felix,aus Berlin,in Berlin','🦊,🧭,👋,🚂,🏠','Presentarse y decir origen/residencia'],
+ ['Los animales se presentan','sein,haben,heißen,kommen,wohnen','klein,zwei Freunde,Luna,aus dem Wald,im Wald','🐰,🐿️,🦊,🐻,🌳','Identificar animales y hablar de su hogar'],
+ ['La mochila con secretos','haben,brauchen,nehmen,suchen,finden','ein Buch,einen Stift,eine Tasche,den Schlüssel,den Schlüssel','📚,✏️,🎒,🔑,🔍','Pedir y encontrar objetos'],
+ ['La puerta de los números','zählen,zeigen,haben,sehen,finden','bis zehn,drei Äpfel,fünf Sterne,zwei Füchse,den Weg','🔢,🍎,⭐,🦊,🗺️','Contar y describir cantidades'],
+ ['El guardián de las acciones','sein,haben,kommen,wohnen,spielen','bereit,eine Karte,aus Spanien,in Berlin,im Wald','🗝️,🗺️,🚂,🏠,🎲','Consolidar sein/haben y verbos regulares'],
+ ['El banquete del rey','essen,trinken,schlafen,spielen,sprechen','einen Apfel,Wasser,im Bett,Schach,Deutsch','🍎,🥤,🛏️,♟️,🗣️','Rutinas y cambio e→i / e→ie'],
+ ['Retratos de familia','essen,trinken,schlafen,spielen,sprechen','Brot,Saft,im Zimmer,mit Oma,mit Papa','🥖,🧃,😴,👵,👨','Describir acciones familiares'],
+ ['La cocina encantada','essen,trinken,kochen,machen,helfen','eine Banane,Milch,Suppe,einen Salat,der Mutter','🍌,🥛,🍲,🥗,🤝','Preparar y pedir alimentos'],
+ ['El reloj de las rutinas','aufstehen,schlafen,lernen,spielen,lesen','um sieben Uhr,um neun Uhr,Deutsch,am Nachmittag,ein Buch','⏰,🛏️,📖,🎲,📚','Secuencia de rutina y verbo separable'],
+ ['El fantasma conversador','sprechen,fragen,antworten,hören,verstehen','Deutsch,den König,dem König,Musik,die Frage','🗣️,❓,💬,🎵,💡','Preguntas y respuestas breves'],
+ ['El robot de los movimientos','tragen,anziehen,laufen,fliegen,gehen','eine Jacke,eine Mütze,schnell,hoch,nach Hause','🧥,🧢,🏃,🛸,🚶','Movimientos y ropa'],
+ ['El espejo de los mutantes','tragen,anziehen,laufen,schlafen,waschen','einen Mantel,Schuhe,schnell,im Bett,die Hände','🧥,👟,🏃,😴,🧼','Reconocer a→ä en du/er'],
+ ['La carrera de los animales','laufen,fliegen,schwimmen,springen,gehen','schnell,über den Wald,im See,hoch,langsam','🐕,🦅,🐟,🐸,🐢','Expresar cómo se mueven'],
+ ['El vestidor alienígena','tragen,anziehen,brauchen,kaufen,finden','ein rotes T-Shirt,eine Jacke,einen Hut,Schuhe,die Hose','👕,🧥,🎩,👟,👖','Acusativo en ropa y colores'],
+ ['La pasarela espacial','tragen,anziehen,laufen,zeigen,sehen','eine blaue Hose,einen Pullover,schnell,die Schuhe,einen Hut','👖,🧶,🏃,👟,🎩','Describir atuendos en acción'],
+ ['El portal del verano','können,wollen,mögen,schwimmen,lesen','schwimmen,spielen,den Sommer,im See,ein Buch','🌞,🎲,❤️,🏊,📖','Modales y ocio'],
+ ['La tormenta de planes','können,wollen,müssen,gehen,spielen','zu Hause bleiben,ein Buch lesen,lernen,nach Hause,drinnen','🌧️,📖,📚,🏠,🎲','Planificar según el clima'],
+ ['El lago de los hobbies','können,wollen,mögen,schwimmen,lesen','gut schwimmen,Fußball spielen,Bücher,im See,einen Comic','🏊,⚽,📚,🌊,📖','Expresar capacidades y gustos'],
+ ['La biblioteca del tiempo','lesen,schreiben,lernen,können,wollen','einen Comic,eine Nachricht,Deutsch,gut lesen,ein Buch lesen','📖,✍️,📚,💡,📘','Comprensión y dos verbos'],
+ ['El festival de talentos','können,wollen,mögen,tanzen,singen','tanzen,singen,Musik,zusammen,laut','💃,🎤,🎶,🕺,🎼','Presentar talentos'],
+ ['El tren secreto','fahren,fliegen,finden,machen,gehen','mit dem Zug,nach Berlin,den Bahnhof,eine Reise,zum Bahnhof','🚆,✈️,🚉,🧳,🚶','Transportes y destino'],
+ ['El mapa desaparecido','fahren,finden,suchen,gehen,sehen','mit dem Bus,die Karte,den Weg,nach Hause,den Bahnhof','🚌,🗺️,🔎,🏠,🚉','Pedir y seguir un itinerario'],
+ ['El puente de los recuerdos','machen,spielen,lesen,essen,trinken','eine Pause,Fußball,einen Comic,einen Apfel,Wasser','⏸️,⚽,📖,🍎,🥤','Repaso de oraciones con objetos'],
+ ['La gran expedición final','sein,haben,können,finden,fahren','bereit,einen Kompass,Deutsch sprechen,den Weg,nach Hause','🏁,🧭,🗣️,🗺️,🚆','Integración de la sintaxis A1']
 ];
-export const MISSIONS=raw.map((r,i)=>({id:i+1,title:r[0],input:r[1],language:r[2],mechanic:r[3],power:r[4],item:r[5],medal:`Medalla ${i+1}`,phases:[{minutes:'0–10',name:'Incidente narrativo',action:`Explora el escenario: ${r[3]}. Escucha y señala: ${r[1]}`},{minutes:'10–25',name:'Enigma mecánico',action:r[3]},{minutes:'25–40',name:'Desafío de producción',action:`La profesora interpreta al guardián. Modelo oral: ${r[4]}`},{minutes:'40–45',name:'Recompensa y bitácora',action:`Confirmación oral, ${r[5]} y ficha imprimible.`}]}));
+export const MISSIONS=data.map((d,i)=>({id:i+1,title:d[0],verbs:d[1].split(','),complements:d[2].split(','),icons:d[3].split(','),goal:d[4],world: i<5?'bosque':i<10?'castillo':i<15?'laboratorio':i<20?'tiempo':'regreso',item:`${['🌲','🏰','🧪','⏳','🗺️'][i<5?0:i<10?1:i<15?2:i<20?3:4]} Reliquia ${i+1}`}));
+export const PERSONS=['ich','du','er','wir','ihr'];
+const irregular={
+ sein:['bin','bist','ist','sind','seid'],haben:['habe','hast','hat','haben','habt'],heißen:['heiße','heißt','heißt','heißen','heißt'],
+ essen:['esse','isst','isst','essen','esst'],sprechen:['spreche','sprichst','spricht','sprechen','sprecht'],schlafen:['schlafe','schläfst','schläft','schlafen','schlaft'],
+ lesen:['lese','liest','liest','lesen','lest'],tragen:['trage','trägst','trägt','tragen','tragt'],laufen:['laufe','läufst','läuft','laufen','lauft'],
+ fahren:['fahre','fährst','fährt','fahren','fahrt'],sehen:['sehe','siehst','sieht','sehen','seht'],nehmen:['nehme','nimmst','nimmt','nehmen','nehmt'],
+ helfen:['helfe','hilfst','hilft','helfen','helft'],waschen:['wasche','wäschst','wäscht','waschen','wascht'],
+ können:['kann','kannst','kann','können','könnt'],wollen:['will','willst','will','wollen','wollt'],mögen:['mag','magst','mag','mögen','mögt'],müssen:['muss','musst','muss','müssen','müsst'],
+ finden:['finde','findest','findet','finden','findet'],antworten:['antworte','antwortest','antwortet','antworten','antwortet'],
+ arbeiten:['arbeite','arbeitest','arbeitet','arbeiten','arbeitet'],anziehen:['ziehe','ziehst','zieht','ziehen','zieht'],aufstehen:['stehe','stehst','steht','stehen','steht']
+};
+export function conjugate(verb,person){const idx=PERSONS.indexOf(person);if(idx<0)throw Error('Persona desconocida');if(irregular[verb])return irregular[verb][idx];let stem=verb.endsWith('en')?verb.slice(0,-2):verb.slice(0,-1);let suffix=['e','st','t','en','t'][idx];if(/(t|d)$/.test(stem)&&['st','t'].includes(suffix))suffix='e'+suffix;if(/(s|ß|z|x)$/.test(stem)&&idx===1)suffix='t';return stem+suffix;}
+export function splitVerb(verb,person){const form=conjugate(verb,person);const ending=['e','st','t','en','t'][PERSONS.indexOf(person)];if(form.endsWith(ending))return [form.slice(0,-ending.length),ending];return [form,''];}
+export function sentenceParts(mission,round){const verb=mission.verbs[round];const person=PERSONS[round];const [stem,ending]=splitVerb(verb,person);const complement=mission.complements[round];const isModal=['können','wollen','müssen'].includes(verb);const sep=verb==='anziehen'?' an':verb==='aufstehen'?' auf':'';return {verb,person,stem,ending,complement:complement+sep,isModal,text:`${person} ${conjugate(verb,person)} ${complement}${sep}.`};}
