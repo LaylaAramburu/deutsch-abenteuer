@@ -1,0 +1,37 @@
+AUDITORÍA DE CALIDAD · DEUTSCH ABENTEUER! V7
+=======================================================
+
+APROBADO  24 misiones consecutivas
+APROBADO  5 mundos
+APROBADO  6 escenas por misión
+APROBADO  3 pistas únicas por misión
+APROBADO  6 formas gramaticales por misión
+APROBADO  Vocabulario base y extra
+APROBADO  Microgramática propia
+APROBADO  Cada forma verbal coincide con oración
+APROBADO  Opciones contienen solución
+APROBADO  Opciones tienen distractores
+APROBADO  Todas las personas en seis escenas
+APROBADO  Sie formal en misión 23
+APROBADO  Seis W-Fragen en misión 22
+APROBADO  Clima impersonal bien explicado
+APROBADO  Sin escenas madre cocina/padre duerme
+APROBADO  24 archivos HTML
+APROBADO  Todos los HTML enlazan recursos v7
+APROBADO  24 fichas PDF de 3 páginas
+APROBADO  PDF contienen respuestas
+APROBADO  CSS incluye estilos mapa y misiones
+APROBADO  Sin dependencias externas
+APROBADO  JavaScript sintaxis
+APROBADO  15 paradigmas irregulares/separables correctos
+APROBADO  Sujeto y verbo en las 144 escenas
+APROBADO  24 recorridos JS simulados
+
+LIMITACIONES DE LA VERIFICACIÓN
+- El navegador Chromium del entorno bloqueó el acceso local por política de administrador. No se ejecutaron pruebas E2E reales en Chromium en esta versión.
+- Se ejecutaron 24 recorridos simulados del motor JavaScript con estado, navegación, ejercicios, cierre y persistencia.
+- Los PDF se renderizaron y se inspeccionó visualmente una muestra; no equivalen a ilustraciones editoriales de alta gama.
+- La duración 45 minutos es una pauta de trabajo docente, no un cronómetro ni una garantía automática.
+- La corrección gramatical revisa paradigmas y ejemplos estructurados; no es una validación lingüística externa certificada.
+- La calidad de voz de speechSynthesis depende de las voces alemanas instaladas en el dispositivo.
+- El resultado publicado en GitHub Pages debe comprobarse después de subirlo.
