@@ -8,3 +8,33 @@
 
 /* Desafíos narrativos integrados con conjugación */
 .context-quest{background:linear-gradient(135deg,#fff5c5,#e7f9db);border:3px solid #ffbe35;border-radius:20px;padding:17px;margin:16px 0;color:#183b35}.quest-story{font-size:1.12rem;line-height:1.5}.context-choices{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.quest-success{background:#caff9c;padding:10px;border-radius:12px;font-weight:800}.context-choices .btn{min-width:110px}.scene .actor{box-shadow:0 6px 0 #245c3d33}@media(max-width:650px){.context-choices .btn{flex:1 1 130px}}
+
+/* ACTUALIZACIÓN: navegación libre para profesora y minicómic */
+.phase-nav .phase-tab{background:#dce6fa;color:#172440;border:2px solid transparent;border-radius:12px;padding:12px 7px;text-align:center;font-size:.84rem;font-weight:800;min-height:55px}.phase-nav .phase-tab.active{background:#1769ff;color:white}.phase-nav .phase-tab.done:not(.active){background:#b8f23d;color:#173b25}.phase-nav .phase-tab:disabled{opacity:.5;cursor:not-allowed}.comic-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:14px}.comic-instruction{font-size:1.05rem}.comic-landscape{display:flex;align-items:center;gap:10px;background:linear-gradient(#a8eaff 0 60%,#7bd17a 60%);border:3px solid #3a9e71;border-radius:22px;padding:18px 10px;min-height:260px}.comic-character{display:grid;justify-items:center;gap:5px;min-width:75px;font-size:.8rem}.comic-emoji{font-size:3.5rem}.comic-bubble{background:white;border:3px solid #1769ff;border-radius:22px;padding:14px;flex:1;min-width:0}.comic-bubble p{font-size:.9rem}.comic-slots,.comic-bank{display:flex;flex-wrap:wrap;gap:8px}.comic-slot{border:2px dashed #1769ff;background:#f1f6ff;border-radius:12px;padding:10px;min-width:70px;min-height:50px;font-weight:800}.comic-slot.filled{background:#caff9d;border-style:solid}.comic-bank{padding:16px 0}.comic-word{background:#ffd338;color:#102451;border:2px solid #102451;border-radius:14px;padding:12px 17px;font-weight:900;cursor:grab;min-height:52px}.comic-word.selected{background:#b8f23d;outline:3px solid #1769ff}.comic-word[hidden]{display:none}.comic-scene{display:grid;place-items:center;text-align:center}.comic-stage-emoji{font-size:5rem}.comic-stage-action{max-width:340px;background:#ffffffd9;border-radius:14px;padding:12px}.comic-fireflies{font-size:2rem}.comic-hint{background:#fff2bc;padding:12px;border-radius:14px}.comic-recap{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:15px 0}.comic-dot{background:#dce6fa;border-radius:50%;width:37px;height:37px;display:grid;place-items:center;font-weight:900}.comic-dot.done{background:#b8f23d}.comic-dot.current{background:#1769ff;color:white}.comic-celebrate{font-size:4rem}.comic-complete{text-align:center}
+@media(max-width:850px){.comic-layout{grid-template-columns:1fr}}@media(max-width:550px){.comic-landscape{flex-wrap:wrap}.comic-bubble{order:3;flex:1 1 100%}.comic-emoji{font-size:2.8rem}.phase-nav{grid-template-columns:repeat(2,1fr)}}
+/* Ficha a color: mismo diseño al imprimir o guardar como PDF en Chrome */
+@media print{
+ @page{size:A4 portrait;margin:10mm}
+ html,body{background:#fff!important;margin:0!important;padding:0!important}
+ .app,.overlay,.drawer{display:none!important}
+ .print-sheet{display:block!important;position:static!important;box-sizing:border-box;width:190mm;min-height:265mm;padding:8mm!important;background:linear-gradient(180deg,#fff7da,#e8f6d7)!important;border:4px double #a56c32;border-radius:14px;color:#203b2b!important;font-family:Arial,sans-serif;font-size:10pt!important;print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important}
+ .print-sheet *{print-color-adjust:exact!important;-webkit-print-color-adjust:exact!important;box-sizing:border-box}
+ .print-sheet .sheet-header{background:#b8f23d!important;border:3px solid #376c35;border-radius:16px;padding:10px;text-align:center;margin-bottom:10px}
+ .print-sheet .sheet-header h1{font-size:19pt;margin:2px 0}.print-sheet .sheet-header p{margin:3px}.print-sheet .sheet-crest{font-size:20pt}
+ .print-sheet .explorer-info{display:flex;justify-content:space-between;margin:10px 0;font-weight:bold}
+ .print-sheet section{break-inside:avoid;border-radius:14px;padding:10px;margin:9px 0}
+ .print-sheet section h2{font-size:13pt;margin:0 0 6px}
+ .print-sheet section p{margin:5px 0 8px}
+ .print-sheet .sheet-challenge{background:#e4f5d2!important;border:2px solid #4c8b43}
+ .print-sheet .sheet-grammar{background:#e1edff!important;border:2px solid #1769ff}
+ .print-sheet .sheet-treasure{background:#fff0c1!important;border:2px dashed #c87c20}
+ .print-sheet .drawing-space{height:43mm;border:2px dashed #60865c;background:#ffffffa8!important;display:flex;align-items:end;justify-content:space-between;padding:10px;font-size:20pt}
+ .print-sheet .sheet-progress{font-size:9pt}
+ .print-sheet .conj-row{display:flex;align-items:center;gap:14px;margin:6px 0}
+ .print-sheet .answer-line{display:block;border-bottom:1px solid #536a4b;min-width:70px;flex:1;min-height:17px}
+ .print-sheet .treasure-code{display:flex;gap:7px;margin-top:9px;justify-content:center}
+ .print-sheet .treasure-code span{width:26px;height:27px;background:#fff!important;border:2px solid #b37a25;border-radius:5px}
+ .print-sheet .comic-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+ .print-sheet .comic-panel{background:#fff!important;border:2px solid #263b26;border-radius:9px;padding:8px;min-height:66px;font-size:9pt}
+ .print-sheet .sheet-footer{text-align:center;font-weight:bold;font-size:9pt}
+}

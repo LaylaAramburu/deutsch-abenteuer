@@ -1,0 +1,23 @@
+DEUTSCH ABENTEUER — ACTUALIZACIÓN INTEGRADA
+
+1. Haz una copia de seguridad de tu repositorio con Code > Download ZIP.
+2. Extrae este ZIP. En GitHub (rama main), Add file > Upload files.
+3. Sube los cinco archivos index.html, AventuraEngine.js, aventura-theme.css, main.js y misiones.js.
+4. Confirma Commit changes. Espera 1-3 minutos y abre la web con Ctrl+F5.
+
+NOVEDADES
+- Activación: cinco escenas de minicómic con bloques arrastrables o seleccionables.
+- Guardado automático de cada escena y respuestas; progreso de Sintaxis y Guardián conservado.
+- Las pestañas son botones; en modo profesora se puede abrir cualquier fase sin completar las anteriores.
+- La ficha está disponible desde cualquier fase; usa Imprimir > Destino: Guardar como PDF.
+- El diseño impreso es colorido. Activa Gráficos de fondo en Más ajustes si es necesario.
+- Las 24 misiones y el inventario permanecen en el mismo almacenamiento local.
+
+PRUEBAS RECOMENDADAS
+1. Completa una escena del minicómic y actualiza F5: la escena siguiente debe conservarse.
+2. Activa Ctrl+Alt+P y pulsa las cuatro pestañas sin completar la misión.
+3. Pulsa Ficha PDF y revisa la vista de impresión.
+4. Prueba una misión anterior con progreso guardado.
+
+NOTA: La función de impresión usa el navegador, no una librería externa.
+La duración de 45 minutos sigue siendo una guía docente, no un cronómetro.
