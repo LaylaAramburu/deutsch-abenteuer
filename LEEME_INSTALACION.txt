@@ -1,29 +1,17 @@
-DEUTSCH ABENTEUER! - MUNDO 2 / MISIONES 6 A 10
+DEUTSCH ABENTEUER! — ACTUALIZACIÓN INTEGRAL 24 MISIONES
 
-INSTALACIÓN EN GITHUB PAGES
-1. Haz una copia de seguridad de los archivos actuales de tu repositorio.
-2. Abre el ZIP, extrae su contenido.
-3. En GitHub, Add file > Upload files.
-4. Sube los archivos que están dentro de la carpeta, no el ZIP ni la carpeta contenedora.
-5. Confirma con Commit changes.
-6. Prueba https://laylaaramburu.github.io/deutsch-abenteuer/mision6.html y Ctrl+F5.
-7. En el mapa principal, las misiones 6-10 se abren desde sus casillas cuando estén desbloqueadas. Si no completaste la misión 5, activa el modo profesora para entrar en la 6.
+ANTES DE INSTALAR: guarda una copia de tu repositorio actual.
 
-GUARDADO
-- Casilla "Guardar automáticamente mis avances" activada: cada avance se guarda.
-- Casilla desactivada: puedes jugar sin guardar cambios. La preferencia de guardado se recuerda en este navegador.
-- Botón "Guardar ahora": guarda incluso si la casilla está desactivada.
-- Botón "Reiniciar esta misión": borra el avance de las actividades de esa misión; NO borra las medallas ya entregadas en el mapa.
-- No se usa ninguna cuenta ni servidor. Cambiar de navegador o borrar los datos del sitio puede perder el progreso.
+1. Descomprime el ZIP.
+2. En GitHub, entra al repositorio deutsch-abenteuer, rama main.
+3. Add file > Upload files. Sube index.html, aventura-theme.css, aventura-app.js, misiones-data.js y las 24 páginas mision1.html...mision24.html. Conserva la carpeta fichas/ con sus 24 PDF.
+4. Commit changes.
+5. Abre tu sitio y recarga con Ctrl+F5.
 
-MODO PROFESORA
-- Ctrl+Alt+P: activar/desactivar.
-- Permite visitar cualquiera de las 4 fases. Las visitas no se marcan como completadas.
-- Las interacciones explícitas (descubrir una pista, responder bien, validar oralmente) sí registran progreso cuando está activado el guardado.
-- La validación oral la hace la profesora, no un sistema automático.
+IMPORTANTE: Esta versión es un NUEVO sistema integrado. No necesita los antiguos main.js, misiones.js ni AventuraEngine.js; puedes dejarlos en el repositorio, pero ya no se cargan desde las nuevas páginas. No borres los archivos anteriores hasta comprobar que la versión nueva funciona.
 
-IMPORTANTE
-- Las fichas PDF son dos páginas A4 cada una. No requieren librerías externas.
-- El audio utiliza las voces alemanas disponibles en el equipo. La pronunciación y disponibilidad dependen del navegador.
-- Los 45 minutos son una secuencia docente estimada; no existe un cronómetro que garantice exactamente 45 minutos.
-- Las páginas requieren los archivos castillo-game.js, castillo-data.js y castillo-theme.css en la MISMA carpeta.
+El progreso nuevo se guarda en localStorage bajo deutsch_abenteuer_v3. No importa automáticamente los progresos de versiones anteriores. Usa el botón 'Guardar copia del progreso' para exportar JSON. Desactivar el guardado automático evita escribir nuevos avances hasta pulsar 'Guardar ahora'.
+
+Modo profesora: Ctrl+Alt+P. Las cuatro fases pueden abrirse libremente en este modo. El alumno sigue la progresión por fases. La validación oral depende de la profesora.
+
+ALCANCE REAL: Las 24 misiones tienen contenido diferenciado y fichas autónomas de tres páginas. Comparten el mismo motor de cuatro fases, por lo que todavía no son 24 videojuegos de mecánicas totalmente distintas. Las fichas priorizan contenido y autonomía, no ilustración editorial. Los bloques de tiempo son orientativos: la duración real depende de la interacción oral en clase.
