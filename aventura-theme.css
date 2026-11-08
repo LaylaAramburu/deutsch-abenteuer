@@ -5,3 +5,6 @@
 @media(max-width:450px){.worlds{grid-template-columns:1fr}.wordgrid{gap:1px}.letter{border-radius:3px;font-size:.57rem}.tile{padding:9px;min-width:55px;font-size:1rem}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{body{background:white}.app,.overlay,.drawer{display:none!important}.print-sheet{display:block!important;font-family:Arial,sans-serif;color:black;padding:8mm;font-size:12pt}.print-sheet h1{font-size:22pt}.print-box{border:2px solid black;padding:9px;margin:10px 0}.print-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.print-grid>div{border:2px solid black;min-height:125px;padding:8px}.print-line{border-bottom:1px solid black;height:23px;margin:8px 0}}
+
+/* Desafíos narrativos integrados con conjugación */
+.context-quest{background:linear-gradient(135deg,#fff5c5,#e7f9db);border:3px solid #ffbe35;border-radius:20px;padding:17px;margin:16px 0;color:#183b35}.quest-story{font-size:1.12rem;line-height:1.5}.context-choices{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}.quest-success{background:#caff9c;padding:10px;border-radius:12px;font-weight:800}.context-choices .btn{min-width:110px}.scene .actor{box-shadow:0 6px 0 #245c3d33}@media(max-width:650px){.context-choices .btn{flex:1 1 130px}}
