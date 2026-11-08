@@ -1,0 +1,29 @@
+DEUTSCH ABENTEUER! - MUNDO 2 / MISIONES 6 A 10
+
+INSTALACIÓN EN GITHUB PAGES
+1. Haz una copia de seguridad de los archivos actuales de tu repositorio.
+2. Abre el ZIP, extrae su contenido.
+3. En GitHub, Add file > Upload files.
+4. Sube los archivos que están dentro de la carpeta, no el ZIP ni la carpeta contenedora.
+5. Confirma con Commit changes.
+6. Prueba https://laylaaramburu.github.io/deutsch-abenteuer/mision6.html y Ctrl+F5.
+7. En el mapa principal, las misiones 6-10 se abren desde sus casillas cuando estén desbloqueadas. Si no completaste la misión 5, activa el modo profesora para entrar en la 6.
+
+GUARDADO
+- Casilla "Guardar automáticamente mis avances" activada: cada avance se guarda.
+- Casilla desactivada: puedes jugar sin guardar cambios. La preferencia de guardado se recuerda en este navegador.
+- Botón "Guardar ahora": guarda incluso si la casilla está desactivada.
+- Botón "Reiniciar esta misión": borra el avance de las actividades de esa misión; NO borra las medallas ya entregadas en el mapa.
+- No se usa ninguna cuenta ni servidor. Cambiar de navegador o borrar los datos del sitio puede perder el progreso.
+
+MODO PROFESORA
+- Ctrl+Alt+P: activar/desactivar.
+- Permite visitar cualquiera de las 4 fases. Las visitas no se marcan como completadas.
+- Las interacciones explícitas (descubrir una pista, responder bien, validar oralmente) sí registran progreso cuando está activado el guardado.
+- La validación oral la hace la profesora, no un sistema automático.
+
+IMPORTANTE
+- Las fichas PDF son dos páginas A4 cada una. No requieren librerías externas.
+- El audio utiliza las voces alemanas disponibles en el equipo. La pronunciación y disponibilidad dependen del navegador.
+- Los 45 minutos son una secuencia docente estimada; no existe un cronómetro que garantice exactamente 45 minutos.
+- Las páginas requieren los archivos castillo-game.js, castillo-data.js y castillo-theme.css en la MISMA carpeta.
