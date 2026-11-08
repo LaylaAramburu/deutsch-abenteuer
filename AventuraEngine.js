@@ -24,3 +24,221 @@ export class AventuraEngine extends EventTarget {
  reset(){this.state=clean();this.save();}
 }
 export const engine=new AventuraEngine();
+
+/* BLOQUE 1 — AventuraEngine.js
+   Persistencia por misión y navegación docente.
+   No reemplaza el guardado de inventario existente.
+*/
+
+const MISSION_PROGRESS_KEY = "deutsch-aventura-steps-v1";
+
+const SECTION_NAMES = [
+  "activacion",
+  "sintaxis",
+  "guardian"
+];
+
+export function loadMissionProgress(missionId) {
+  const id = String(missionId);
+
+  const empty = {
+    missionId: id,
+    sections: {
+      activacion: { completed: false, answers: {} },
+      sintaxis: { completed: false, answers: {} },
+      guardian: { completed: false, answers: {} }
+    },
+    currentSection: "activacion"
+  };
+
+  try {
+    const store = JSON.parse(
+      localStorage.getItem(MISSION_PROGRESS_KEY) || "{}"
+    );
+
+    const saved = store[id] || {};
+
+    for (const section of SECTION_NAMES) {
+      empty.sections[section] = {
+        ...empty.sections[section],
+        ...(saved.sections?.[section] || {})
+      };
+    }
+
+    empty.currentSection =
+      saved.currentSection || "activacion";
+
+    return empty;
+  } catch (error) {
+    console.warn("No se pudo leer el progreso:", error);
+    return empty;
+  }
+}
+
+export function saveMissionProgress(missionId, stepData) {
+  const id = String(missionId);
+  const section = stepData.section;
+
+  if (!SECTION_NAMES.includes(section)) {
+    throw new Error("Sección no válida: " + section);
+  }
+
+  const current = loadMissionProgress(id);
+  const previous = current.sections[section];
+
+  current.sections[section] = {
+    ...previous,
+    completed: stepData.completed === undefined
+      ? previous.completed
+      : Boolean(stepData.completed),
+    answers: {
+      ...previous.answers,
+      ...(stepData.answers || {})
+    },
+    updatedAt: new Date().toISOString()
+  };
+
+  current.currentSection = section;
+
+  let store = {};
+
+  try {
+    store = JSON.parse(
+      localStorage.getItem(MISSION_PROGRESS_KEY) || "{}"
+    );
+  } catch {
+    store = {};
+  }
+
+  store[id] = current;
+
+  try {
+    localStorage.setItem(
+      MISSION_PROGRESS_KEY,
+      JSON.stringify(store)
+    );
+  } catch (error) {
+    console.warn("No se pudo guardar el progreso:", error);
+  }
+
+  window.dispatchEvent(new CustomEvent(
+    "aventura:progress",
+    { detail: { missionId: id, progress: current } }
+  ));
+
+  return current;
+}
+
+/* Vincular a las pestañas actuales.
+
+   HTML esperado:
+   <button data-mission-tab="activacion">Activación</button>
+   <button data-mission-tab="sintaxis">Sintaxis</button>
+   <button data-mission-tab="guardian">Guardián</button>
+
+   El modo profesora se recibe desde el motor actual.
+*/
+
+export function restoreMissionTabs(
+  missionId,
+  { teacherMode = false, onNavigate } = {}
+) {
+  const progress = loadMissionProgress(missionId);
+  const tabs = document.querySelectorAll(
+    "[data-mission-tab]"
+  );
+
+  const isAccessible = section => {
+    if (teacherMode) return true;
+
+    const index = SECTION_NAMES.indexOf(section);
+
+    if (index <= 0) return true;
+
+    return SECTION_NAMES
+      .slice(0, index)
+      .every(name => progress.sections[name].completed);
+  };
+
+  tabs.forEach(tab => {
+    const section = tab.dataset.missionTab;
+    const record = progress.sections[section];
+
+    if (!record) return;
+
+    tab.classList.toggle(
+      "is-complete",
+      record.completed
+    );
+
+    tab.classList.toggle(
+      "is-locked",
+      !isAccessible(section)
+    );
+
+    tab.disabled = !isAccessible(section);
+    tab.setAttribute(
+      "aria-disabled",
+      String(!isAccessible(section))
+    );
+
+    const original = tab.dataset.label ||
+      tab.textContent.replace(/^✓\s*/, "");
+
+    tab.dataset.label = original;
+    tab.textContent = record.completed
+      ? "✓ " + original
+      : original;
+
+    tab.onclick = () => {
+      if (!isAccessible(section)) return;
+
+      saveMissionProgress(missionId, {
+        section,
+        answers: {}
+      });
+
+      onNavigate?.(section);
+    };
+  });
+
+  return progress;
+}
+
+/* EJEMPLOS DE INTEGRACIÓN EN main.js:
+
+saveMissionProgress(1, {
+  section: "activacion",
+  completed: true,
+  answers: {
+    dialogo: ["ich", "heiße", "Felix"]
+  }
+});
+
+saveMissionProgress(1, {
+  section: "sintaxis",
+  completed: true,
+  answers: {
+    ronda1: "Ich habe einen Hund.",
+    ronda2: "Du hast einen Hund."
+  }
+});
+
+saveMissionProgress(1, {
+  section: "guardian",
+  completed: true,
+  answers: {
+    oralValidatedByTeacher: true
+  }
+});
+
+// Después de renderizar las pestañas:
+restoreMissionTabs(1, {
+  teacherMode: engineTeacherMode,
+  onNavigate: section => {
+    // Sustituir por tu función actual
+    // de renderizado de fases.
+    renderMissionSection(section);
+  }
+});
+*/
