@@ -426,15 +426,18 @@ dlGrid.innerHTML = html;
 }
 function copyReport() {
 const sorted = [...completed].sort((a,b) => a - b);
-const text = 🦊 REPORTE DE AVANCE · DEUTSCH ABENTEUER!\n +
-📅 Fecha: ${new Date().toLocaleDateString()}\n +
-🏆 Misiones completadas: ${completed.length} de 24 (${completed.length * 3} ⭐)\n +
-✅ Lista: ${sorted.length ? sorted.map(n => 'Misión ' + n).join(', ') : 'Aún ninguna marcada'};
+const text = '🦊 REPORTE DE AVANCE · DEUTSCH ABENTEUER!\n' +
+  '📅 Fecha: ' + new Date().toLocaleDateString() + '\n' +
+  '🏆 Misiones completadas: ' + completed.length + ' de 24 (' + (completed.length * 3) + ' ⭐)\n' +
+  '✅ Lista: ' + (sorted.length ? sorted.map(n => 'Misión ' + n).join(', ') : 'Aún ninguna marcada');
 navigator.clipboard.writeText(text).then(() => {
-const toast = document.getElementById('toast');
-toast.style.display = 'block';
-setTimeout(() => toast.style.display = 'none', 3500);
+  const toast = document.getElementById('toast');
+  toast.style.display = 'block';
+  setTimeout(() => toast.style.display = 'none', 3500);
 });
 }
 render();
 renderDownloads();
+</script>
+</body>
+</html>
