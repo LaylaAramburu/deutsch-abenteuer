@@ -4,42 +4,71 @@
   const mission = window.DEUTSCH_MISSIONS && window.DEUTSCH_MISSIONS[id];
   if (!mission) return;
 
+  // 1. ESTILOS BLINDADOS PARA BOTONES, GRABADORA Y ENTDECKER-BOX
   const style = document.createElement('style');
-  style.textContent = `
-    #content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 18px 0 !important; align-items: center !important; }
-    #content .footer { display: flex !important; justify-content: space-between !important; gap: 16px !important; margin-top: 24px !important; padding-top: 16px !important; border-top: 2px dashed #cbd5e1 !important; clear: both !important; }
-    #content button[data-check] { display: inline-block !important; margin: 14px 0 !important; background: #10b981 !important; color: white !important; padding: 10px 20px !important; border-radius: 12px !important; font-weight: 800 !important; }
-    .rec-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: #f0f9ff; border: 2px solid #7dd3fc; padding: 10px 14px; border-radius: 14px; margin: 14px 0; }
-    .rec-bar button { min-height: 40px !important; padding: 8px 14px !important; font-size: 0.9rem !important; color: white !important; border-radius: 10px !important; border: none !important; cursor: pointer !important; font-weight: 800 !important; }
-  `;
+  style.textContent =
+    '#content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 18px 0 !important; align-items: center !important; clear: both !important; }' +
+    '#content .footer { display: flex !important; justify-content: space-between !important; gap: 16px !important; margin-top: 26px !important; padding-top: 16px !important; border-top: 2px dashed #cbd5e1 !important; clear: both !important; }' +
+    '#content button[data-check] { display: inline-block !important; margin: 14px 0 !important; background: #10b981 !important; color: white !important; padding: 10px 20px !important; border-radius: 12px !important; font-weight: 800 !important; }' +
+    '.rec-bar { display: flex !important; flex-wrap: wrap !important; align-items: center !important; gap: 10px !important; background: #f0f9ff !important; border: 2px solid #7dd3fc !important; padding: 10px 14px !important; border-radius: 14px !important; margin: 16px 0 !important; }' +
+    '.rec-bar button { min-height: 40px !important; padding: 8px 14px !important; font-size: 0.9rem !important; color: white !important; border-radius: 10px !important; border: none !important; cursor: pointer !important; font-weight: 800 !important; }';
   document.head.appendChild(style);
 
+  // 2. REGLAS GRAMATICALES PROGRESIVAS POR MUNDO (A1 COMPLETO)
   const GRAMMAR_PILLS = {
     1: {
-      title: 'Regla Mágica: Verbos y Artículos',
+      title: 'Mundo 1 · Verbos y Artículos (der / die / das)',
       rule: 'El verbo siempre va en <b>2.ª posición</b>: <i>Ich <b>heiße</b> Felix.</i><br>Colores: <span style="color:#2563eb;font-weight:800">der (azul)</span> · <span style="color:#dc2626;font-weight:800">die (rojo)</span> · <span style="color:#16a34a;font-weight:800">das (verde)</span>.'
     },
     2: {
-      title: 'Regla Mágica: Preguntas con W-Fragen',
-      rule: 'La palabra pregunta va <b>primero</b> y el verbo va en <b>2.ª posición</b>:<br>• <b>Wer</b> isst? (¿Quién?) · <b>Was</b> trinkt er? (¿Qué?)<br>• <b>Wo</b> kocht der Koch? (¿Dónde?) · <b>Wann</b>? (¿Cuándo?)'
+      title: 'Mundo 2 · Preguntas con W-Fragen',
+      rule: 'La pregunta va <b>primero</b> y el verbo va en <b>2.ª posición</b>:<br>• <b>Wer</b> isst? (¿Quién?) · <b>Was</b> trinkt er? (¿Qué?)<br>• <b>Wo</b> ist es? (¿Dónde?) · <b>Wie viel</b> kostet das? (¿Cuánto?)'
     },
     3: {
-      title: 'Regla Mágica: Acusativo (haben / brauchen)',
-      rule: 'Solo cambia el masculino (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>):<br>• Ich habe <b>einen</b> Roboter / <b>die</b> Batterie / <b>das</b> Kabel.'
+      title: 'Mundo 3 · Acusativo, Negación y Verbos Fuertes',
+      rule: '• <b>Acusativo:</b> Solo cambia masculino (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>): <i>Ich habe <b>einen</b> Roboter.</i><br>• <b>Negación:</b> <i>kein / keine / keinen</i> para sustantivos.<br>• <b>Cambio vocálico:</b> <i>er <b>liest</b>, er <b>sieht</b>, er <b>spricht</b>.</i>'
     },
     4: {
-      title: 'Regla Mágica: Días y Horas (am / um)',
-      rule: '• <b>Am</b> Montag (El lunes) · <b>Um</b> 8 Uhr (A las 8).<br>• Verbo en 2.ª posición: <i>Heute <b>ist</b> es sonnig.</i>'
+      title: 'Mundo 4 · Tiempo, Transporte y Calendario',
+      rule: '• <b>Días:</b> <i><b>am</b> Montag</i> · <b>Meses:</b> <i><b>im</b> Juli</i> · <b>Horas:</b> <i><b>um</b> 8 Uhr</i>.<br>• <b>Transporte:</b> <i><b>mit dem</b> Zug / Bus</i> (con el tren / autobús).'
     },
     5: {
-      title: 'Regla Mágica: Verbo KÖNNEN y Cortesía (Sie)',
-      rule: 'Con <b>können</b> (poder), el segundo verbo va al final:<br>• <b>Können</b> Sie das Tor <b>öffnen</b>?'
+      title: 'Mundo 5 · Lugar, Verbos Modales y Cortesía',
+      rule: '• <b>Modal <i>können</i>:</b> El segundo verbo va al final: <i><b>Können</b> Sie das Tor <b>öffnen</b>?</i><br>• <b>Cortesía:</b> <i>Sie</i> (usted) siempre con mayúscula.'
     }
   };
 
+  // 3. OBJETIVOS DE CADA MISIÓN EN LENGUAJE PARA NIÑO DE 10 AÑOS
+  const KID_GOALS = {
+    1: '🎯 Tu reto: Presentarte en alemán y ayudar a Félix a encontrar su brújula.',
+    2: '🎯 Tu reto: Seguir las pistas del mapa usando izquierda, derecha y centro.',
+    3: '🎯 Tu reto: Preparar la mochila usando ein, eine y einen en acusativo.',
+    4: '🎯 Tu reto: Devolver los colores al bosque describiendo objetos.',
+    5: '🎯 Tu reto: Superar las pruebas de movimiento del guardián.',
+    6: '🎯 Tu reto: Descubrir quién come y bebe qué en el banquete (Wer / Was).',
+    7: '🎯 Tu reto: Encontrar las habitaciones del castillo preguntando con Wo.',
+    8: '🎯 Tu reto: Comprar en el mercado del castillo contando euros en alemán.',
+    9: '🎯 Tu reto: Reparar el gran reloj diciendo las horas y momentos del día.',
+    10: '🎯 Tu reto: Resolver el acertijo final de la reina combinando W-Fragen.',
+    11: '🎯 Tu reto: Reparar el robot pidiendo las piezas en acusativo (einen/eine/ein).',
+    12: '🎯 Tu reto: Clasificar los experimentos secretos usando kein y keine.',
+    13: '🎯 Tu reto: Descifrar el código de las máquinas con números hasta 100.',
+    14: '🎯 Tu reto: Recuperar los datos usando verbos irregulares (liest, sieht, spricht).',
+    15: '🎯 Tu reto: Superar el gran acertijo del laboratorio combinando todo lo aprendido.',
+    16: '🎯 Tu reto: Calmar el torbellino describiendo el clima en alemán.',
+    17: '🎯 Tu reto: Viajar al pasado usando los medios de transporte (mit dem Zug).',
+    18: '🎯 Tu reto: Orientarte en la ciudad del futuro preguntando Wohin? (¿Adónde?).',
+    19: '🎯 Tu reto: Arreglar el calendario roto con días de la semana y meses.',
+    20: '🎯 Tu reto: Abrir el último portal temporal combinando tiempo, clima y lugar.',
+    21: '🎯 Tu reto: Regresar al bosque usando preposiciones de lugar (auf, unter, neben).',
+    22: '🎯 Tu reto: Responder al interrogatorio maestro del zorro con todas las W-Fragen.',
+    23: '🎯 Tu reto: Hacer una visita cortés usando können y el trato formal Sie.',
+    24: '🎯 Tu reto: Completar la aventura final demostrando todo tu alemán A1.'
+  };
   const worldNum = id <= 5 ? 1 : id <= 10 ? 2 : id <= 15 ? 3 : id <= 20 ? 4 : 5;
   const grammar = GRAMMAR_PILLS[worldNum];
 
+  // 4. EXTRAER VOCABULARIO CON CÓDIGO DE COLORES (DER/DIE/DAS)
   function extractVocab() {
     const words = [], seen = new Set();
     const regex = /\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/g;
@@ -58,6 +87,7 @@
     return words;
   }
 
+  // 5. VOZ ALEMANA NATURAL + MODO LENTO
   window.speakPlus = function(text, slow) {
     if (!window.speechSynthesis) return;
     speechSynthesis.cancel();
@@ -70,6 +100,7 @@
     speechSynthesis.speak(u);
   };
 
+  // 6. GRABADORA DE VOZ INTEGRADA (PARA CASA Y CLASE)
   let recorder = null, chunks = [], isRec = false;
   window.toggleVoiceRec = async function(btn) {
     const box = btn.closest('.rec-bar');
@@ -105,18 +136,8 @@
       alert('No se pudo activar el micrófono. Revisa los permisos del navegador.');
     }
   };
-  const KID_GOALS = {
-    1: '🎯 Tu reto: Presentarte en alemán y ayudar a Félix a encontrar su brújula.',
-    3: '🎯 Tu reto: Preparar la mochila usando ein, eine y einen.',
-    4: '🎯 Tu reto: Devolver los colores al bosque describiendo objetos.',
-    5: '🎯 Tu reto: Superar las pruebas de movimiento del guardián.',
-    6: '🎯 Tu reto: Descubrir quién come qué en el banquete usando Wer y Was.',
-    7: '🎯 Tu reto: Encontrar las habitaciones del castillo preguntando con Wo.',
-    8: '🎯 Tu reto: Comprar en el mercado del castillo contando euros en alemán.',
-    9: '🎯 Tu reto: Reparar el gran reloj diciendo las horas y momentos del día.',
-    10: '🎯 Tu reto: Resolver el acertijo final de la reina combinando W-Fragen.'
-  };
 
+  // 7. CONSTRUIR EL OBJETIVO Y LA ENTDECKER-BOX SIEMPRE VISIBLE
   function initSequenceUI() {
     const aside = document.querySelector('aside');
     const story = document.getElementById('intro');
@@ -148,6 +169,7 @@
     }
   }
 
+  // 8. ENRIQUECER CADA ACTIVIDAD (VIÑETA + AUDIO LENTO + GRABADORA + ESCRITURA)
   function enhanceStep() {
     const content = document.getElementById('content');
     if (!content) return;
