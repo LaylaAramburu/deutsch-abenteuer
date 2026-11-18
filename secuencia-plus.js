@@ -4,18 +4,16 @@
   const mission = window.DEUTSCH_MISSIONS && window.DEUTSCH_MISSIONS[id];
   if (!mission) return;
 
-  // 0. ESTILOS DE CORRECCIÓN PARA BOTONES Y GRABADORA
   const style = document.createElement('style');
   style.textContent = `
-    #content .actions { display: flex !important; flex-wrap: wrap !important; gap: 10px !important; margin: 16px 0 !important; align-items: center !important; }
-    #content .footer { display: flex !important; justify-content: space-between !important; gap: 14px !important; margin-top: 22px !important; padding-top: 14px !important; border-top: 2px dashed #e2e8f0 !important; }
-    #content button[data-check] { display: block !important; margin: 14px 0 !important; background: #10b981 !important; box-shadow: 0 3px 0 #059669 !important; }
-    .rec-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: #f0f9ff; border: 2px solid #bae6fd; padding: 10px 14px; border-radius: 14px; margin: 12px 0; }
-    .rec-bar button { min-height: 40px !important; padding: 8px 14px !important; font-size: 0.9rem !important; }
+    #content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 18px 0 !important; align-items: center !important; }
+    #content .footer { display: flex !important; justify-content: space-between !important; gap: 16px !important; margin-top: 24px !important; padding-top: 16px !important; border-top: 2px dashed #cbd5e1 !important; clear: both !important; }
+    #content button[data-check] { display: inline-block !important; margin: 14px 0 !important; background: #10b981 !important; color: white !important; padding: 10px 20px !important; border-radius: 12px !important; font-weight: 800 !important; }
+    .rec-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: #f0f9ff; border: 2px solid #7dd3fc; padding: 10px 14px; border-radius: 14px; margin: 14px 0; }
+    .rec-bar button { min-height: 40px !important; padding: 8px 14px !important; font-size: 0.9rem !important; color: white !important; border-radius: 10px !important; border: none !important; cursor: pointer !important; font-weight: 800 !important; }
   `;
   document.head.appendChild(style);
 
-  // 1. PÍLDORAS GRAMATICALES PROGRESIVAS POR MUNDO (A1)
   const GRAMMAR_PILLS = {
     1: {
       title: 'Regla Mágica: Verbos y Artículos',
@@ -42,7 +40,6 @@
   const worldNum = id <= 5 ? 1 : id <= 10 ? 2 : id <= 15 ? 3 : id <= 20 ? 4 : 5;
   const grammar = GRAMMAR_PILLS[worldNum];
 
-  // 2. EXTRAER VOCABULARIO CON CÓDIGO DE COLORES
   function extractVocab() {
     const words = [], seen = new Set();
     const regex = /\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/g;
@@ -61,7 +58,6 @@
     return words;
   }
 
-  // 3. VOZ ALEMANA NATURAL + MODO LENTO
   window.speakPlus = function(text, slow) {
     if (!window.speechSynthesis) return;
     speechSynthesis.cancel();
@@ -74,7 +70,6 @@
     speechSynthesis.speak(u);
   };
 
-  // 4. GRABADORA DE VOZ INTEGRADA
   let recorder = null, chunks = [], isRec = false;
   window.toggleVoiceRec = async function(btn) {
     const box = btn.closest('.rec-bar');
@@ -110,8 +105,6 @@
       alert('No se pudo activar el micrófono. Revisa los permisos del navegador.');
     }
   };
-
-  // 5. OBJETIVO Y ENTDECKER-BOX FIJA
   const KID_GOALS = {
     1: '🎯 Tu reto: Presentarte en alemán y ayudar a Félix a encontrar su brújula.',
     3: '🎯 Tu reto: Preparar la mochila usando ein, eine y einen.',
@@ -119,7 +112,7 @@
     5: '🎯 Tu reto: Superar las pruebas de movimiento del guardián.',
     6: '🎯 Tu reto: Descubrir quién come qué en el banquete usando Wer y Was.',
     7: '🎯 Tu reto: Encontrar las habitaciones del castillo preguntando con Wo.',
-    8: '🎯 Tu reto: Comprar en el mercado contando euros en alemán.',
+    8: '🎯 Tu reto: Comprar en el mercado del castillo contando euros en alemán.',
     9: '🎯 Tu reto: Reparar el gran reloj diciendo las horas y momentos del día.',
     10: '🎯 Tu reto: Resolver el acertijo final de la reina combinando W-Fragen.'
   };
@@ -155,10 +148,14 @@
     }
   }
 
-  // 6. MEJORAR CADA ACTIVIDAD SIN DUPLICAR ELEMENTOS
   function enhanceStep() {
     const content = document.getElementById('content');
     if (!content) return;
+
+    const slowBtns = content.querySelectorAll('[data-slow-plus]');
+    if (slowBtns.length > 1) {
+      for (let i = 1; i < slowBtns.length; i++) slowBtns[i].remove();
+    }
 
     const scene = content.querySelector('.scene');
     if (scene && !scene.dataset.upgraded) {
@@ -166,7 +163,6 @@
       scene.style.cssText = 'background:linear-gradient(135deg,#e0f2fe 0%,#fef9c3 100%);border:3px solid #38bdf8;border-radius:20px;padding:18px;margin:14px 0;text-align:center;';
     }
 
-    // Añadir 1 solo botón Langsam si no existe ya
     const sayBtn = content.querySelector('[data-say]');
     if (sayBtn && !content.querySelector('[data-slow]') && !content.querySelector('[data-slow-plus]')) {
       const phrase = sayBtn.getAttribute('data-say');
@@ -179,55 +175,56 @@
       sayBtn.parentNode.insertBefore(slowBtn, sayBtn.nextSibling);
     }
 
-    // Añadir barra de grabación de voz debajo de los botones de audio
-    const transcriptBtn = content.querySelector('[data-transcript]');
-    if (transcriptBtn && !content.querySelector('.rec-bar')) {
+    const footer = content.querySelector('.footer');
+    if (footer && !content.querySelector('.rec-bar')) {
       const recDiv = document.createElement('div');
       recDiv.className = 'rec-bar';
       recDiv.innerHTML =
         '<button type="button" style="background:#0284c7;" onclick="toggleVoiceRec(this)">🎙️ Grabar mi voz</button>' +
-        '<span style="font-size:0.85rem;color:#0369a1;font-weight:700;">Repite la frase en voz alta y escúchate</span>';
-      transcriptBtn.parentNode.insertBefore(recDiv, transcriptBtn.nextSibling);
-}
-// Reto de escritura intercalado (1 de cada 3 preguntas de selección)
-const optionsBox = content.querySelector('.options');
-const stepText = content.querySelector('.step');
-const stepNum = stepText ? parseInt(stepText.textContent.replace(/\D/g, ''), 10) : 1;
-if (optionsBox && stepNum % 3 === 0 && !content.querySelector('#write-challenge') && !optionsBox.querySelector('button[disabled]')) {
-const targetBtn = Array.from(optionsBox.querySelectorAll('button')).find(b => b.dataset.answer !== undefined);
-if (targetBtn) {
-optionsBox.style.display = 'none';
-const challenge = document.createElement('div');
-challenge.id = 'write-challenge';
-challenge.style.cssText = 'background:#f0fdf4;border:2px solid #86efac;border-radius:16px;padding:14px;margin:14px 0;';
-challenge.innerHTML =
-'✍️ Reto de Escritura (Práctica activa):' +
-'' +
-'' +
-['ä', 'ö', 'ü', 'ß'].map(ch => '' + ch + '').join('') +
-'' +
-'✅ Comprobar ' +
-'Ver opciones';
-optionsBox.parentNode.insertBefore(challenge, optionsBox);
-document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
-document.getElementById('check-write-btn').onclick = function() {
-const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
-const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
-if (match) match.click();
-else alert('Casi... Revisa tu Entdecker-Box a la derecha e inténtalo de nuevo.');
-};
-}
-}
-}
-initSequenceUI();
-enhanceStep();
-const contentEl = document.getElementById('content');
-if (contentEl) {
-const observer = new MutationObserver(() => {
-observer.disconnect();
-enhanceStep();
-observer.observe(contentEl, { childList: true });
-});
-observer.observe(contentEl, { childList: true });
-}
+        '<span style="font-size:0.85rem;color:#0369a1;font-weight:700;">Practica pronunciando en voz alta y escúchate</span>';
+      footer.parentNode.insertBefore(recDiv, footer);
+    }
+
+    const optionsBox = content.querySelector('.options');
+    const stepText = content.querySelector('.step');
+    const stepNum = stepText ? parseInt(stepText.textContent.replace(/\D/g, ''), 10) : 1;
+    if (optionsBox && stepNum % 3 === 0 && !content.querySelector('#write-challenge') && !optionsBox.querySelector('button[disabled]')) {
+      const targetBtn = Array.from(optionsBox.querySelectorAll('button')).find(b => b.dataset.answer !== undefined);
+      if (targetBtn) {
+        optionsBox.style.display = 'none';
+        const challenge = document.createElement('div');
+        challenge.id = 'write-challenge';
+        challenge.style.cssText = 'background:#f0fdf4;border:2px solid #86efac;border-radius:16px;padding:14px;margin:14px 0;';
+        challenge.innerHTML =
+          '<strong style="color:#166534;display:block;margin-bottom:6px;">✍️ Reto de Escritura (Práctica activa):</strong>' +
+          '<input type="text" id="german-input" placeholder="Escribe la respuesta en alemán..." style="width:100%;margin-bottom:8px;padding:10px;border-radius:10px;border:2px solid #86efac;">' +
+          '<div style="display:flex;gap:6px;margin-bottom:10px;">' +
+            ['ä', 'ö', 'ü', 'ß'].map(ch => '<button type="button" class="secondary" style="min-height:36px;padding:4px 12px;" onclick="const i=document.getElementById(\'german-input\');i.value+=\'' + ch + '\';i.focus();">' + ch + '</button>').join('') +
+          '</div>' +
+          '<button type="button" id="check-write-btn" style="background:#16a34a;color:white;padding:8px 16px;border-radius:10px;border:none;font-weight:800;cursor:pointer;">✅ Comprobar</button> ' +
+          '<button type="button" class="secondary" id="show-opts-btn">Ver opciones</button>';
+        optionsBox.parentNode.insertBefore(challenge, optionsBox);
+
+        document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
+        document.getElementById('check-write-btn').onclick = function() {
+          const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
+          const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
+          if (match) match.click();
+          else alert('Casi... Revisa tu Entdecker-Box a la derecha e inténtalo de nuevo.');
+        };
+      }
+    }
+  }
+
+  initSequenceUI();
+  enhanceStep();
+  const contentEl = document.getElementById('content');
+  if (contentEl) {
+    const observer = new MutationObserver(() => {
+      observer.disconnect();
+      enhanceStep();
+      observer.observe(contentEl, { childList: true });
+    });
+    observer.observe(contentEl, { childList: true });
+  }
 })();
