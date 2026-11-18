@@ -386,56 +386,71 @@ localStorage.setItem('da_completed', JSON.stringify(completed));
 render();
 }
 function render() {
-const container = document.getElementById('worlds-container');
-container.innerHTML = '';
-WORLDS.forEach(w => {
-const doneInWorld = w.missions.filter(m => completed.includes(m.n)).length;
-const sec = document.createElement('section');
-sec.className = 'world-section';
-sec.innerHTML = <div class="world-header"> <div class="world-title"> <span class="world-badge" style="background:${w.color}">MUNDO ${w.id}</span> <div> <h2>${w.name}</h2> <div class="world-sub">${w.sub}</div> </div> </div> <div style="font-family:'Fredoka'; color:#475569;">${doneInWorld} / ${w.missions.length} ⭐</div> </div> <div class="missions-grid"> ${w.missions.map(m => { const isDone = completed.includes(m.n); return
+  const container = document.getElementById('worlds-container');
+  container.innerHTML = '';
+  WORLDS.forEach(w => {
+    const doneInWorld = w.missions.filter(m => completed.includes(m.n)).length;
+    const sec = document.createElement('section');
+    sec.className = 'world-section';
+    
+    let cardsHtml = '';
+    w.missions.forEach(m => {
+      const isDone = completed.includes(m.n);
+      cardsHtml += '<a href="' + m.url + '" class="mission-card ' + (isDone ? 'done' : '') + '">' +
+        '<div>' +
+          '<div class="m-top"><span class="m-emoji">' + m.icon + '</span><span class="m-num">Misión ' + m.n + '</span></div>' +
+          '<div class="m-de">' + m.de + '</div>' +
+          '<div class="m-es">' + m.es + '</div>' +
+        '</div>' +
+        '<div class="m-footer">' +
+          '<span style="color:' + (isDone ? '#16a34a' : '#64748b') + '">' + (isDone ? '⭐⭐⭐ Completada' : '▶ Jugar misión') + '</span>' +
+          '<button class="check-btn" onclick="toggleComplete(event, ' + m.n + ')">' + (isDone ? '✓ Lista' : 'Marcar') + '</button>' +
+        '</div>' +
+      '</a>';
+    });
 
-
-
-${m.icon}
-Misión ${m.n}
-
-${m.de}
-${m.es}
-
-
-${isDone ? '⭐⭐⭐ Completada' : '▶ Jugar misión'}
-${isDone ? '✓ Lista' : 'Marcar'}
-
-
-; }).join('')} </div> ;
-container.appendChild(sec);
-});
-// Actualizar estadísticas
-document.getElementById('stat-done').textContent = ${completed.length} / 24;
-document.getElementById('stat-stars').textContent = ${completed.length * 3} ⭐;
+    sec.innerHTML = '<div class="world-header">' +
+      '<div class="world-title">' +
+        '<span class="world-badge" style="background:' + w.color + '">MUNDO ' + w.id + '</span>' +
+        '<div><h2>' + w.name + '</h2><div class="world-sub">' + w.sub + '</div></div>' +
+      '</div>' +
+      '<div style="font-family:Fredoka,sans-serif;color:#475569;">' + doneInWorld + ' / ' + w.missions.length + ' ⭐</div>' +
+    '</div>' +
+    '<div class="missions-grid">' + cardsHtml + '</div>';
+    
+    container.appendChild(sec);
+  });
+  document.getElementById('stat-done').textContent = completed.length + ' / 24';
+  document.getElementById('stat-stars').textContent = (completed.length * 3) + ' ⭐';
 }
-// Generar lista de descargas PDF
+
 function renderDownloads() {
-const dlGrid = document.getElementById('downloads-grid');
-let html = '';
-for (let i = 1; i <= 24; i++) {
-const pad = String(i).padStart(2, '0');
-html += <div class="dl-item"> <strong>Misión ${pad}</strong> <div class="dl-links"> <a href="Mision_${pad}.pdf" download class="btn-ficha">📄 Ficha</a> <a href="TABLERO_VISUAL_MISION_${pad}.pdf" download class="btn-tablero">🎨 Tablero</a> </div> </div>;
+  const dlGrid = document.getElementById('downloads-grid');
+  let html = '';
+  for (let i = 1; i <= 24; i++) {
+    const pad = String(i).padStart(2, '0');
+    html += '<div class="dl-item"><strong>Misión ' + pad + '</strong>' +
+      '<div class="dl-links">' +
+        '<a href="Mision_' + pad + '.pdf" download class="btn-ficha">📄 Ficha</a>' +
+        '<a href="TABLERO_VISUAL_MISION_' + pad + '.pdf" download class="btn-tablero">🎨 Tablero</a>' +
+      '</div></div>';
+  }
+  dlGrid.innerHTML = html;
 }
-dlGrid.innerHTML = html;
-}
+
 function copyReport() {
-const sorted = [...completed].sort((a,b) => a - b);
-const text = '🦊 REPORTE DE AVANCE · DEUTSCH ABENTEUER!\n' +
-  '📅 Fecha: ' + new Date().toLocaleDateString() + '\n' +
-  '🏆 Misiones completadas: ' + completed.length + ' de 24 (' + (completed.length * 3) + ' ⭐)\n' +
-  '✅ Lista: ' + (sorted.length ? sorted.map(n => 'Misión ' + n).join(', ') : 'Aún ninguna marcada');
-navigator.clipboard.writeText(text).then(() => {
-  const toast = document.getElementById('toast');
-  toast.style.display = 'block';
-  setTimeout(() => toast.style.display = 'none', 3500);
-});
+  const sorted = [...completed].sort((a, b) => a - b);
+  const text = '🦊 REPORTE DE AVANCE · DEUTSCH ABENTEUER!\n' +
+    '📅 Fecha: ' + new Date().toLocaleDateString() + '\n' +
+    '🏆 Misiones completadas: ' + completed.length + ' de 24 (' + (completed.length * 3) + ' ⭐)\n' +
+    '✅ Lista: ' + (sorted.length ? sorted.map(n => 'Misión ' + n).join(', ') : 'Aún ninguna marcada');
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.style.display = 'block';
+    setTimeout(() => toast.style.display = 'none', 3500);
+  });
 }
+
 render();
 renderDownloads();
 </script>
