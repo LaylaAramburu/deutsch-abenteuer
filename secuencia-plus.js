@@ -229,6 +229,7 @@
     const stepText = content.querySelector('.step')?.textContent || 'Aufgabe 1';
     const matchStep = stepText.match(/Aufgabe\s+(\d+)/i);
     const stepNum = matchStep ? parseInt(matchStep.at(1), 10) : 1;
+    renderPhaseMenu(stepNum, mission.tasks.length);
 
     // 1. Viñeta de cómic con globo formado usando clases limpias
     const scene = content.querySelector('.scene');
@@ -330,6 +331,42 @@
         };
       }
     }
+  }
+  // MENÚ DE FASES PEDAGÓGICAS (DESCUBRIR · PRACTICAR · HABLAR · TESORO)
+  function renderPhaseMenu(stepNum, totalTasks) {
+    const nav = document.getElementById('nav');
+    if (!nav) return;
+
+    let bar = document.getElementById('phase-menu-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'phase-menu-bar';
+      bar.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:10px;';
+      nav.parentNode.insertBefore(bar, nav);
+    }
+
+    const q1 = 0;
+    const q2 = Math.floor(totalTasks * 0.3);
+    const q3 = Math.floor(totalTasks * 0.6);
+    const q4 = Math.max(q3 + 1, totalTasks - 2);
+
+    const phases = [
+      { label: '🧭 1. Descubrir', sub: 'Escuchar y entender', start: q1, active: stepNum - 1 < q2 },
+      { label: '🎮 2. Practicar', sub: 'Jugar con palabras', start: q2, active: stepNum - 1 >= q2 && stepNum - 1 < q3 },
+      { label: '🎤 3. Hablar', sub: 'Pronunciar y crear', start: q3, active: stepNum - 1 >= q3 && stepNum - 1 < q4 },
+      { label: '🏆 4. Tesoro', sub: 'Reto final', start: q4, active: stepNum - 1 >= q4 }
+    ];
+
+    bar.innerHTML = phases.map(p => {
+      const bg = p.active ? '#8b5cf6' : '#ffffff';
+      const color = p.active ? '#ffffff' : '#334155';
+      const border = p.active ? '#6d28d9' : '#cbd5e1';
+      return '<button type="button" onclick="document.querySelector(\'#nav [data-go=\\\'' + p.start + '\\\']\')?.click()" ' +
+        'style="background:' + bg + ';color:' + color + ';border:2px solid ' + border + ';border-radius:14px;padding:8px 10px;text-align:center;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,0.06);">' +
+        '<div style="font-family:Fredoka,sans-serif;font-size:0.95rem;">' + p.label + '</div>' +
+        '<div style="font-size:0.72rem;opacity:0.85;font-family:Nunito,sans-serif;">' + p.sub + '</div>' +
+      '</button>';
+    }).join('');
   }
 
   initSequenceUI();
