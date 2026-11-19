@@ -17,8 +17,7 @@
     '.rec-oral-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: #f0f9ff; border: 2px solid #7dd3fc; padding: 10px 14px; border-radius: 14px; margin: 12px 0; }';
   document.head.appendChild(style);
 
-  // DICCIONARIO COMPLETO PARA LAS 24 MISIONES
- const ICONS = {
+  const ICONS = {
     apfel: '🍎', wasser: '💧', suppe: '🍲', brot: '🍞', milch: '🥛', kuchen: '🍰', käse: '🧀',
     kompass: '🧭', felix: '🦊', weg: '🛤️', karte: '🗺️', buch: '📕', rucksack: '🎒', ball: '⚽',
     fuchs: '🦊', eule: '🦉', baum: '🌳', fluss: '🌊', blume: '🌻', pilz: '🍄', brücke: '🌉',
@@ -48,11 +47,10 @@
     u.lang = 'de-DE';
     u.rate = 0.62;
     const voices = speechSynthesis.getVoices().filter(v => v.lang.toLowerCase().startsWith('de'));
-    const best = voices.find(v => /natural|google|katja|conrad|amala/i.test(v.name)) || voices[0];
+    const best = voices.find(v => /natural|google|katja|conrad|amala/i.test(v.name)) || voices;
     if (best) u.voice = best;
     speechSynthesis.speak(u);
   };
-
   let rec = null, chunks = [], recording = false;
   window.toggleCardRec = async function(btn) {
     const bar = btn.closest('.rec-oral-bar');
@@ -103,7 +101,6 @@
       const img = card.querySelector('img');
       const rawText = (img?.alt || '') + ' ' + (img?.src || '') + ' ' + (card.textContent || '');
 
-      // Reemplazar directamente la etiqueta <img> por la ilustración limpia
       if (img) {
         const art = document.createElement('div');
         art.className = 'vec-art';
@@ -111,10 +108,8 @@
         img.replaceWith(art);
       }
 
-      // En modo Reconocer (adivinanza), no mostrar pistas de texto ni género
       if (isQuiz) return;
 
-      // Pintar género gramatical en modos Explorar y Hablar
       const match = rawText.match(/\b(der|die|das|ein|eine|einen)\b/i);
       if (match) {
         const art = match[1].toLowerCase();
@@ -130,7 +125,6 @@
         card.insertBefore(badge, card.firstChild);
       }
 
-      // Botón tortuga para escuchar despacio
       const lines = (card.textContent || '').split('\n').map(s => s.trim()).filter(Boolean);
       const phrase = lines.find(l => /^(der|die|das|ein|eine|felix)/i.test(l)) || lines[lines.length - 1];
       if (phrase && !phrase.startsWith('Imagen')) {
