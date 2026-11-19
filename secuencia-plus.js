@@ -221,6 +221,24 @@
 
 
   // 8. ENRIQUECER CADA ACTIVIDAD (VIÑETA + AUDIO LENTO + GRABADORA + ESCRITURA)
+    const WORLD_THEMES = {
+    1: { bg: 'linear-gradient(135deg, #dcfce7 0%, #fef9c3 100%)', border: '#22c55e', badge: '🌲 Der Zauberwald', char: '🦊', name: 'Felix' },
+    2: { bg: 'linear-gradient(135deg, #f3e8ff 0%, #ffe4e6 100%)', border: '#a855f7', badge: '🏰 Das Königsschloss', char: '👑', name: 'Im Schloss' },
+    3: { bg: 'linear-gradient(135deg, #e0f2fe 0%, #f1f5f9 100%)', border: '#0ea5e9', badge: '🧪 Das Geheimlabor', char: '🤖', name: 'Labor-Team' },
+    4: { bg: 'linear-gradient(135deg, #fce7f3 0%, #fef3c7 100%)', border: '#ec4899', badge: '🌀 Die Zeitreise', char: '🕰️', name: 'Zeitreisende' },
+    5: { bg: 'linear-gradient(135deg, #fef3c7 0%, #dcfce7 100%)', border: '#f59e0b', badge: '🏆 Die Rückkehr', char: '🦉', name: 'Die Eule' }
+  };
+
+  function getCharacter(emojis, worldTheme) {
+    if (emojis.includes('🦉')) return { icon: '🦉', name: 'Die Eule (El Búho)' };
+    if (emojis.includes('🧑‍🍳')) return { icon: '🧑‍🍳', name: 'Der Koch (El Cocinero)' };
+    if (emojis.includes('👑')) return { icon: '👑', name: 'Die Königin (La Reina)' };
+    if (emojis.includes('💂')) return { icon: '💂', name: 'Der Wächter (El Guardián)' };
+    if (emojis.includes('🤖')) return { icon: '🤖', name: 'Robo-X' };
+    if (emojis.includes('🐇')) return { icon: '🐇', name: 'Der Hase (El Conejo)' };
+    if (emojis.includes('🦊')) return { icon: '🦊', name: 'Felix' };
+    return { icon: worldTheme.char, name: worldTheme.name };
+  }
   function enhanceStep() {
     const content = document.getElementById('content');
     if (!content) return;
@@ -230,11 +248,31 @@
       for (let i = 1; i < slowBtns.length; i++) slowBtns[i].remove();
     }
 
-    const scene = content.querySelector('.scene');
+      const scene = content.querySelector('.scene');
     if (scene && !scene.dataset.upgraded) {
       scene.dataset.upgraded = '1';
-      scene.style.cssText = 'background:linear-gradient(135deg,#e0f2fe 0%,#fef9c3 100%);border:3px solid #38bdf8;border-radius:20px;padding:18px;margin:14px 0;text-align:center;';
-    }
+      const theme = WORLD_THEMES[worldNum];
+      const artText = scene.querySelector('.scene-art')?.textContent || '';
+      const char = getCharacter(artText, theme);
+      const taskData = mission.tasks[Number((content.querySelector('.step')?.textContent || '1').replace(/\D/g, '')) - 1] || [];
+      const promptDe = taskData.at(3) || 'Hör zu!';
+      const promptEs = taskData.at(2) || '';
+
+      scene.style.cssText = 'background:' + theme.bg + ';border:3px solid ' + theme.border + ';border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 6px 0 rgba(0,0,0,0.06);';
+      scene.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">' +
+          '<span style="background:white;padding:4px 12px;border-radius:99px;font-size:0.8rem;font-weight:800;color:#334155;border:1.5px solid ' + theme.border + ';">' + theme.badge + '</span>' +
+          '<span style="font-size:1.5rem;letter-spacing:4px;">' + artText + '</span>' +
+        '</div>' +
+        '<div style="display:flex;align-items:center;gap:14px;text-align:left;">' +
+          '<div style="background:white;border:3px solid ' + theme.border + ';border-radius:50%;width:68px;height:68px;display:grid;place-items:center;font-size:2.4rem;flex-shrink:0;box-shadow:0 4px 8px rgba(0,0,0,0.08);">' + char.icon + '</div>' +
+          '<div style="background:white;border:2px solid #cbd5e1;border-radius:18px;padding:12px 16px;position:relative;flex:1;box-shadow:0 3px 0 #e2e8f0;">' +
+            '<div style="font-size:0.78rem;font-weight:800;color:#64748b;margin-bottom:3px;">💬 ' + char.name + ' dice:</div>' +
+            '<div style="font-family:Fredoka,sans-serif;font-size:1.12rem;color:#0f172a;">«' + promptDe + '»</div>' +
+            '<div style="font-size:0.85rem;color:#475569;margin-top:2px;">' + promptEs + '</div>' +
+          '</div>' +
+        '</div>';
+    }  
 
     const sayBtn = content.querySelector('[data-say]');
     if (sayBtn && !content.querySelector('[data-slow]') && !content.querySelector('[data-slow-plus]')) {
