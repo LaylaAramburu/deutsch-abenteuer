@@ -11,9 +11,11 @@
     '.comic-body { display: flex; align-items: center; gap: 14px; text-align: left; }' +
     '.comic-avatar { background: white; border-radius: 50%; width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; font-size: 2.3rem; flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.08); }' +
     '.comic-bubble { background: white; border: 2px solid #cbd5e1; border-radius: 18px; padding: 14px 18px; flex: 1; box-shadow: 0 3px 0 #e2e8f0; }' +
-    '#content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 18px 0 !important; width: 100% !important; clear: both !important; }' +
-    '#content .footer { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-top: 22px !important; padding-top: 16px !important; border-top: 2px dashed #cbd5e1 !important; width: 100% !important; clear: both !important; }' +
-    '.rec-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: #f0f9ff; border: 2px solid #7dd3fc; padding: 10px 14px; border-radius: 14px; margin: 14px 0; }';
+    '#content .oral { display: block !important; background: #eff6ff !important; border: 2px solid #93c5fd !important; border-radius: 16px !important; padding: 14px !important; margin: 16px 0 !important; line-height: 1.5 !important; }' +
+    '#content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 16px 0 !important; width: 100% !important; clear: both !important; }' +
+    '#content .footer { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-top: 24px !important; padding-top: 16px !important; border-top: 2px dashed #cbd5e1 !important; width: 100% !important; clear: both !important; }' +
+    '.rec-bar { display: flex !important; flex-wrap: wrap !important; align-items: center !important; gap: 12px !important; background: #f0f9ff !important; border: 2px solid #7dd3fc !important; padding: 12px 16px !important; border-radius: 14px !important; margin: 14px 0 !important; width: 100% !important; }' +
+    '.rec-bar button { background: #0284c7 !important; color: white !important; border: none !important; padding: 8px 16px !important; border-radius: 10px !important; font-weight: 800 !important; cursor: pointer !important; min-height: 40px !important; }';
   document.head.appendChild(style);
 
   const GRAMMAR_PILLS = {
@@ -55,7 +57,7 @@
     1: [['der Weg', 'el camino', 'm'], ['die Freundschaft', 'la amistad', 'f'], ['das Abenteuer', 'la aventura', 'n'], ['suchen', 'buscar', 'v'], ['finden', 'encontrar', 'v']],
     2: [['der Norden', 'el norte', 'm'], ['die Richtung', 'la dirección', 'f'], ['das Ziel', 'la meta', 'n'], ['gehen', 'ir / caminar', 'v'], ['zeigen', 'mostrar', 'v']],
     3: [['der Stift', 'el lápiz', 'm'], ['die Flasche', 'la botella', 'f'], ['das Heft', 'el cuaderno', 'n'], ['packen', 'empacar', 'v'], ['brauchen', 'necesitar', 'v']],
-    4: [['der Pinsel', 'el pincel', 'm'], ['die Farbe', 'el color', 'f'], ['das Bild', 'el cuadro', 'n'], ['malen', 'pintar', 'v'], ['mischen', 'mezclar', 'v']],
+    4: [['der Pinsel', 'el pincel', 'm'], ['die Farbe', 'la color', 'f'], ['das Bild', 'el cuadro', 'n'], ['malen', 'pintar', 'v'], ['mischen', 'mezclar', 'v']],
     5: [['der Schritt', 'el paso', 'm'], ['die Bewegung', 'el movimiento', 'f'], ['das Spiel', 'el juego', 'n'], ['laufen', 'correr', 'v'], ['springen', 'saltar', 'v']],
     6: [['der Hunger', 'el hambre', 'm'], ['die Gabel', 'el tenedor', 'f'], ['das Messer', 'el cuchillo', 'n'], ['essen', 'comer', 'v'], ['trinken', 'beber', 'v']],
     7: [['der Garten', 'el jardín', 'm'], ['die Treppe', 'la escalera', 'f'], ['das Dach', 'el techo', 'n'], ['wohnen', 'vivir', 'v'], ['schlafen', 'dormir', 'v']],
@@ -63,7 +65,7 @@
     9: [['der Morgen', 'la mañana', 'm'], ['die Stunde', 'la hora', 'f'], ['das Viertel', 'el cuarto', 'n'], ['warten', 'esperar', 'v'], ['beginnen', 'empezar', 'v']],
     10: [['der König', 'el rey', 'm'], ['die Antwort', 'la respuesta', 'f'], ['das Rätsel', 'el acertijo', 'n'], ['fragen', 'preguntar', 'v'], ['wissen', 'saber', 'v']],
     11: [['der Knopf', 'el botón', 'm'], ['die Schraube', 'el tornillo', 'f'], ['das Werkzeug', 'la herramienta', 'n'], ['reparieren', 'reparar', 'v'], ['bauen', 'construir', 'v']],
-    12: [['der Versuch', 'el experimento', 'm'], ['die Mischung', 'la mezcla', 'f'], ['das Glas', 'el vaso', 'n'], ['prüfen', 'comprobar', 'v'], ['ordnen', 'ordenar', 'v']],
+    12: [['der Versuch', 'el experimento', 'm'], ['die Mischung', 'la mezcla', 'f'], ['das Glas', 'el vaso / frasco', 'n'], ['prüfen', 'comprobar', 'v'], ['ordnen', 'ordenar', 'v']],
     13: [['der Fehler', 'el error', 'm'], ['die Zahl', 'el número', 'f'], ['das Licht', 'la luz', 'n'], ['rechnen', 'calcular', 'v'], ['schreiben', 'escribir', 'v']],
     14: [['der Text', 'el texto', 'm'], ['die Nachricht', 'el mensaje', 'f'], ['das Wort', 'la palabra', 'n'], ['lesen', 'leer', 'v'], ['sprechen', 'hablar', 'v']],
     15: [['der Erfolg', 'el éxito', 'm'], ['die Lösung', 'la solución', 'f'], ['das Geheimnis', 'el secreto', 'n'], ['verstehen', 'entender', 'v'], ['lösen', 'resolver', 'v']],
@@ -222,6 +224,42 @@
       aside.insertBefore(box, aside.firstChild);
     }
   }
+  function renderPhaseMenu(stepNum, totalTasks) {
+    const nav = document.getElementById('nav');
+    if (!nav) return;
+
+    let bar = document.getElementById('phase-menu-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'phase-menu-bar';
+      bar.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:12px;';
+      nav.parentNode.insertBefore(bar, nav);
+    }
+
+    const q1 = 0;
+    const q2 = Math.floor(totalTasks * 0.3);
+    const q3 = Math.floor(totalTasks * 0.6);
+    const q4 = Math.max(q3 + 1, totalTasks - 2);
+
+    const phases = [
+      { label: '🧭 1. Descubrir', sub: 'Escuchar y entender', start: q1, active: stepNum - 1 < q2 },
+      { label: '🎮 2. Practicar', sub: 'Jugar con palabras', start: q2, active: stepNum - 1 >= q2 && stepNum - 1 < q3 },
+      { label: '🎤 3. Hablar', sub: 'Pronunciar y crear', start: q3, active: stepNum - 1 >= q3 && stepNum - 1 < q4 },
+      { label: '🏆 4. Tesoro', sub: 'Reto final', start: q4, active: stepNum - 1 >= q4 }
+    ];
+
+    bar.innerHTML = phases.map(p => {
+      const bg = p.active ? '#8b5cf6' : '#ffffff';
+      const color = p.active ? '#ffffff' : '#334155';
+      const border = p.active ? '#6d28d9' : '#cbd5e1';
+      return '<button type="button" onclick="document.querySelector(\'#nav [data-go=\\\'' + p.start + '\\\']\')?.click()" ' +
+        'style="background:' + bg + ';color:' + color + ';border:2px solid ' + border + ';border-radius:14px;padding:8px 10px;text-align:center;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,0.06);">' +
+        '<div style="font-family:Fredoka,sans-serif;font-size:0.95rem;">' + p.label + '</div>' +
+        '<div style="font-size:0.72rem;opacity:0.85;font-family:Nunito,sans-serif;">' + p.sub + '</div>' +
+      '</button>';
+    }).join('');
+  }
+
   function enhanceStep() {
     const content = document.getElementById('content');
     if (!content) return;
@@ -229,9 +267,9 @@
     const stepText = content.querySelector('.step')?.textContent || 'Aufgabe 1';
     const matchStep = stepText.match(/Aufgabe\s+(\d+)/i);
     const stepNum = matchStep ? parseInt(matchStep.at(1), 10) : 1;
+
     renderPhaseMenu(stepNum, mission.tasks.length);
 
-    // 1. Viñeta de cómic con globo formado usando clases limpias
     const scene = content.querySelector('.scene');
     if (scene && !scene.dataset.upgraded) {
       scene.dataset.upgraded = '1';
@@ -269,7 +307,6 @@
         '</div>';
     }
 
-    // 2. Un solo botón Langsam
     const slowBtns = content.querySelectorAll('[data-slow-plus]');
     if (slowBtns.length > 1) {
       for (let i = 1; i < slowBtns.length; i++) slowBtns[i].remove();
@@ -286,18 +323,16 @@
       sayBtn.parentNode.insertBefore(slowBtn, sayBtn.nextSibling);
     }
 
-    // 3. Barra de grabación de voz antes del pie de página
     const footerDiv = content.querySelector('.footer');
     if (footerDiv && !content.querySelector('.rec-bar')) {
       const recDiv = document.createElement('div');
       recDiv.className = 'rec-bar';
       recDiv.innerHTML =
-        '<button type="button" style="background:#0284c7;" onclick="toggleVoiceRec(this)">🎙️ Grabar mi voz</button>' +
+        '<button type="button" onclick="toggleVoiceRec(this)">🎙️ Grabar mi voz</button>' +
         '<span style="font-size:0.85rem;color:#0369a1;font-weight:700;">Practica pronunciando en voz alta y escúchate</span>';
       footerDiv.parentNode.insertBefore(recDiv, footerDiv);
     }
 
-    // 4. Reto de Escritura SOLO en los últimos pasos (8, 9 o 10)
     const optionsBox = content.querySelector('.options');
     if (optionsBox && stepNum >= 8 && !content.querySelector('#write-challenge') && !optionsBox.querySelector('button[disabled]')) {
       const targetBtn = Array.from(optionsBox.querySelectorAll('button')).find(b => b.dataset.answer !== undefined);
@@ -331,42 +366,6 @@
         };
       }
     }
-  }
-  // MENÚ DE FASES PEDAGÓGICAS (DESCUBRIR · PRACTICAR · HABLAR · TESORO)
-  function renderPhaseMenu(stepNum, totalTasks) {
-    const nav = document.getElementById('nav');
-    if (!nav) return;
-
-    let bar = document.getElementById('phase-menu-bar');
-    if (!bar) {
-      bar = document.createElement('div');
-      bar.id = 'phase-menu-bar';
-      bar.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:10px;';
-      nav.parentNode.insertBefore(bar, nav);
-    }
-
-    const q1 = 0;
-    const q2 = Math.floor(totalTasks * 0.3);
-    const q3 = Math.floor(totalTasks * 0.6);
-    const q4 = Math.max(q3 + 1, totalTasks - 2);
-
-    const phases = [
-      { label: '🧭 1. Descubrir', sub: 'Escuchar y entender', start: q1, active: stepNum - 1 < q2 },
-      { label: '🎮 2. Practicar', sub: 'Jugar con palabras', start: q2, active: stepNum - 1 >= q2 && stepNum - 1 < q3 },
-      { label: '🎤 3. Hablar', sub: 'Pronunciar y crear', start: q3, active: stepNum - 1 >= q3 && stepNum - 1 < q4 },
-      { label: '🏆 4. Tesoro', sub: 'Reto final', start: q4, active: stepNum - 1 >= q4 }
-    ];
-
-    bar.innerHTML = phases.map(p => {
-      const bg = p.active ? '#8b5cf6' : '#ffffff';
-      const color = p.active ? '#ffffff' : '#334155';
-      const border = p.active ? '#6d28d9' : '#cbd5e1';
-      return '<button type="button" onclick="document.querySelector(\'#nav [data-go=\\\'' + p.start + '\\\']\')?.click()" ' +
-        'style="background:' + bg + ';color:' + color + ';border:2px solid ' + border + ';border-radius:14px;padding:8px 10px;text-align:center;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,0.06);">' +
-        '<div style="font-family:Fredoka,sans-serif;font-size:0.95rem;">' + p.label + '</div>' +
-        '<div style="font-size:0.72rem;opacity:0.85;font-family:Nunito,sans-serif;">' + p.sub + '</div>' +
-      '</button>';
-    }).join('');
   }
 
   initSequenceUI();
