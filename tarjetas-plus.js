@@ -1,7 +1,6 @@
 (function() {
   'use strict';
 
-  // 1. ESTILOS DE CÓDIGO DE COLORES Y MEJORAS DE JUEGO
   const style = document.createElement('style');
   style.textContent =
     '@import url("https://googleapis.com");' +
@@ -9,15 +8,35 @@
     'h1, h2, h3, button { font-family: "Fredoka", sans-serif !important; }' +
     'header { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important; border-bottom: 5px solid #f97316 !important; color: white !important; }' +
     '.controls button { border-radius: 14px !important; padding: 10px 18px !important; font-size: 1rem !important; box-shadow: 0 3px 0 rgba(0,0,0,0.15) !important; }' +
-    '.cards > * { border-radius: 20px !important; border-width: 3px !important; transition: transform 0.15s !important; box-shadow: 0 6px 14px rgba(0,0,0,0.06) !important; }' +
+    '.cards > * { border-radius: 20px !important; border-width: 3px !important; transition: transform 0.15s !important; box-shadow: 0 6px 14px rgba(0,0,0,0.06) !important; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 14px !important; background: white !important; }' +
     '.cards > *:hover { transform: translateY(-4px) !important; }' +
-    '.art-badge { display: inline-block; padding: 2px 10px; border-radius: 99px; color: white; font-size: 0.78rem; font-weight: 800; margin-bottom: 6px; }' +
+    '.art-badge { display: inline-block; padding: 3px 12px; border-radius: 99px; color: white; font-size: 0.78rem; font-weight: 800; margin-bottom: 8px; }' +
+    '.vec-art { font-size: 4.2rem; line-height: 1.1; margin: 10px 0; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }' +
     '.german-keys { display: flex; gap: 8px; margin: 8px 0 12px; }' +
     '.german-keys button { background: #e2e8f0 !important; color: #0f172a !important; border: 2px solid #cbd5e1 !important; padding: 6px 14px !important; border-radius: 10px !important; min-height: 38px !important; }' +
     '.rec-oral-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: #f0f9ff; border: 2px solid #7dd3fc; padding: 10px 14px; border-radius: 14px; margin: 12px 0; }';
   document.head.appendChild(style);
 
-  // 2. VOZ LENTA EN ALEMÁN
+  // DICCIONARIO DE ILUSTRACIONES LIMPIAS PARA REEMPLAZAR IMÁGENES ROTAS
+  const ICONS = {
+    apfel: '🍎', wasser: '💧', suppe: '🍲', brot: '🍞', milch: '🥛', kuchen: '🍰', kaese: '🧀', käse: '🧀',
+    kompass: '🧭', karte: '🗺️', buch: '📕', rucksack: '🎒', ball: '⚽', fuchs: '🦊', eule: '🦉', baum: '🌳',
+    fluss: '🌊', blume: '🌻', pilz: '🍄', sonne: '☀️', mond: '🌙', regen: '🌧️', schnee: '❄️', wind: '🌬️',
+    schloss: '🏰', koenigin: '👑', königin: '👑', koch: '🧑‍🍳', schluessel: '🗝️', schlüssel: '🗝️', stuhl: '🪑',
+    tisch: '🪵', bett: '🛏️', tuer: '🚪', tür: '🚪', fenster: '🪟', uhr: '🕰️', markt: '🏪', geld: '🪙',
+    roboter: '🤖', batterie: '🔋', flasche: '🧴', computer: '💻', mikroskop: '🔬', zug: '🚂', bus: '🚌',
+    fahrrad: '🚲', rakete: '🚀', kalender: '📅', geburtstag: '🎂', hund: '🐕', katze: '🐈', hase: '🐇',
+    jacke: '🧥', hose: '👖', schuh: '👟', hut: '🎩', hemd: '👕', kleid: '👗', stift: '✏️', tasche: '👜'
+  };
+
+  function getIllustration(text) {
+    const clean = text.toLowerCase();
+    for (const [word, emoji] of Object.entries(ICONS)) {
+      if (clean.includes(word)) return emoji;
+    }
+    return '🖼️';
+  }
+
   window.speakCardSlow = function(text) {
     if (!window.speechSynthesis) return;
     speechSynthesis.cancel();
@@ -25,12 +44,11 @@
     u.lang = 'de-DE';
     u.rate = 0.62;
     const voices = speechSynthesis.getVoices().filter(v => v.lang.toLowerCase().startsWith('de'));
-    const best = voices.find(v => /natural|google|katja|conrad|amala/i.test(v.name)) || voices.at(0);
+    const best = voices.find(v => /natural|google|katja|conrad|amala/i.test(v.name)) || voices[0];
     if (best) u.voice = best;
     speechSynthesis.speak(u);
   };
 
-  // 3. GRABADORA DE VOZ PARA MODO HABLAR
   let rec = null, chunks = [], recording = false;
   window.toggleCardRec = async function(btn) {
     const bar = btn.closest('.rec-oral-bar');
@@ -67,18 +85,37 @@
     }
   };
 
-  // 4. PINTAR TARJETAS POR GÉNERO (DER/DIE/DAS) Y AÑADIR AUDIO LENTO
   function decorateCards() {
     const cardsContainer = document.getElementById('cards');
     if (!cardsContainer) return;
 
+    const isQuiz = document.getElementById('quiz')?.classList.contains('active') ||
+                   (document.getElementById('instruction')?.textContent || '').includes('Encuentra la imagen');
+
     Array.from(cardsContainer.children).forEach(card => {
       if (card.dataset.colored) return;
       card.dataset.colored = '1';
-      const txt = card.textContent || '';
-      const match = txt.match(/\b(der|die|das|ein|eine|einen)\b/i);
-      if (match) {
-        const art = match.at(1).toLowerCase();
+
+      const img = card.querySelector('img');
+      const hintText = (img?.alt || '') + ' ' + (img?.src || '') + ' ' + (card.textContent || '');
+
+      // Reemplazar imagen rota por ilustración vectorial limpia
+      if (img) {
+        const replaceWithVector = () => {
+          if (card.querySelector('.vec-art')) return;
+          const art = document.createElement('div');
+          art.className = 'vec-art';
+          art.textContent = getIllustration(hintText);
+          img.replaceWith(art);
+        };
+        img.onerror = replaceWithVector;
+        if (img.complete && img.naturalWidth === 0) replaceWithVector();
+      }
+
+      // Pintar género gramatical (solo fuera del modo adivinanza para no regalar la respuesta)
+      const match = hintText.match(/\b(der|die|das|ein|eine|einen)\b/i);
+      if (match && !isQuiz) {
+        const art = match[1].toLowerCase();
         const isMasc = art === 'der' || art === 'einen';
         const isFem = art === 'die' || art === 'eine';
         const color = isMasc ? '#2563eb' : isFem ? '#dc2626' : '#16a34a';
@@ -91,9 +128,9 @@
         card.insertBefore(badge, card.firstChild);
       }
 
-      // Añadir botón tortuga en cada tarjeta
-      const cleanPhrase = txt.replace(/[🔊🐢🔵🔴🟢()]/g, '').trim().split('\n').at(0);
-      if (cleanPhrase) {
+      // Botón tortuga en modo Explorar o Hablar
+      const cleanPhrase = (card.textContent || '').replace(/[🔊🐢🔵🔴🟢()]/g, '').trim().split('\n')[0];
+      if (cleanPhrase && !isQuiz && !cleanPhrase.startsWith('Imagen')) {
         const slowBtn = document.createElement('button');
         slowBtn.type = 'button';
         slowBtn.textContent = '🐢 Despacio';
@@ -107,7 +144,6 @@
     });
   }
 
-  // 5. TECLADO ALEMÁN + GRABADORA EN LA SECCIÓN ORAL (#oral)
   function enhanceOralBox() {
     const oralBox = document.getElementById('oral');
     const textarea = document.getElementById('sentence');
