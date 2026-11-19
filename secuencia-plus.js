@@ -4,7 +4,7 @@
   const mission = window.DEUTSCH_MISSIONS && window.DEUTSCH_MISSIONS[id];
   if (!mission) return;
 
-  // 1. ESTILOS BLINDADOS PARA SEPARAR TODOS LOS BOTONES Y CAJAS
+  // 1. ESTILOS BLINDADOS PARA EVITAR SOLAPAMIENTOS
   const style = document.createElement('style');
   style.textContent =
     '.comic-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }' +
@@ -12,7 +12,6 @@
     '.comic-body { display: flex; align-items: center; gap: 14px; text-align: left; }' +
     '.comic-avatar { background: white; border-radius: 50%; width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; font-size: 2.3rem; flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.08); }' +
     '.comic-bubble { background: white; border: 2px solid #cbd5e1; border-radius: 18px; padding: 14px 18px; flex: 1; box-shadow: 0 3px 0 #e2e8f0; }' +
-    'article#content button[data-check], article#content button[data-sort-check], article#content button[data-kit-check], article#content button[data-mix-check], article#content button[data-budget-check], article#content button[data-question-check] { display: block !important; margin: 16px 0 !important; background: #10b981 !important; color: white !important; padding: 12px 22px !important; border-radius: 14px !important; font-weight: 800 !important; box-shadow: 0 3px 0 #059669 !important; }' +
     'article#content .oral { display: block !important; background: #eff6ff !important; border: 2px solid #93c5fd !important; border-radius: 16px !important; padding: 14px !important; margin: 18px 0 !important; line-height: 1.6 !important; clear: both !important; }' +
     'article#content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 18px 0 !important; width: 100% !important; clear: both !important; }' +
     'article#content .footer { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-top: 24px !important; padding-top: 18px !important; border-top: 2px dashed #cbd5e1 !important; width: 100% !important; clear: both !important; }' +
@@ -20,48 +19,68 @@
     '.rec-bar button { background: #0284c7 !important; color: white !important; border: none !important; padding: 8px 16px !important; border-radius: 10px !important; font-weight: 800 !important; cursor: pointer !important; min-height: 40px !important; }';
   document.head.appendChild(style);
 
-  // 2. MICRO-REGLAS GRAMATICALES ESPECÍFICAS POR MISIÓN (A1 PROGRESIVO)
+  // 2. MICRO-REGLAS GRAMATICALES AUDITADAS (NIVEL A1 PROGRESIVO)
   const MISSION_GRAMMAR = {
-    1: { title: 'Presentación y verbo SEIN / HEIßEN', rule: '• <i>Ich <b>heiße</b>... / Ich <b>bin</b>...</i><br>• Verbo siempre en <b>2.ª posición</b>.' },
-    2: { title: 'Orientación y preguntas con WO', rule: '• <i><b>Wo</b> ist der Weg?</i> (¿Dónde está?)<br>• <i>links</i> (izquierda), <i>rechts</i> (derecha), <i>geradeaus</i> (recto).' },
-    3: { title: 'Acusativo con HABEN / BRAUCHEN', rule: '• Masculino cambia (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>):<br><i>Ich habe <b>einen</b> Ball / <b>eine</b> Karte / <b>ein</b> Buch.</i>' },
-    4: { title: 'Adjetivos de color después de SEIN', rule: '• El color va al final sin terminación:<br><i>Der Baum <b>ist grün</b>. Die Blume <b>ist gelb</b>.</i>' },
-    5: { title: 'BOSS · Terminaciones en presente', rule: '• <i>ich lauf<b>e</b> · du läuf<b>st</b> · er/sie läuf<b>t</b> · wir lauf<b>en</b>.</i><br>• ¡Ojo al cambio de vocal en <i>du</i> y <i>er</i>!' },
-    6: { title: 'W-Fragen: WER (quién) y WAS (qué)', rule: '• <b>Wer</b> isst? (Persona) · <b>Was</b> trinkt er? (Cosa).<br>• Verbo siempre en <b>2.ª posición</b>.' },
-    7: { title: 'Preguntar ubicación: WO + in der / im', rule: '• <i><b>Wo</b> ist das Bad?</i><br>• <i><b>in der</b> Küche</i> (<span style="color:#dc2626">die</span>) · <i><b>im</b> Garten</i> (<span style="color:#2563eb">der</span>/<span style="color:#16a34a">das</span>).' },
-    8: { title: 'Precios y números: WIE VIEL KOSTET...?', rule: '• Singular: <i>Wie viel <b>kostet</b> der Apfel?</i><br>• Plural: <i>Wie viel <b>kosten</b> die Äpfel?</i>' },
-    9: { title: 'La hora oficial: WIE SPÄT IST ES?', rule: '• <i>Es ist <b>acht Uhr</b>.</i> (Son las 8:00).<br>• Para citas: <i><b>um</b> acht Uhr</i> (a las 8).' },
-    10: { title: 'BOSS · Repaso maestro de W-Fragen', rule: '• <b>Wer</b> (quién) · <b>Was</b> (qué) · <b>Wo</b> (dónde) · <b>Wann</b> (cuándo).' },
-    11: { title: 'Pedir piezas en Acusativo', rule: '• <i>Wir brauchen <b>einen</b> Arm (<span style="color:#2563eb">der</span>) und <b>eine</b> Batterie (<span style="color:#dc2626">die</span>).</i>' },
-    12: { title: 'Negación de sustantivos: KEIN / KEINE', rule: '• <i>Das ist <b>kein</b> Wasser</i> (<span style="color:#16a34a">das</span>) · <i><b>keine</b> Milch</i> (<span style="color:#dc2626">die</span>).' },
-    13: { title: 'Números hasta 100 en alemán', rule: '• Primero la unidad y luego la decena:<br><i>21 = ein<b>und</b>zwanzig · 45 = fünf<b>und</b>vierzig.</i>' },
-    14: { title: 'Horas medias (halb) y verbos fuertes', rule: '• <i><b>halb acht</b></i> = 7:30 (media hora antes de las 8).<br>• <i>er <b>liest</b> (lee) · er <b>sieht</b> (ve).</i>' },
-    15: { title: 'BOSS · Acusativo + Verbos + Negación', rule: '• Sujeto + Verbo (pos. 2) + Objeto:<br><i>Der Techniker <b>hat keinen</b> Fehler.</i>' },
-    16: { title: 'El clima: WIE IST DAS WETTER?', rule: '• <i>Es <b>regnet</b></i> (llueve) · <i>Die Sonne <b>scheint</b></i> (brilla el sol).<br>• <i>Es ist kalt / warm / sonnig.</i>' },
-    17: { title: 'Transporte con dativo: MIT DEM / MIT DER', rule: '• <i><b>mit dem</b> Zug / Bus</i> (<span style="color:#2563eb">der</span>) · <i><b>mit der</b> U-Bahn</i> (<span style="color:#dc2626">die</span>).' },
-    18: { title: 'Dirección: WOHIN? (¿Adónde?)', rule: '• <i><b>Wohin</b> fährt der Bus?</i> -> <i>Zum Bahnhof / In die Stadt.</i>' },
-    19: { title: 'Días y meses: AM y IM', rule: '• Días: <i><b>am</b> Montag, <b>am</b> Freitag</i>.<br>• Meses: <i><b>im</b> Januar, <b>im</b> Sommer</i>.' },
-    20: { title: 'BOSS · Orden tiempo y lugar (TeKaMoLo)', rule: '• Primero <b>cuándo</b>, luego <b>dónde</b>:<br><i>Wir fahren <b>morgen</b> (tiempo) <b>nach Hause</b> (lugar).</i>' },
-    21: { title: 'Preposiciones de lugar (Wo?)', rule: '• <i><b>auf</b> dem Tisch</i> (sobre) · <i><b>unter</b> dem Baum</i> (debajo) · <i><b>neben</b> der Brücke</i> (al lado).' },
-    22: { title: 'Preguntas abiertas y cerradas', rule: '• Con W-Frage: <i><b>Warum</b> lachst du?</i> (Verbo pos. 2).<br>• Sí/No: <i><b>Hast</b> du Zeit?</i> (Verbo pos. 1).' },
-    23: { title: 'Verbo modal KÖNNEN y trato formal SIE', rule: '• <i><b>Können</b> Sie mir bitte <b>helfen</b>?</i><br>• El segundo verbo siempre va en infinitivo al final.' },
-    24: { title: 'BOSS FINAL · Conectores A1', rule: '• Une tus frases con <b>und</b> (y), <b>aber</b> (pero), <b>denn</b> (porque).' }
+    1: { title: 'Presentación y verbo en 2.ª posición', rule: '• <i>Ich <b>heiße</b>... / Ich <b>bin</b> neun Jahre alt.</i><br>• El verbo conjugado siempre ocupa la <b>2.ª posición</b>.' },
+    2: { title: 'Ubicación con WO y direcciones', rule: '• <i><b>Wo</b> ist der Kompass?</i> (¿Dónde está?)<br>• <i>links</i> (izquierda), <i>rechts</i> (derecha), <i>in der Mitte</i> (en el centro).' },
+    3: { title: 'Acusativo con HABEN y BRAUCHEN', rule: '• Solo cambia el masculino (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>):<br><i>Ich habe <b>einen</b> Ball, <b>eine</b> Karte und <b>ein</b> Buch.</i>' },
+    4: { title: 'Adjetivos predicativos de color', rule: '• Después de <i>ist / sind</i>, el color no lleva terminación:<br><i>Der Baum <b>ist grün</b>. Die Blumen <b>sind gelb</b>.</i>' },
+    5: { title: 'Presente: terminaciones y cambio vocálico', rule: '• <i>ich lauf<b>e</b> · du läuf<b>st</b> · er/sie läuf<b>t</b> · wir lauf<b>en</b>.</i><br>• Atención al cambio <b>a -> ä</b> en <i>du</i> y <i>er/sie</i>.' },
+    6: { title: 'W-Fragen: WER (persona) y WAS (objeto)', rule: '• <i><b>Wer</b> isst das Brot?</i> (Sujeto) · <i><b>Was</b> trinkt der Koch?</i> (Objeto).<br>• Verbo siempre en <b>2.ª posición</b>.' },
+    7: { title: 'Lugar con Dativo: IN DER / IM', rule: '• <i><b>Wo</b> ist der Koch?</i> -> <i><b>In der</b> Küche</i> (<span style="color:#dc2626">die</span>) · <i><b>Im</b> Bad</i> (<span style="color:#16a34a">das</span>) · <i><b>Im</b> Garten</i> (<span style="color:#2563eb">der</span>).' },
+    8: { title: 'Precios y plural: WIE VIEL KOSTET / KOSTEN?', rule: '• Singular: <i>Wie viel <b>kostet</b> der Apfel?</i><br>• Plural: <i>Wie viel <b>kosten</b> die Äpfel?</i>' },
+    9: { title: 'Horas exactas y medias (WIE SPÄT IST ES?)', rule: '• Exacta: <i>Es ist <b>acht Uhr</b></i> (8:00).<br>• Media: <i>Es ist <b>halb neun</b></i> (8:30, media para las 9).' },
+    10: { title: 'Síntesis de W-Fragen (Mundo 2)', rule: '• <b>Wer</b> (quién) · <b>Was</b> (qué) · <b>Wo</b> (dónde) · <b>Wann</b> (cuándo) · <b>Wie viel</b> (cuánto).' },
+    11: { title: 'Acusativo con artículos definidos e indefinidos', rule: '• <i>Wir reparieren <b>den</b> Roboter (<span style="color:#2563eb">der</span>) und brauchen <b>eine</b> Batterie (<span style="color:#dc2626">die</span>).</i>' },
+    12: { title: 'Negación de sustantivos: KEIN / KEINE / KEINEN', rule: '• <i>Das ist <b>kein</b> Wasser</i> (<span style="color:#16a34a">das</span>) · <i><b>keine</b> Milch</i> (<span style="color:#dc2626">die</span>).<br>• Acusativo masc.: <i>Ich habe <b>keinen</b> Schlüssel</i> (<span style="color:#2563eb">der</span>).' },
+    13: { title: 'Números hasta 100 (Unidad + und + Decena)', rule: '• 24 = <i>vier<b>und</b>zwanzig</i> · 58 = <i>acht<b>und</b>fünfzig</i>.<br>• Se leen de derecha a izquierda.' },
+    14: { title: 'Verbos irregulares: LESEN, SEHEN, SPRECHEN', rule: '• <i>du <b>liest</b> / er <b>liest</b></i> · <i>du <b>siehst</b> / er <b>sieht</b></i> · <i>du <b>sprichst</b> / er <b>spricht</b></i>.' },
+    15: { title: 'Síntesis del Laboratorio (Números + Negación)', rule: '• Combina cantidad, negación y acusativo:<br><i>Wir haben <b>dreißig</b> Punkte, aber <b>keinen</b> Code.</i>' },
+    16: { title: 'El clima: WIE IST DAS WETTER?', rule: '• <i>Es <b>regnet</b></i> (llueve) · <i>Es <b>schneit</b></i> (nieva) · <i>Die Sonne <b>scheint</b></i>.<br>• <i>Es ist kalt / warm / windig.</i>' },
+    17: { title: 'Medios de transporte: MIT DEM / MIT DER', rule: '• <i>Ich fahre <b>mit dem</b> Zug / Bus</i> (<span style="color:#2563eb">der</span>) · <i><b>mit der</b> U-Bahn</i> (<span style="color:#dc2626">die</span>).' },
+    18: { title: 'Dirección: WOHIN? (¿Adónde?)', rule: '• <i><b>Wohin</b> gehst du?</i> -> <i><b>Zum</b> Bahnhof</i> (<span style="color:#2563eb">der</span>) · <i><b>Zur</b> Schule</i> (<span style="color:#dc2626">die</span>) · <i><b>Nach</b> Hause</i>.' },
+    19: { title: 'Preposiciones temporales: AM y IM', rule: '• Días y partes del día: <i><b>am</b> Montag, <b>am</b> Abend</i>.<br>• Meses y estaciones: <i><b>im</b> Juli, <b>im</b> Winter</i>.' },
+    20: { title: 'Orden de la oración (Tiempo antes que Lugar)', rule: '• <i>Wir fahren <b>am Samstag</b> (cuándo) <b>in die Stadt</b> (dónde).</i>' },
+    21: { title: 'Preposiciones espaciales con Dativo (Wo?)', rule: '• <i><b>auf</b> dem Tisch</i> (sobre) · <i><b>unter</b> dem Baum</i> (debajo) · <i><b>neben</b> der Brücke</i> (al lado).' },
+    22: { title: 'Preguntas con WARUM y WANN', rule: '• <i><b>Warum</b> lernst du Deutsch?</i> (¿Por qué?) -> <i>Weil es Spaß macht!</i>' },
+    23: { title: 'Verbo modal KÖNNEN + Trato formal SIE', rule: '• <i><b>Können</b> Sie mir bitte <b>helfen</b>?</i><br>• Modal en 2.ª posición, segundo verbo en infinitivo al final.' },
+    24: { title: 'Gran Síntesis A1 · Conectores UND, ABER, ODER', rule: '• Une tus ideas: <i>Ich heiße Mia, ich wohne in Berlin <b>und</b> ich spreche Deutsch!</i>' }
+  };
+  // 3. OBJETIVOS PEDAGÓGICOS EN LENGUAJE MOTIVADOR PARA 10 AÑOS
+  const KID_GOALS = {
+    1: '🎯 Tu reto: Presentarte en alemán y ayudar a Félix a encontrar su brújula.',
+    2: '🎯 Tu reto: Seguir las pistas del mapa usando izquierda, derecha y centro.',
+    3: '🎯 Tu reto: Preparar la mochila usando ein, eine y einen en acusativo.',
+    4: '🎯 Tu reto: Devolver los colores al bosque describiendo objetos.',
+    5: '🎯 Tu reto: Dominar las terminaciones de los verbos (ich, du, er/sie).',
+    6: '🎯 Tu reto: Descubrir quién come y bebe qué en el banquete (Wer / Was).',
+    7: '🎯 Tu reto: Encontrar las habitaciones del castillo preguntando con Wo.',
+    8: '🎯 Tu reto: Comprar en el mercado contando euros y precios en alemán.',
+    9: '🎯 Tu reto: Reparar el gran reloj diciendo horas exactas y medias (halb).',
+    10: '🎯 Tu reto: Resolver el acertijo final de la reina combinando W-Fragen.',
+    11: '🎯 Tu reto: Reparar el robot pidiendo las piezas en acusativo.',
+    12: '🎯 Tu reto: Clasificar los experimentos usando la negación kein y keine.',
+    13: '🎯 Tu reto: Descifrar el código secreto con números hasta 100.',
+    14: '🎯 Tu reto: Recuperar los datos usando verbos irregulares (liest, sieht, spricht).',
+    15: '🎯 Tu reto: Superar el reto del laboratorio combinando números y negación.',
+    16: '🎯 Tu reto: Calmar la tormenta describiendo el clima en alemán.',
+    17: '🎯 Tu reto: Viajar en tren y autobús usando mit dem y mit der.',
+    18: '🎯 Tu reto: Orientarte en la ciudad preguntando Wohin? (¿Adónde?).',
+    19: '🎯 Tu reto: Arreglar el calendario con días de la semana (am) y meses (im).',
+    20: '🎯 Tu reto: Abrir el portal combinando tiempo, clima y lugar en orden.',
+    21: '🎯 Tu reto: Regresar al bosque usando preposiciones de lugar (auf, unter, neben).',
+    22: '🎯 Tu reto: Responder al interrogatorio maestro con todas las W-Fragen.',
+    23: '🎯 Tu reto: Hacer una visita cortés usando können y el trato formal Sie.',
+    24: '🎯 Tu reto: Completar la aventura final demostrando todo tu alemán A1.'
   };
 
-  // 3. REPASO ESPACIADO PARA LAS MISIONES DE JEFE (5, 10, 15, 20, 24)
-  const BOSS_REVIEWS = {
-    5: '🔥 <b>Reto de Jefe (Mundo 1):</b> Mezcla presentaciones (<i>Ich heiße...</i>), objetos con artículo (<i>ein/eine/einen</i>) y verbos conjugados.',
-    10: '🔥 <b>Reto de Jefe (Mundo 2):</b> Combina preguntas con <i>Wer, Was, Wo, Wann</i> junto con comida y ropa del Mundo 1.',
-    15: '🔥 <b>Reto de Jefe (Mundo 3):</b> Usa números hasta 100, horas (<i>halb</i>), acusativo (<i>einen</i>) y negación (<i>kein/keine</i>).',
-    20: '🔥 <b>Reto de Jefe (Mundo 4):</b> Une clima (<i>Es regnet</i>), transporte (<i>mit dem Zug</i>) y días/horas (<i>am Montag um 8 Uhr</i>).',
-    24: '🏆 <b>Gran Desafío Final A1:</b> Demuestra todo el curso combinando <i>W-Fragen</i>, acusativo, preposiciones y el verbo modal <i>können</i>.'
-  };
+  // 4. CINCO PALABRAS NUEVAS POR MISIÓN (SUSTANTIVOS COTIDIANOS + ACCIONES ⚡)
   const EXTRA_VOCAB = {
     1: [['der Weg', 'el camino', 'm'], ['die Freundschaft', 'la amistad', 'f'], ['das Abenteuer', 'la aventura', 'n'], ['suchen', 'buscar', 'v'], ['finden', 'encontrar', 'v']],
     2: [['der Norden', 'el norte', 'm'], ['die Richtung', 'la dirección', 'f'], ['das Ziel', 'la meta', 'n'], ['gehen', 'ir / caminar', 'v'], ['zeigen', 'mostrar', 'v']],
     3: [['der Stift', 'el lápiz', 'm'], ['die Flasche', 'la botella', 'f'], ['das Heft', 'el cuaderno', 'n'], ['packen', 'empacar', 'v'], ['brauchen', 'necesitar', 'v']],
     4: [['der Pinsel', 'el pincel', 'm'], ['die Farbe', 'el color', 'f'], ['das Bild', 'el cuadro', 'n'], ['malen', 'pintar', 'v'], ['mischen', 'mezclar', 'v']],
-    5: [['der Schritt', 'el paso', 'm'], ['die Bewegung', 'la movimiento', 'f'], ['das Spiel', 'el juego', 'n'], ['laufen', 'correr', 'v'], ['springen', 'saltar', 'v']],
+    5: [['der Schritt', 'el paso', 'm'], ['die Bewegung', 'el movimiento', 'f'], ['das Spiel', 'el juego', 'n'], ['laufen', 'correr', 'v'], ['springen', 'saltar', 'v']],
     6: [['der Hunger', 'el hambre', 'm'], ['die Gabel', 'el tenedor', 'f'], ['das Messer', 'el cuchillo', 'n'], ['essen', 'comer', 'v'], ['trinken', 'beber', 'v']],
     7: [['der Garten', 'el jardín', 'm'], ['die Treppe', 'la escalera', 'f'], ['das Dach', 'el techo', 'n'], ['wohnen', 'vivir', 'v'], ['schlafen', 'dormir', 'v']],
     8: [['der Preis', 'el precio', 'm'], ['die Tasche', 'la bolsa', 'f'], ['das Geld', 'el dinero', 'n'], ['kaufen', 'comprar', 'v'], ['kosten', 'costar', 'v']],
@@ -82,19 +101,18 @@
     23: [['der Gast', 'el invitado', 'm'], ['die Einladung', 'la invitación', 'f'], ['das Geschenk', 'el regalo', 'n'], ['helfen', 'ayudar', 'v'], ['danken', 'agradecer', 'v']],
     24: [['der Sieger', 'el ganador', 'm'], ['die Erinnerung', 'el recuerdo', 'f'], ['das Ende', 'el final', 'n'], ['schaffen', 'lograr', 'v'], ['verabschieden', 'despedirse', 'v']]
   };
-
   const worldNum = id <= 5 ? 1 : id <= 10 ? 2 : id <= 15 ? 3 : id <= 20 ? 4 : 5;
-  const grammar = MISSION_GRAMMAR[id] || MISSION_GRAMMAR[1];
+  const grammar = MISSION_GRAMMAR[id] || MISSION_GRAMMAR;
 
   const WORLD_THEMES = {
     1: { bg: 'linear-gradient(135deg, #dcfce7 0%, #fef9c3 100%)', border: '#22c55e', badge: '🌲 Der Zauberwald', char: '🦊', name: 'Felix' },
     2: { bg: 'linear-gradient(135deg, #f3e8ff 0%, #ffe4e6 100%)', border: '#a855f7', badge: '🏰 Das Königsschloss', char: '👑', name: 'Die Königin' },
     3: { bg: 'linear-gradient(135deg, #e0f2fe 0%, #f1f5f9 100%)', border: '#0ea5e9', badge: '🧪 Das Geheimlabor', char: '🧑‍🔬', name: 'Der Forscher' },
     4: { bg: 'linear-gradient(135deg, #fce7f3 0%, #fef3c7 100%)', border: '#ec4899', badge: '🌀 Die Zeitreise', char: '👨‍✈️', name: 'Der Schaffner' },
-    5: { bg: 'linear-gradient(135deg, #fef3c7 0%, #dcfce7 100%)', border: '#f59e0b', badge: '🏆 Die Rückkehr', char: '👩', name: 'Die Freundin' }
+    5: { bg: 'linear-gradient(135deg, #fef3c7 0%, #dcfce7 100%)', border: '#f59e0b', badge: '🏆 Die Rückkehr', char: '👩', name: 'Die Nachbarin' }
   };
 
-  // PERSONAJES CON ROLES COTIDIANOS ÚTILES PARA A1
+  // PERSONAJES CON ROLES COTIDIANOS ÚTILES PARA A1 (SIN FANTASÍA INNECESARIA)
   function getCharacter(emojis, worldTheme) {
     if (emojis.includes('🧑‍🍳')) return { icon: '🧑‍🍳', name: 'Der Koch (El cocinero)' };
     if (emojis.includes('👨‍✈️')) return { icon: '👨‍✈️', name: 'Der Schaffner (El revisor)' };
@@ -174,6 +192,7 @@
       alert('No se pudo activar el micrófono. Revisa los permisos del navegador.');
     }
   };
+
   function initSequenceUI() {
     const aside = document.querySelector('aside');
     const story = document.getElementById('intro');
@@ -231,7 +250,6 @@
       aside.insertBefore(box, aside.firstChild);
     }
   }
-
   function renderPhaseMenu(stepNum, totalTasks) {
     const nav = document.getElementById('nav');
     if (!nav) return;
@@ -278,7 +296,7 @@
       return {
         tag: '🗣️ Dialog · Was sagst du? (¿Qué dices tú?)',
         main: hasSpoiler ? ('Situation: ' + rawEs) : ('«' + rawDe + '»'),
-        sub: hasSpoiler ? 'Piensa cómo hacer la pregunta o respuesta en alemán.' : rawEs
+        sub: hasSpoiler ? 'Piensa cómo hacer la pregunta o respuesta en alemán (usa tu Entdecker-Box).' : rawEs
       };
     }
     if (kind === 'order') {
@@ -295,6 +313,7 @@
       sub: rawEs
     };
   }
+
   function enhanceStep() {
     const content = document.getElementById('content');
     if (!content) return;
@@ -342,15 +361,28 @@
     }
 
     // Reto Integrador en Misiones de Jefe (5, 10, 15, 20, 24) en el paso final
-    const isBoss = [5, 10, 15, 20, 24].includes(id);
-    if (isBoss && stepNum === mission.tasks.length && !content.querySelector('#boss-spiral-box')) {
+    const bossMissions = new Set([5, 10, 15, 20, 24]);
+    if (bossMissions.has(id) && stepNum === mission.tasks.length && !content.querySelector('#boss-spiral-box')) {
       const bossBox = document.createElement('div');
       bossBox.id = 'boss-spiral-box';
       bossBox.style.cssText = 'background:#fef3c7;border:2px solid #f59e0b;border-radius:16px;padding:14px;margin:14px 0;';
       bossBox.innerHTML =
         '<strong style="color:#92400e;display:block;margin-bottom:4px;">👑 Reto Integrador del Mundo ' + worldNum + ' (Repaso en Espiral):</strong>' +
-        '<p style="font-size:0.88rem;color:#78350f;margin:0;">Antes de reclamar tu tesoro, combina en voz alta con tu profesora <b>una palabra del Mundo anterior</b> + <b>una estructura nueva de este Mundo</b>.</p>';
+        '<p style="font-size:0.88rem;color:#78350f;margin:0;">Antes de reclamar tu tesoro, combina en voz alta <b>una palabra del Mundo anterior</b> + <b>una estructura nueva de este Mundo</b>.</p>';
       if (scene) scene.parentNode.insertBefore(bossBox, scene.nextSibling);
+    }
+
+    // Reto extra de números hasta 100 / horas en el Mundo 3 (Misión 13 y 15)
+    if ((id === 13 || id === 15) && stepNum === 7 && !content.querySelector('#num-boost-box')) {
+      const numBox = document.createElement('div');
+      numBox.id = 'num-boost-box';
+      numBox.style.cssText = 'background:#e0f2fe;border:2px solid #0284c7;border-radius:16px;padding:14px;margin:14px 0;';
+      numBox.innerHTML =
+        '<strong style="color:#0369a1;display:block;margin-bottom:6px;">🔢 Desafío Extra de Nivel (Números hasta 100):</strong>' +
+        '<p style="font-size:0.88rem;margin:0 0 8px;">Escucha y escribe en cifras el código avanzado del laboratorio:</p>' +
+        '<button type="button" class="secondary" onclick="speakPlus(\'vierundachtzig\', true)">🔊 Escuchar código (84)</button> ' +
+        '<button type="button" class="secondary" onclick="speakPlus(\'siebenunddreißig\', true)">🔊 Escuchar código (37)</button>';
+      if (scene) scene.parentNode.insertBefore(numBox, scene.nextSibling);
     }
 
     const slowBtns = content.querySelectorAll('[data-slow-plus]');
@@ -398,32 +430,30 @@
           '<button type="button" class="secondary" id="show-opts-btn">Ver opciones</button>';
         optionsBox.parentNode.insertBefore(challenge, optionsBox);
 
-        document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
-        document.getElementById('check-write-btn').onclick = function() {
-          const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
-          const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
-          if (match) {
-            match.click();
-          } else {
-            const fb = document.getElementById('write-feedback');
-            fb.textContent = '💡 Casi... Revisa las terminaciones o artículos en tu Entdecker-Box a la derecha e inténtalo de nuevo.';
-            fb.style.display = 'block';
-          }
-        };
-      }
-    }
-  }
-
-  initSequenceUI();
-  enhanceStep();
-  const contentEl = document.getElementById('content');
-  if (contentEl) {
-    const observer = new MutationObserver(() => {
-      observer.disconnect();
-      enhanceStep();
-      observer.observe(contentEl, { childList: true });
-    });
-    observer.observe(contentEl, { childList: true });
-  }
+document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
+document.getElementById('check-write-btn').onclick = function() {
+const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
+const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
+if (match) {
+match.click();
+} else {
+const fb = document.getElementById('write-feedback');
+fb.textContent = '💡 Casi... Revisa las terminaciones o artículos en tu Entdecker-Box a la derecha e inténtalo de nuevo.';
+fb.style.display = 'block';
+}
+};
+}
+}
+}
+initSequenceUI();
+enhanceStep();
+const contentEl = document.getElementById('content');
+if (contentEl) {
+const observer = new MutationObserver(() => {
+observer.disconnect();
+enhanceStep();
+observer.observe(contentEl, { childList: true });
+});
+observer.observe(contentEl, { childList: true });
+}
 })();
-
