@@ -138,6 +138,33 @@
   };
 
   // 7. CONSTRUIR EL OBJETIVO Y LA ENTDECKER-BOX SIEMPRE VISIBLE
+    const EXTRA_VOCAB = {
+    1: [['der Weg', 'el camino', 'm'], ['die Freundschaft', 'la amistad', 'f'], ['das Abenteuer', 'la aventura', 'n'], ['suchen', 'buscar', 'v'], ['finden', 'encontrar', 'v']],
+    2: [['der Norden', 'el norte', 'm'], ['die Richtung', 'la dirección', 'f'], ['das Ziel', 'la meta', 'n'], ['gehen', 'ir / caminar', 'v'], ['zeigen', 'mostrar', 'v']],
+    3: [['der Stift', 'el lápiz', 'm'], ['die Flasche', 'la botella', 'f'], ['das Heft', 'el cuaderno', 'n'], ['packen', 'empacar', 'v'], ['brauchen', 'necesitar', 'v']],
+    4: [['der Pinsel', 'el pincel', 'm'], ['die Farbe', 'el color', 'f'], ['das Bild', 'el cuadro', 'n'], ['malen', 'pintar', 'v'], ['mischen', 'mezclar', 'v']],
+    5: [['der Schritt', 'el paso', 'm'], ['die Bewegung', 'el movimiento', 'f'], ['das Spiel', 'el juego', 'n'], ['laufen', 'correr', 'v'], ['springen', 'saltar', 'v']],
+    6: [['der Hunger', 'el hambre', 'm'], ['die Gabel', 'el tenedor', 'f'], ['das Messer', 'el cuchillo', 'n'], ['essen', 'comer', 'v'], ['trinken', 'beber', 'v']],
+    7: [['der Garten', 'el jardín', 'm'], ['die Treppe', 'la escalera', 'f'], ['das Dach', 'el techo', 'n'], ['wohnen', 'vivir', 'v'], ['schlafen', 'dormir', 'v']],
+    8: [['der Preis', 'el precio', 'm'], ['die Tasche', 'la bolsa', 'f'], ['das Geld', 'el dinero', 'n'], ['kaufen', 'comprar', 'v'], ['kosten', 'costar', 'v']],
+    9: [['der Morgen', 'la mañana', 'm'], ['die Stunde', 'la hora', 'f'], ['das Viertel', 'el cuarto', 'n'], ['warten', 'esperar', 'v'], ['beginnen', 'empezar', 'v']],
+    10: [['der König', 'el rey', 'm'], ['die Antwort', 'la respuesta', 'f'], ['das Rätsel', 'el acertijo', 'n'], ['fragen', 'preguntar', 'v'], ['wissen', 'saber', 'v']],
+    11: [['der Knopf', 'el botón', 'm'], ['die Schraube', 'el tornillo', 'f'], ['das Werkzeug', 'la herramienta', 'n'], ['reparieren', 'reparar', 'v'], ['bauen', 'construir', 'v']],
+    12: [['der Versuch', 'el experimento', 'm'], ['die Mischung', 'la mezcla', 'f'], ['das Glas', 'el vaso / frasco', 'n'], ['prüfen', 'comprobar', 'v'], ['ordnen', 'ordenar', 'v']],
+    13: [['der Fehler', 'el error', 'm'], ['die Zahl', 'el número', 'f'], ['das Licht', 'el luz', 'n'], ['rechnen', 'calcular', 'v'], ['schreiben', 'escribir', 'v']],
+    14: [['der Text', 'el texto', 'm'], ['die Nachricht', 'la mensaje', 'f'], ['das Wort', 'la palabra', 'n'], ['lesen', 'leer', 'v'], ['sprechen', 'hablar', 'v']],
+    15: [['der Erfolg', 'el éxito', 'm'], ['die Lösung', 'la solución', 'f'], ['das Geheimnis', 'el secreto', 'n'], ['verstehen', 'entender', 'v'], ['lösen', 'resolver', 'v']],
+    16: [['der Himmel', 'el cielo', 'm'], ['die Wolke', 'la nube', 'f'], ['das Gewitter', 'la tormenta', 'n'], ['regnen', 'llover', 'v'], ['scheinen', 'brillar', 'v']],
+    17: [['der Bahnhof', 'la estación', 'm'], ['die Reise', 'el viaje', 'f'], ['das Gleis', 'el andén', 'n'], ['fahren', 'viajar / ir', 'v'], ['ankommen', 'llegar', 'v']],
+    18: [['der Platz', 'la plaza', 'm'], ['die Straße', 'la calle', 'f'], ['das Gebäude', 'el edificio', 'n'], ['fliegen', 'volar', 'v'], ['besuchen', 'visitar', 'v']],
+    19: [['der Monat', 'el mes', 'm'], ['die Woche', 'la semana', 'f'], ['das Jahr', 'el año', 'n'], ['feiern', 'celebrar', 'v'], ['planen', 'planear', 'v']],
+    20: [['der Moment', 'el momento', 'm'], ['die Zeit', 'el tiempo', 'f'], ['das Tor', 'el portal', 'n'], ['öffnen', 'abrir', 'v'], ['schließen', 'cerrar', 'v']],
+    21: [['der Stein', 'la piedra', 'm'], ['die Brücke', 'el puente', 'f'], ['das Blatt', 'la hoja', 'n'], ['stehen', 'estar de pie', 'v'], ['liegen', 'estar tumbado', 'v']],
+    22: [['der Grund', 'el motivo', 'm'], ['die Idee', 'la idea', 'f'], ['das Gespräch', 'la charla', 'n'], ['erklären', 'explicar', 'v'], ['erzählen', 'contar', 'v']],
+    23: [['der Gast', 'el invitado', 'm'], ['die Einladung', 'la invitación', 'f'], ['das Geschenk', 'el regalo', 'n'], ['helfen', 'ayudar', 'v'], ['danken', 'agradecer', 'v']],
+    24: [['der Sieger', 'el ganador', 'm'], ['die Erinnerung', 'el recuerdo', 'f'], ['das Ende', 'el final', 'n'], ['schaffen', 'lograr', 'v'], ['verabschieden', 'despedirse', 'v']]
+  };
+
   function initSequenceUI() {
     const aside = document.querySelector('aside');
     const story = document.getElementById('intro');
@@ -149,18 +176,22 @@
       goalDiv.style.cssText = 'background:#dbeafe;border:2px solid #3b82f6;color:#1e3a8a;padding:12px 16px;border-radius:16px;font-weight:800;margin-bottom:14px;font-size:1rem;';
       goalDiv.textContent = KID_GOALS[id] || ('🎯 Tu reto hoy: Completar "' + mission.es + '" en alemán.');
       story.parentNode.insertBefore(goalDiv, story);
+
       const pad = String(id).padStart(2, '0');
-const hubBar = document.createElement('div');
-hubBar.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;';
-hubBar.innerHTML =
-  '<a href="tarjetas-interactivas.html?m=' + id + '" style="background:#8b5cf6;color:white;padding:8px 14px;border-radius:12px;text-decoration:none;font-weight:800;font-size:0.9rem;">🃏 Tarjetas de la Misión ' + id + '</a>' +
-  '<a href="TABLERO_VISUAL_MISION_' + pad + '.pdf" target="_blank" style="background:#0ea5e9;color:white;padding:8px 14px;border-radius:12px;text-decoration:none;font-weight:800;font-size:0.9rem;">🎨 Tablero Visual (PDF)</a>' +
-  '<a href="Mision_' + pad + '.pdf" download style="background:#f97316;color:white;padding:8px 14px;border-radius:12px;text-decoration:none;font-weight:800;font-size:0.9rem;">📄 Ficha de Ejercicios (PDF)</a>';
-story.parentNode.insertBefore(hubBar, story);
+      const hubBar = document.createElement('div');
+      hubBar.style.cssText = 'display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px;';
+      hubBar.innerHTML =
+        '<a href="tarjetas-interactivas.html?m=' + id + '" style="background:#8b5cf6;color:white;padding:8px 14px;border-radius:12px;text-decoration:none;font-weight:800;font-size:0.9rem;">🃏 Tarjetas de la Misión ' + id + '</a>' +
+        '<a href="TABLERO_VISUAL_MISION_' + pad + '.pdf" target="_blank" style="background:#0ea5e9;color:white;padding:8px 14px;border-radius:12px;text-decoration:none;font-weight:800;font-size:0.9rem;">🎨 Tablero Visual (PDF)</a>' +
+        '<a href="Mision_' + pad + '.pdf" download style="background:#f97316;color:white;padding:8px 14px;border-radius:12px;text-decoration:none;font-weight:800;font-size:0.9rem;">📄 Ficha de Ejercicios (PDF)</a>';
+      story.parentNode.insertBefore(hubBar, story);
     }
 
     if (!document.getElementById('entdecker-box-fixed')) {
       const vocabList = extractVocab();
+      const extras = EXTRA_VOCAB[id] || [];
+      const typeColor = { m: '#2563eb', f: '#dc2626', n: '#16a34a', v: '#334155' };
+
       const box = document.createElement('div');
       box.id = 'entdecker-box-fixed';
       box.style.cssText = 'background:#f8fafc;border:3px solid #8b5cf6;border-radius:18px;padding:14px;margin-bottom:16px;';
@@ -169,13 +200,25 @@ story.parentNode.insertBefore(hubBar, story);
         '<div style="background:#f3e8ff;padding:10px;border-radius:12px;font-size:0.85rem;margin-bottom:10px;line-height:1.4;">' +
           '<strong style="color:#6d28d9;display:block;margin-bottom:4px;">💡 ' + grammar.title + '</strong>' + grammar.rule +
         '</div>' +
-        '<strong style="font-size:0.85rem;color:#334155;display:block;margin-bottom:6px;">🔊 Palabras clave (haz clic):</strong>' +
-        '<div style="display:flex;flex-wrap:wrap;gap:6px;">' +
-          vocabList.map(w => '<button type="button" onclick="speakPlus(\'' + w.full.replace(/'/g, "\\'") + '\', false)" style="background:white;color:' + w.color + ';border:2px solid ' + w.color + ';padding:4px 8px;border-radius:10px;font-size:0.82rem;min-height:auto;font-weight:800;">🔊 ' + w.full + '</button>').join('') +
+        '<strong style="font-size:0.85rem;color:#334155;display:block;margin-bottom:6px;">🔊 Palabras de la misión:</strong>' +
+        '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">' +
+          vocabList.map(w => '<button type="button" onclick="speakPlus(\'' + w.full.replace(/'/g, "\\'") + '\', false)" style="background:white;color:' + w.color + ';border:2px solid ' + w.color + ';padding:4px 8px;border-radius:10px;font-size:0.8rem;min-height:auto;font-weight:800;">🔊 ' + w.full + '</button>').join('') +
+        '</div>' +
+        '<strong style="font-size:0.85rem;color:#0f172a;display:block;margin-bottom:6px;">✨ 5 Palabras Nuevas (haz clic para oír):</strong>' +
+        '<div style="display:flex;flex-direction:column;gap:5px;">' +
+          extras.map(([de, es, tp]) => {
+            const c = typeColor[tp] || '#334155';
+            const icon = tp === 'v' ? '⚡' : '🔊';
+            const tag = tp === 'v' ? 'acción' : tp === 'm' ? 'der' : tp === 'f' ? 'die' : 'das';
+            return '<button type="button" onclick="speakPlus(\'' + de.replace(/'/g, "\\'") + '\', false)" ' +
+              'style="display:flex;justify-content:space-between;align-items:center;background:white;color:' + c + ';border:1.5px solid ' + c + ';padding:5px 10px;border-radius:10px;font-size:0.82rem;min-height:auto;font-weight:800;text-align:left;">' +
+              '<span>' + icon + ' ' + de + '</span><span style="color:#64748b;font-weight:600;font-size:0.76rem;">' + es + ' (' + tag + ')</span></button>';
+          }).join('') +
         '</div>';
       aside.insertBefore(box, aside.firstChild);
     }
   }
+
 
   // 8. ENRIQUECER CADA ACTIVIDAD (VIÑETA + AUDIO LENTO + GRABADORA + ESCRITURA)
   function enhanceStep() {
