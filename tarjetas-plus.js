@@ -112,7 +112,7 @@
 
       const match = rawText.match(/\b(der|die|das|ein|eine|einen)\b/i);
       if (match) {
-        const art = match[1].toLowerCase();
+        const art = match.at(1).toLowerCase();
         const isMasc = art === 'der' || art === 'einen';
         const isFem = art === 'die' || art === 'eine';
         const color = isMasc ? '#2563eb' : isFem ? '#dc2626' : '#16a34a';
@@ -126,7 +126,7 @@
       }
 
       const lines = (card.textContent || '').split('\n').map(s => s.trim()).filter(Boolean);
-      const phrase = lines.find(l => /^(der|die|das|ein|eine|felix)/i.test(l)) || lines[lines.length - 1];
+      const phrase = lines.find(l => /^(der|die|das|ein|eine|felix)/i.test(l)) || lines.at(-1);
       if (phrase && !phrase.startsWith('Imagen')) {
         const slowBtn = document.createElement('button');
         slowBtn.type = 'button';
