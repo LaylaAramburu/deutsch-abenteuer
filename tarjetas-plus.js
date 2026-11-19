@@ -18,20 +18,8 @@
   document.head.appendChild(style);
 
   // DICCIONARIO COMPLETO PARA LAS 24 MISIONES
-  const ICONS = {
+ const ICONS = {
     apfel: '🍎', wasser: '💧', suppe: '🍲', brot: '🍞', milch: '🥛', kuchen: '🍰', käse: '🧀',
-    kompass: '🧭', felix: '🦊', weg: '🛤️', karte: '🗺️', buch: '📕', rucksack: '🎒', ball: '⚽',
-    fuchs: '🦊', eule: '🦉', baum: '🌳', fluss: '🌊', blume: '🌻', pilz: '🍄', brücke: '🌉',
-    sonne: '☀️', mond: '🌙', regen: '🌧️', schnee: '❄️', wind: '🌬️', wetter: '🌦️', wolke: '☁️',
-    schloss: '🏰', königin: '👸', krone: '👑', koch: '🧑‍🍳', wächter: '💂', schlüssel: '🗝️',
-    stuhl: '🪑', tisch: '🪵', bett: '🛏️', tür: '🚪', fenster: '🪟', uhr: '🕰️', bad: '🛁',
-    küche: '🍳', schlafzimmer: '🛏️', gästezimmer: '🛋️', markt: '🏪', geld: '🪙', münze: '🪙',
-    roboter: '🤖', batterie: '🔋', flasche: '🧴', computer: '💻', mikroskop: '🔬', labor: '🧪',
-    zug: '🚂', bahnhof: '🚉', bus: '🚌', fahrrad: '🚲', rakete: '🚀', ticket: '🎟️', stadt: '🏙️',
-    kalender: '📅', geburtstag: '🎂', portal: '🌀', hund: '🐕', katze: '🐈', hase: '🐇',
-    jacke: '🧥', hose: '👖', schuh: '👟', hut: '🎩', hemd: '👕', kleid: '👗', stift: '✏️',
-    farbe: '🎨', tasche: '👜', glas: '🥛', teller: '🍽️', tor: '⛩️', brief: '✉️', geschenk: '🎁'
-  };apfel: '🍎', wasser: '💧', suppe: '🍲', brot: '🍞', milch: '🥛', kuchen: '🍰', käse: '🧀',
     kompass: '🧭', felix: '🦊', weg: '🛤️', karte: '🗺️', buch: '📕', rucksack: '🎒', ball: '⚽',
     fuchs: '🦊', eule: '🦉', baum: '🌳', fluss: '🌊', blume: '🌻', pilz: '🍄', brücke: '🌉',
     sonne: '☀️', mond: '🌙', regen: '🌧️', schnee: '❄️', wind: '🌬️', wetter: '🌦️', wolke: '☁️',
