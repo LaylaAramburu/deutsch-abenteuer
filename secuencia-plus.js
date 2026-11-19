@@ -4,11 +4,14 @@
   const mission = window.DEUTSCH_MISSIONS && window.DEUTSCH_MISSIONS[id];
   if (!mission) return;
 
-  // 1. ESTILOS BLINDADOS PARA EVITAR SOLAPAMIENTOS
+  // 1. ESTILOS LIMPIOS PARA VIÑETAS, BOTONES Y ETIQUETAS CASA/CLASE
   const style = document.createElement('style');
   style.textContent =
-    '.comic-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }' +
+    '.comic-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }' +
     '.comic-badge { background: white; padding: 4px 12px; border-radius: 99px; font-size: 0.82rem; font-weight: 800; color: #334155; }' +
+    '.mode-tag { padding: 4px 12px; border-radius: 99px; font-size: 0.8rem; font-weight: 800; }' +
+    '.mode-home { background: #fef3c7; color: #92400e; border: 1.5px solid #f59e0b; }' +
+    '.mode-class { background: #e0e7ff; color: #3730a3; border: 1.5px solid #6366f1; }' +
     '.comic-body { display: flex; align-items: center; gap: 14px; text-align: left; }' +
     '.comic-avatar { background: white; border-radius: 50%; width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; font-size: 2.3rem; flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.08); }' +
     '.comic-bubble { background: white; border: 2px solid #cbd5e1; border-radius: 18px; padding: 14px 18px; flex: 1; box-shadow: 0 3px 0 #e2e8f0; }' +
@@ -19,87 +22,87 @@
     '.rec-bar button { background: #0284c7 !important; color: white !important; border: none !important; padding: 8px 16px !important; border-radius: 10px !important; font-weight: 800 !important; cursor: pointer !important; min-height: 40px !important; }';
   document.head.appendChild(style);
 
-  // 2. MICRO-REGLAS GRAMATICALES AUDITADAS (NIVEL A1 PROGRESIVO)
+  // 2. MICRO-REGLAS GRAMATICALES POR MISIÓN
   const MISSION_GRAMMAR = {
-    1: { title: 'Presentación y verbo en 2.ª posición', rule: '• <i>Ich <b>heiße</b>... / Ich <b>bin</b> neun Jahre alt.</i><br>• El verbo conjugado siempre ocupa la <b>2.ª posición</b>.' },
-    2: { title: 'Ubicación con WO y direcciones', rule: '• <i><b>Wo</b> ist der Kompass?</i> (¿Dónde está?)<br>• <i>links</i> (izquierda), <i>rechts</i> (derecha), <i>in der Mitte</i> (en el centro).' },
-    3: { title: 'Acusativo con HABEN y BRAUCHEN', rule: '• Solo cambia el masculino (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>):<br><i>Ich habe <b>einen</b> Ball, <b>eine</b> Karte und <b>ein</b> Buch.</i>' },
-    4: { title: 'Adjetivos predicativos de color', rule: '• Después de <i>ist / sind</i>, el color no lleva terminación:<br><i>Der Baum <b>ist grün</b>. Die Blumen <b>sind gelb</b>.</i>' },
-    5: { title: 'Presente: terminaciones y cambio vocálico', rule: '• <i>ich lauf<b>e</b> · du läuf<b>st</b> · er/sie läuf<b>t</b> · wir lauf<b>en</b>.</i><br>• Atención al cambio <b>a -> ä</b> en <i>du</i> y <i>er/sie</i>.' },
-    6: { title: 'W-Fragen: WER (persona) y WAS (objeto)', rule: '• <i><b>Wer</b> isst das Brot?</i> (Sujeto) · <i><b>Was</b> trinkt der Koch?</i> (Objeto).<br>• Verbo siempre en <b>2.ª posición</b>.' },
-    7: { title: 'Lugar con Dativo: IN DER / IM', rule: '• <i><b>Wo</b> ist der Koch?</i> -> <i><b>In der</b> Küche</i> (<span style="color:#dc2626">die</span>) · <i><b>Im</b> Bad</i> (<span style="color:#16a34a">das</span>) · <i><b>Im</b> Garten</i> (<span style="color:#2563eb">der</span>).' },
-    8: { title: 'Precios y plural: WIE VIEL KOSTET / KOSTEN?', rule: '• Singular: <i>Wie viel <b>kostet</b> der Apfel?</i><br>• Plural: <i>Wie viel <b>kosten</b> die Äpfel?</i>' },
+    1: { title: 'Presentación y amigos (SEIN / HEIßEN)', rule: '• <i>Ich <b>heiße</b>... / Das <b>ist</b> mein Freund.</i><br>• Verbo siempre en <b>2.ª posición</b>.' },
+    2: { title: 'Ubicación con WO y direcciones', rule: '• <i><b>Wo</b> ist der Sportplatz?</i> (¿Dónde está?)<br>• <i>links</i> (izquierda), <i>rechts</i> (derecha), <i>in der Mitte</i> (centro).' },
+    3: { title: 'Escuela y mochila en Acusativo', rule: '• Solo cambia masculino (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>):<br><i>Ich habe <b>einen</b> Stift, <b>eine</b> Tasche und <b>ein</b> Heft.</i>' },
+    4: { title: 'Adjetivos de color después de SEIN', rule: '• Sin terminación después del verbo:<br><i>Der Ball <b>ist rot</b>. Die Schuhe <b>sind blau</b>.</i>' },
+    5: { title: 'Cuerpo y deporte: verbos en presente', rule: '• <i>ich lauf<b>e</b> · du läuf<b>st</b> · er/sie läuf<b>t</b> · wir spiel<b>en</b>.</i><br>• Cambio vocal <b>a -> ä</b> en <i>du</i> y <i>er/sie</i>.' },
+    6: { title: 'W-Fragen: WER (quién) y WAS (qué)', rule: '• <i><b>Wer</b> isst?</i> (Persona) · <i><b>Was</b> trinkt der Freund?</i> (Objeto).<br>• Verbo siempre en <b>2.ª posición</b>.' },
+    7: { title: 'Lugar con Dativo: IN DER / IM', rule: '• <i><b>Wo</b> bist du?</i> -> <i><b>In der</b> Schule</i> (<span style="color:#dc2626">die</span>) · <i><b>Im</b> Park</i> (<span style="color:#2563eb">der</span>) · <i><b>Im</b> Bad</i> (<span style="color:#16a34a">das</span>).' },
+    8: { title: 'Precios y plural: WIE VIEL KOSTET / KOSTEN?', rule: '• Singular: <i>Wie viel <b>kostet</b> der Ball?</i><br>• Plural: <i>Wie viel <b>kosten</b> die Stifte?</i>' },
     9: { title: 'Horas exactas y medias (WIE SPÄT IST ES?)', rule: '• Exacta: <i>Es ist <b>acht Uhr</b></i> (8:00).<br>• Media: <i>Es ist <b>halb neun</b></i> (8:30, media para las 9).' },
-    10: { title: 'Síntesis de W-Fragen (Mundo 2)', rule: '• <b>Wer</b> (quién) · <b>Was</b> (qué) · <b>Wo</b> (dónde) · <b>Wann</b> (cuándo) · <b>Wie viel</b> (cuánto).' },
-    11: { title: 'Acusativo con artículos definidos e indefinidos', rule: '• <i>Wir reparieren <b>den</b> Roboter (<span style="color:#2563eb">der</span>) und brauchen <b>eine</b> Batterie (<span style="color:#dc2626">die</span>).</i>' },
-    12: { title: 'Negación de sustantivos: KEIN / KEINE / KEINEN', rule: '• <i>Das ist <b>kein</b> Wasser</i> (<span style="color:#16a34a">das</span>) · <i><b>keine</b> Milch</i> (<span style="color:#dc2626">die</span>).<br>• Acusativo masc.: <i>Ich habe <b>keinen</b> Schlüssel</i> (<span style="color:#2563eb">der</span>).' },
-    13: { title: 'Números hasta 100 (Unidad + und + Decena)', rule: '• 24 = <i>vier<b>und</b>zwanzig</i> · 58 = <i>acht<b>und</b>fünfzig</i>.<br>• Se leen de derecha a izquierda.' },
-    14: { title: 'Verbos irregulares: LESEN, SEHEN, SPRECHEN', rule: '• <i>du <b>liest</b> / er <b>liest</b></i> · <i>du <b>siehst</b> / er <b>sieht</b></i> · <i>du <b>sprichst</b> / er <b>spricht</b></i>.' },
-    15: { title: 'Síntesis del Laboratorio (Números + Negación)', rule: '• Combina cantidad, negación y acusativo:<br><i>Wir haben <b>dreißig</b> Punkte, aber <b>keinen</b> Code.</i>' },
-    16: { title: 'El clima: WIE IST DAS WETTER?', rule: '• <i>Es <b>regnet</b></i> (llueve) · <i>Es <b>schneit</b></i> (nieva) · <i>Die Sonne <b>scheint</b></i>.<br>• <i>Es ist kalt / warm / windig.</i>' },
-    17: { title: 'Medios de transporte: MIT DEM / MIT DER', rule: '• <i>Ich fahre <b>mit dem</b> Zug / Bus</i> (<span style="color:#2563eb">der</span>) · <i><b>mit der</b> U-Bahn</i> (<span style="color:#dc2626">die</span>).' },
-    18: { title: 'Dirección: WOHIN? (¿Adónde?)', rule: '• <i><b>Wohin</b> gehst du?</i> -> <i><b>Zum</b> Bahnhof</i> (<span style="color:#2563eb">der</span>) · <i><b>Zur</b> Schule</i> (<span style="color:#dc2626">die</span>) · <i><b>Nach</b> Hause</i>.' },
-    19: { title: 'Preposiciones temporales: AM y IM', rule: '• Días y partes del día: <i><b>am</b> Montag, <b>am</b> Abend</i>.<br>• Meses y estaciones: <i><b>im</b> Juli, <b>im</b> Winter</i>.' },
-    20: { title: 'Orden de la oración (Tiempo antes que Lugar)', rule: '• <i>Wir fahren <b>am Samstag</b> (cuándo) <b>in die Stadt</b> (dónde).</i>' },
-    21: { title: 'Preposiciones espaciales con Dativo (Wo?)', rule: '• <i><b>auf</b> dem Tisch</i> (sobre) · <i><b>unter</b> dem Baum</i> (debajo) · <i><b>neben</b> der Brücke</i> (al lado).' },
-    22: { title: 'Preguntas con WARUM y WANN', rule: '• <i><b>Warum</b> lernst du Deutsch?</i> (¿Por qué?) -> <i>Weil es Spaß macht!</i>' },
-    23: { title: 'Verbo modal KÖNNEN + Trato formal SIE', rule: '• <i><b>Können</b> Sie mir bitte <b>helfen</b>?</i><br>• Modal en 2.ª posición, segundo verbo en infinitivo al final.' },
-    24: { title: 'Gran Síntesis A1 · Conectores UND, ABER, ODER', rule: '• Une tus ideas: <i>Ich heiße Mia, ich wohne in Berlin <b>und</b> ich spreche Deutsch!</i>' }
+    10: { title: 'Síntesis de W-Fragen (Mundo 2)', rule: '• <b>Wer</b> · <b>Was</b> · <b>Wo</b> · <b>Wann</b> · <b>Wie viel</b> + Verbo (pos. 2).' },
+    11: { title: 'Acusativo con objetos y cuerpo', rule: '• <i>Ich brauche <b>den</b> Helm (<span style="color:#2563eb">der</span>) und <b>eine</b> Flasche (<span style="color:#dc2626">die</span>).</i>' },
+    12: { title: 'Negación de sustantivos: KEIN / KEINE / KEINEN', rule: '• <i>Das ist <b>kein</b> Heft</i> (<span style="color:#16a34a">das</span>) · <i><b>keine</b> Pause</i> (<span style="color:#dc2626">die</span>) · <i><b>keinen</b> Ball</i> (<span style="color:#2563eb">der</span>).' },
+    13: { title: 'Números hasta 100 (Unidad + und + Decena)', rule: '• 24 = <i>vier<b>und</b>zwanzig</i> · 65 = <i>fünf<b>und</b>sechzig</i>.' },
+    14: { title: 'Escuela: LESEN, SEHEN, SPRECHEN', rule: '• <i>du <b>liest</b> / er <b>liest</b></i> · <i>du <b>siehst</b> / er <b>sieht</b></i> · <i>du <b>sprichst</b> / er <b>spricht</b></i>.' },
+    15: { title: 'Síntesis del Laboratorio (Números + Negación)', rule: '• <i>Wir haben <b>vierzig</b> Punkte, aber <b>keinen</b> Fehler.</i>' },
+    16: { title: 'Clima y deporte: WIE IST DAS WETTER?', rule: '• <i>Es <b>regnet</b></i> (llueve) · <i>Die Sonne <b>scheint</b></i>.<br>• <i>Bei Sonne spielen wir Fußball!</i>' },
+    17: { title: 'Transporte a la escuela: MIT DEM / MIT DER', rule: '• <i>Ich fahre <b>mit dem</b> Bus / Fahrrad</i> (<span style="color:#2563eb">der</span>/<span style="color:#16a34a">das</span>) · <i><b>mit der</b> U-Bahn</i> (<span style="color:#dc2626">die</span>).' },
+    18: { title: 'Dirección: WOHIN? (¿Adónde?)', rule: '• <i><b>Wohin</b> gehst du?</i> -> <i><b>Zum</b> Sportplatz</i> · <i><b>Zur</b> Schule</i> · <i><b>Nach</b> Hause</i>.' },
+    19: { title: 'Horario escolar y amigos: AM y IM', rule: '• Días: <i><b>am</b> Montag, <b>am</b> Samstag</i>.<br>• Meses/estaciones: <i><b>im</b> Juli, <b>im</b> Sommer</i>.' },
+    20: { title: 'Orden de la oración (Tiempo antes que Lugar)', rule: '• <i>Wir trainieren <b>am Freitag</b> (cuándo) <b>im Park</b> (dónde).</i>' },
+    21: { title: 'Preposiciones espaciales con Dativo (Wo?)', rule: '• <i><b>auf</b> dem Tisch</i> · <i><b>unter</b> dem Stuhl</i> · <i><b>neben</b> der Tafel</i>.' },
+    22: { title: 'Preguntas con WARUM y WANN', rule: '• <i><b>Warum</b> machst du Sport?</i> -> <i>Weil es Spaß macht!</i>' },
+    23: { title: 'Verbo modal KÖNNEN + Trato formal SIE', rule: '• <i><b>Können</b> Sie mir bitte <b>helfen</b>?</i> (2.º verbo al final).' },
+    24: { title: 'Gran Síntesis A1 · Conectores UND, ABER, ODER', rule: '• <i>Ich gehe in die Schule, spiele Fußball <b>und</b> spreche Deutsch!</i>' }
   };
   // 3. OBJETIVOS PEDAGÓGICOS EN LENGUAJE MOTIVADOR PARA 10 AÑOS
   const KID_GOALS = {
-    1: '🎯 Tu reto: Presentarte en alemán y ayudar a Félix a encontrar su brújula.',
+    1: '🎯 Tu reto: Presentarte a ti, a tus amigos y a tu familia en alemán.',
     2: '🎯 Tu reto: Seguir las pistas del mapa usando izquierda, derecha y centro.',
-    3: '🎯 Tu reto: Preparar la mochila usando ein, eine y einen en acusativo.',
-    4: '🎯 Tu reto: Devolver los colores al bosque describiendo objetos.',
-    5: '🎯 Tu reto: Dominar las terminaciones de los verbos (ich, du, er/sie).',
-    6: '🎯 Tu reto: Descubrir quién come y bebe qué en el banquete (Wer / Was).',
-    7: '🎯 Tu reto: Encontrar las habitaciones del castillo preguntando con Wo.',
-    8: '🎯 Tu reto: Comprar en el mercado contando euros y precios en alemán.',
-    9: '🎯 Tu reto: Reparar el gran reloj diciendo horas exactas y medias (halb).',
-    10: '🎯 Tu reto: Resolver el acertijo final de la reina combinando W-Fragen.',
-    11: '🎯 Tu reto: Reparar el robot pidiendo las piezas en acusativo.',
-    12: '🎯 Tu reto: Clasificar los experimentos usando la negación kein y keine.',
-    13: '🎯 Tu reto: Descifrar el código secreto con números hasta 100.',
-    14: '🎯 Tu reto: Recuperar los datos usando verbos irregulares (liest, sieht, spricht).',
-    15: '🎯 Tu reto: Superar el reto del laboratorio combinando números y negación.',
-    16: '🎯 Tu reto: Calmar la tormenta describiendo el clima en alemán.',
-    17: '🎯 Tu reto: Viajar en tren y autobús usando mit dem y mit der.',
+    3: '🎯 Tu reto: Preparar la mochila de la escuela usando ein, eine y einen.',
+    4: '🎯 Tu reto: Devolver los colores a la ropa y objetos deportivos.',
+    5: '🎯 Tu reto: Dominar las partes del cuerpo y las acciones de deporte.',
+    6: '🎯 Tu reto: Descubrir quién come y bebe qué en familia usando Wer y Was.',
+    7: '🎯 Tu reto: Encontrar las habitaciones de la casa y la escuela con Wo.',
+    8: '🎯 Tu reto: Comprar material escolar y deportivo contando euros en alemán.',
+    9: '🎯 Tu reto: Organizar el horario escolar y deportivo diciendo las horas.',
+    10: '🎯 Tu reto: Resolver el acertijo final combinando todas las W-Fragen.',
+    11: '🎯 Tu reto: Revisar el equipo deportivo y el cuerpo usando el acusativo.',
+    12: '🎯 Tu reto: Clasificar objetos de la escuela y familia usando kein y keine.',
+    13: '🎯 Tu reto: Descifrar los códigos matemáticos con números hasta 100.',
+    14: '🎯 Tu reto: Contar qué leen, ven y hablan tus amigos y familia.',
+    15: '🎯 Tu reto: Superar el reto integrador combinando números y negación.',
+    16: '🎯 Tu reto: Elegir el deporte adecuado según el clima en alemán.',
+    17: '🎯 Tu reto: Viajar a la escuela y al entrenamiento usando mit dem y mit der.',
     18: '🎯 Tu reto: Orientarte en la ciudad preguntando Wohin? (¿Adónde?).',
-    19: '🎯 Tu reto: Arreglar el calendario con días de la semana (am) y meses (im).',
-    20: '🎯 Tu reto: Abrir el portal combinando tiempo, clima y lugar en orden.',
-    21: '🎯 Tu reto: Regresar al bosque usando preposiciones de lugar (auf, unter, neben).',
-    22: '🎯 Tu reto: Responder al interrogatorio maestro con todas las W-Fragen.',
-    23: '🎯 Tu reto: Hacer una visita cortés usando können y el trato formal Sie.',
-    24: '🎯 Tu reto: Completar la aventura final demostrando todo tu alemán A1.'
+    19: '🎯 Tu reto: Planear cumpleaños familiares y partidos con días y meses.',
+    20: '🎯 Tu reto: Ordenar frases combinando tiempo, clima y lugar.',
+    21: '🎯 Tu reto: Ubicar objetos de clase y deporte con auf, unter y neben.',
+    22: '🎯 Tu reto: Explicar por qué te gusta un deporte o materia con Warum.',
+    23: '🎯 Tu reto: Pedir ayuda cortésmente en la escuela o club usando können y Sie.',
+    24: '🎯 Tu reto: Completar la gran aventura final demostrando todo tu alemán A1.'
   };
 
-  // 4. CINCO PALABRAS NUEVAS POR MISIÓN (SUSTANTIVOS COTIDIANOS + ACCIONES ⚡)
+  // 4. CINCO PALABRAS NUEVAS POR MISIÓN (FAMILIA · ESCUELA · AMIGOS · CUERPO · DEPORTE)
   const EXTRA_VOCAB = {
-    1: [['der Weg', 'el camino', 'm'], ['die Freundschaft', 'la amistad', 'f'], ['das Abenteuer', 'la aventura', 'n'], ['suchen', 'buscar', 'v'], ['finden', 'encontrar', 'v']],
-    2: [['der Norden', 'el norte', 'm'], ['die Richtung', 'la dirección', 'f'], ['das Ziel', 'la meta', 'n'], ['gehen', 'ir / caminar', 'v'], ['zeigen', 'mostrar', 'v']],
-    3: [['der Stift', 'el lápiz', 'm'], ['die Flasche', 'la botella', 'f'], ['das Heft', 'el cuaderno', 'n'], ['packen', 'empacar', 'v'], ['brauchen', 'necesitar', 'v']],
-    4: [['der Pinsel', 'el pincel', 'm'], ['die Farbe', 'el color', 'f'], ['das Bild', 'el cuadro', 'n'], ['malen', 'pintar', 'v'], ['mischen', 'mezclar', 'v']],
-    5: [['der Schritt', 'el paso', 'm'], ['die Bewegung', 'el movimiento', 'f'], ['das Spiel', 'el juego', 'n'], ['laufen', 'correr', 'v'], ['springen', 'saltar', 'v']],
-    6: [['der Hunger', 'el hambre', 'm'], ['die Gabel', 'el tenedor', 'f'], ['das Messer', 'el cuchillo', 'n'], ['essen', 'comer', 'v'], ['trinken', 'beber', 'v']],
-    7: [['der Garten', 'el jardín', 'm'], ['die Treppe', 'la escalera', 'f'], ['das Dach', 'el techo', 'n'], ['wohnen', 'vivir', 'v'], ['schlafen', 'dormir', 'v']],
-    8: [['der Preis', 'el precio', 'm'], ['die Tasche', 'la bolsa', 'f'], ['das Geld', 'el dinero', 'n'], ['kaufen', 'comprar', 'v'], ['kosten', 'costar', 'v']],
-    9: [['der Morgen', 'la mañana', 'm'], ['die Stunde', 'la hora', 'f'], ['das Viertel', 'el cuarto', 'n'], ['warten', 'esperar', 'v'], ['beginnen', 'empezar', 'v']],
-    10: [['der König', 'el rey', 'm'], ['die Antwort', 'la respuesta', 'f'], ['das Rätsel', 'el acertijo', 'n'], ['fragen', 'preguntar', 'v'], ['wissen', 'saber', 'v']],
-    11: [['der Knopf', 'el botón', 'm'], ['die Schraube', 'el tornillo', 'f'], ['das Werkzeug', 'la herramienta', 'n'], ['reparieren', 'reparar', 'v'], ['bauen', 'construir', 'v']],
-    12: [['der Versuch', 'el experimento', 'm'], ['die Mischung', 'la mezcla', 'f'], ['das Glas', 'el vaso / frasco', 'n'], ['prüfen', 'comprobar', 'v'], ['ordnen', 'ordenar', 'v']],
-    13: [['der Fehler', 'el error', 'm'], ['die Zahl', 'el número', 'f'], ['das Licht', 'la luz', 'n'], ['rechnen', 'calcular', 'v'], ['schreiben', 'escribir', 'v']],
-    14: [['der Text', 'el texto', 'm'], ['die Nachricht', 'el mensaje', 'f'], ['das Wort', 'la palabra', 'n'], ['lesen', 'leer', 'v'], ['sprechen', 'hablar', 'v']],
-    15: [['der Erfolg', 'el éxito', 'm'], ['die Lösung', 'la solución', 'f'], ['das Geheimnis', 'el secreto', 'n'], ['verstehen', 'entender', 'v'], ['lösen', 'resolver', 'v']],
-    16: [['der Himmel', 'el cielo', 'm'], ['die Wolke', 'la nube', 'f'], ['das Gewitter', 'la tormenta', 'n'], ['regnen', 'llover', 'v'], ['scheinen', 'brillar', 'v']],
-    17: [['der Bahnhof', 'la estación', 'm'], ['die Reise', 'el viaje', 'f'], ['das Gleis', 'el andén', 'n'], ['fahren', 'viajar / ir', 'v'], ['ankommen', 'llegar', 'v']],
-    18: [['der Platz', 'la plaza', 'm'], ['die Straße', 'la calle', 'f'], ['das Gebäude', 'el edificio', 'n'], ['fliegen', 'volar', 'v'], ['besuchen', 'visitar', 'v']],
-    19: [['der Monat', 'el mes', 'm'], ['die Woche', 'la semana', 'f'], ['das Jahr', 'el año', 'n'], ['feiern', 'celebrar', 'v'], ['planen', 'planear', 'v']],
-    20: [['der Moment', 'el momento', 'm'], ['die Zeit', 'el tiempo', 'f'], ['das Tor', 'el portal', 'n'], ['öffnen', 'abrir', 'v'], ['schließen', 'cerrar', 'v']],
-    21: [['der Stein', 'la piedra', 'm'], ['die Brücke', 'el puente', 'f'], ['das Blatt', 'la hoja', 'n'], ['stehen', 'estar de pie', 'v'], ['liegen', 'estar tumbado', 'v']],
-    22: [['der Grund', 'el motivo', 'm'], ['die Idee', 'la idea', 'f'], ['das Gespräch', 'la charla', 'n'], ['erklären', 'explicar', 'v'], ['erzählen', 'contar', 'v']],
-    23: [['der Gast', 'el invitado', 'm'], ['die Einladung', 'la invitación', 'f'], ['das Geschenk', 'el regalo', 'n'], ['helfen', 'ayudar', 'v'], ['danken', 'agradecer', 'v']],
-    24: [['der Sieger', 'el ganador', 'm'], ['die Erinnerung', 'el recuerdo', 'f'], ['das Ende', 'el final', 'n'], ['schaffen', 'lograr', 'v'], ['verabschieden', 'despedirse', 'v']]
+    1: [['der Bruder', 'el hermano', 'm'], ['die Schwester', 'la hermana', 'f'], ['das Kind', 'el niño / hijo', 'n'], ['heißen', 'llamarse', 'v'], ['wohnen', 'vivir', 'v']],
+    2: [['der Freund', 'el amigo', 'm'], ['die Freundin', 'la amiga', 'f'], ['das Team', 'el equipo', 'n'], ['gehen', 'ir / caminar', 'v'], ['suchen', 'buscar', 'v']],
+    3: [['der Bleistift', 'el lápiz', 'm'], ['die Schere', 'las tijeras', 'f'], ['das Lineal', 'la regla', 'n'], ['packen', 'empacar', 'v'], ['brauchen', 'necesitar', 'v']],
+    4: [['der Radiergummi', 'la goma', 'm'], ['die Schultasche', 'la mochila escolar', 'f'], ['das Mäppchen', 'el estuche', 'n'], ['malen', 'pintar / dibujar', 'v'], ['finden', 'encontrar', 'v']],
+    5: [['der Kopf', 'la cabeza', 'm'], ['die Hand', 'la mano', 'f'], ['das Bein', 'la pierna', 'n'], ['laufen', 'correr', 'v'], ['springen', 'saltar', 'v']],
+    6: [['der Vater', 'el padre', 'm'], ['die Mutter', 'la madre', 'f'], ['das Frühstück', 'el desayuno', 'n'], ['essen', 'comer', 'v'], ['trinken', 'beber', 'v']],
+    7: [['der Raum', 'el aula / sala', 'm'], ['die Schule', 'la escuela', 'f'], ['das Klassenzimmer', 'el salón de clase', 'n'], ['lernen', 'aprender', 'v'], ['sitzen', 'estar sentado', 'v']],
+    8: [['der Ball', 'la pelota', 'm'], ['die Flasche', 'la botella', 'f'], ['das Trikot', 'la camiseta deportiva', 'n'], ['kaufen', 'comprar', 'v'], ['kosten', 'costar', 'v']],
+    9: [['der Unterricht', 'la clase / lección', 'm'], ['die Pause', 'el recreo / pausa', 'f'], ['das Training', 'el entrenamiento', 'n'], ['beginnen', 'empezar', 'v'], ['warten', 'esperar', 'v']],
+    10: [['der Großvater', 'el abuelo', 'm'], ['die Großmutter', 'la abuela', 'f'], ['das Rätsel', 'el acertijo', 'n'], ['fragen', 'preguntar', 'v'], ['wissen', 'saber', 'v']],
+    11: [['der Fuß', 'el pie', 'm'], ['die Schulter', 'el hombro', 'f'], ['das Knie', 'la rodilla', 'n'], ['bewegen', 'mover', 'v'], ['helfen', 'ayudar', 'v']],
+    12: [['der Fehler', 'el error', 'm'], ['die Hausaufgabe', 'la tarea', 'f'], ['das Heft', 'el cuaderno', 'n'], ['prüfen', 'comprobar', 'v'], ['ordnen', 'ordenar', 'v']],
+    13: [['der Lehrer', 'el profesor', 'm'], ['die Tafel', 'la pizarra', 'f'], ['das Ergebnis', 'el resultado', 'n'], ['rechnen', 'calcular', 'v'], ['zählen', 'contar', 'v']],
+    14: [['der Satz', 'la oración', 'm'], ['die Geschichte', 'la historia', 'f'], ['das Wort', 'la palabra', 'n'], ['lesen', 'leer', 'v'], ['schreiben', 'escribir', 'v']],
+    15: [['der Sportler', 'el deportista', 'm'], ['die Mannschaft', 'el equipo deportivo', 'f'], ['das Ziel', 'la meta / portería', 'n'], ['gewinnen', 'ganar', 'v'], ['lösen', 'resolver', 'v']],
+    16: [['der Sportplatz', 'la cancha deportiva', 'm'], ['die Sonne', 'el sol', 'f'], ['das Schwimmbad', 'la piscina', 'n'], ['schwimmen', 'nadar', 'v'], ['spielen', 'jugar', 'v']],
+    17: [['der Schulbus', 'el autobús escolar', 'm'], ['die Haltestelle', 'la parada', 'f'], ['das Fahrrad', 'la bicicleta', 'n'], ['fahren', 'ir en vehículo', 'v'], ['ankommen', 'llegar', 'v']],
+    18: [['der Park', 'el parque', 'm'], ['die Bibliothek', 'la biblioteca', 'f'], ['das Kino', 'el cine', 'n'], ['treffen', 'encontrarse', 'v'], ['besuchen', 'visitar', 'v']],
+    19: [['der Onkel', 'el tío', 'm'], ['die Tante', 'la tía', 'f'], ['das Wochenende', 'el fin de semana', 'n'], ['feiern', 'celebrar', 'v'], ['planen', 'planear', 'v']],
+    20: [['der Cousin', 'el primo', 'm'], ['die Cousine', 'la prima', 'f'], ['das Fest', 'la fiesta', 'n'], ['einladen', 'invitar', 'v'], ['tanzen', 'bailar', 'v']],
+    21: [['der Arm', 'el brazo', 'm'], ['die Nase', 'la nariz', 'f'], ['das Auge', 'el ojo', 'n'], ['stehen', 'estar de pie', 'v'], ['zeigen', 'señalar', 'v']],
+    22: [['der Grund', 'el motivo', 'm'], ['die Idee', 'la idea', 'f'], ['das Hobby', 'el pasatiempo', 'n'], ['erklären', 'explicar', 'v'], ['erzählen', 'contar', 'v']],
+    23: [['der Trainer', 'el entrenador', 'm'], ['die Lehrerin', 'la profesora', 'f'], ['das Geschenk', 'el regalo', 'n'], ['danken', 'agradecer', 'v'], ['mitbringen', 'traer consigo', 'v']],
+    24: [['der Sieger', 'el ganador', 'm'], ['die Familie', 'la familia', 'f'], ['das Abenteuer', 'la aventura', 'n'], ['schaffen', 'lograr', 'v'], ['verabschieden', 'despedirse', 'v']]
   };
   const worldNum = id <= 5 ? 1 : id <= 10 ? 2 : id <= 15 ? 3 : id <= 20 ? 4 : 5;
   const grammar = MISSION_GRAMMAR[id] || MISSION_GRAMMAR;
@@ -112,7 +115,7 @@
     5: { bg: 'linear-gradient(135deg, #fef3c7 0%, #dcfce7 100%)', border: '#f59e0b', badge: '🏆 Die Rückkehr', char: '👩', name: 'Die Nachbarin' }
   };
 
-  // PERSONAJES CON ROLES COTIDIANOS ÚTILES PARA A1 (SIN FANTASÍA INNECESARIA)
+  // PERSONAJES CON ROLES COTIDIANOS ÚTILES PARA A1
   function getCharacter(emojis, worldTheme) {
     if (emojis.includes('🧑‍🍳')) return { icon: '🧑‍🍳', name: 'Der Koch (El cocinero)' };
     if (emojis.includes('👨‍✈️')) return { icon: '👨‍✈️', name: 'Der Schaffner (El revisor)' };
@@ -143,6 +146,17 @@
       }
     });
     return Array.from(map.values()).slice(0, 10);
+  }
+
+  // RECOPILAR VOCABULARIO ACUMULADO DE MISIONES ANTERIORES (APRENDIZAJE EN ESPIRAL)
+  function getSpiralVocab() {
+    const past = [];
+    for (let m = Math.max(1, id - 3); m < id; m++) {
+      if (EXTRA_VOCAB[m]) {
+        EXTRA_VOCAB[m].forEach(item => past.push(item));
+      }
+    }
+    return past;
   }
 
   window.speakPlus = function(text, slow) {
@@ -218,6 +232,7 @@
     if (!document.getElementById('entdecker-box-fixed')) {
       const vocabList = extractVocab();
       const extras = EXTRA_VOCAB[id] || [];
+      const spiralList = getSpiralVocab();
       const typeColor = { m: '#2563eb', f: '#dc2626', n: '#16a34a', v: '#334155' };
 
       const missionVocabHtml = vocabList.length
@@ -225,6 +240,20 @@
           '<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">' +
             vocabList.map(w => '<button type="button" onclick="speakPlus(\'' + w.full.replace(/'/g, "\\'") + '\', false)" style="background:white;color:' + w.color + ';border:2px solid ' + w.color + ';padding:4px 8px;border-radius:10px;font-size:0.8rem;min-height:auto;font-weight:800;">🔊 ' + w.full + '</button>').join('') +
           '</div>'
+        : '';
+
+      const spiralHtml = spiralList.length
+        ? '<details style="margin-top:12px;background:#f1f5f9;padding:8px 10px;border-radius:12px;border:1.5px solid #cbd5e1;">' +
+            '<summary style="font-weight:800;font-size:0.82rem;color:#475569;cursor:pointer;">📚 Ya sabes (Vocabulario anterior · ' + spiralList.length + ')</summary>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;">' +
+              spiralList.map(([de, es, tp]) => {
+                const c = typeColor[tp] || '#334155';
+                return '<button type="button" onclick="speakPlus(\'' + de.replace(/'/g, "\\'") + '\', false)" title="' + es + '" ' +
+                  'style="background:white;color:' + c + ';border:1px solid ' + c + ';padding:3px 7px;border-radius:8px;font-size:0.75rem;min-height:auto;font-weight:700;">' +
+                  de + '</button>';
+              }).join('') +
+            '</div>' +
+          '</details>'
         : '';
 
       const box = document.createElement('div');
@@ -236,7 +265,7 @@
           '<strong style="color:#6d28d9;display:block;margin-bottom:4px;">💡 ' + grammar.title + '</strong>' + grammar.rule +
         '</div>' +
         missionVocabHtml +
-        '<strong style="font-size:0.85rem;color:#0f172a;display:block;margin-bottom:6px;">✨ 5 Palabras Nuevas (haz clic para oír):</strong>' +
+        '<strong style="font-size:0.85rem;color:#0f172a;display:block;margin-bottom:6px;">✨ 5 Palabras Nuevas (Familia, Escuela, Cuerpo):</strong>' +
         '<div style="display:flex;flex-direction:column;gap:5px;">' +
           extras.map(([de, es, tp]) => {
             const c = typeColor[tp] || '#334155';
@@ -244,13 +273,14 @@
             const tag = tp === 'v' ? 'acción' : tp === 'm' ? 'der' : tp === 'f' ? 'die' : 'das';
             return '<button type="button" onclick="speakPlus(\'' + de.replace(/'/g, "\\'") + '\', false)" ' +
               'style="display:flex;justify-content:space-between;align-items:center;background:white;color:' + c + ';border:1.5px solid ' + c + ';padding:5px 10px;border-radius:10px;font-size:0.82rem;min-height:auto;font-weight:800;text-align:left;">' +
-              '<span>' + icon + ' ' + de + '</span><span style="color:#64748b;font-weight:600;font-size:0.76rem;">' + es + ' (' + tag + ')</span></button>';
-          }).join('') +
-        '</div>';
-      aside.insertBefore(box, aside.firstChild);
-    }
-  }
-  function renderPhaseMenu(stepNum, totalTasks) {
+'' + icon + ' ' + de + '' + es + ' (' + tag + ')';
+}).join('') +
+'' +
+spiralHtml;
+aside.insertBefore(box, aside.firstChild);
+}
+}
+    function renderPhaseMenu(stepNum, totalTasks) {
     const nav = document.getElementById('nav');
     if (!nav) return;
 
@@ -268,10 +298,10 @@
     const q4 = Math.max(q3 + 1, totalTasks - 2);
 
     const phases = [
-      { label: '🧭 1. Entdecken', sub: 'Descubrir', start: q1, active: stepNum - 1 < q2 },
-      { label: '🎮 2. Üben', sub: 'Practicar', start: q2, active: stepNum - 1 >= q2 && stepNum - 1 < q3 },
-      { label: '🎤 3. Sprechen', sub: 'Hablar', start: q3, active: stepNum - 1 >= q3 && stepNum - 1 < q4 },
-      { label: '🏆 4. Schatz', sub: 'Tesoro final', start: q4, active: stepNum - 1 >= q4 }
+      { label: '🧭 1. Entdecken', sub: 'Descubrir · 🏠', start: q1, active: stepNum - 1 < q2 },
+      { label: '🎮 2. Üben', sub: 'Practicar · 🏠', start: q2, active: stepNum - 1 >= q2 && stepNum - 1 < q3 },
+      { label: '🎤 3. Sprechen', sub: 'Hablar · 🏫', start: q3, active: stepNum - 1 >= q3 && stepNum - 1 < q4 },
+      { label: '🏆 4. Schatz', sub: 'Tesoro · 🏫/🏠', start: q4, active: stepNum - 1 >= q4 }
     ];
 
     bar.innerHTML = phases.map(p => {
@@ -290,20 +320,23 @@
     const kind = taskData.at(0);
     const rawDe = String(taskData.at(3) || 'Hör zu!');
     const rawEs = String(taskData.at(2) || '');
+    const targetPhrase = String(taskData.at(4) || '');
 
     if (kind === 'dialogue') {
       const hasSpoiler = /^(Frag|Sag)/i.test(rawDe);
+      const topicMatch = targetPhrase.match(/\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/);
+      const topicHint = topicMatch ? (' sobre «' + topicMatch.at(0) + '»') : '';
       return {
-        tag: '🗣️ Dialog · Was sagst du? (¿Qué dices tú?)',
-        main: hasSpoiler ? ('Situation: ' + rawEs) : ('«' + rawDe + '»'),
-        sub: hasSpoiler ? 'Piensa cómo hacer la pregunta o respuesta en alemán (usa tu Entdecker-Box).' : rawEs
+        tag: '🗣️ Mini-Dialog · Tu objetivo comunicativo',
+        main: hasSpoiler ? (rawEs + topicHint) : ('«' + rawDe + '»'),
+        sub: 'Elige cómo iniciar la conversación en alemán y luego pronúncialo en voz alta.'
       };
     }
     if (kind === 'order') {
       const hasSpoiler = rawDe.includes(':');
       return {
         tag: '🧩 Satzbau · Ordena la oración',
-        main: hasSpoiler ? 'Hör zu und baue den Satz! (Escucha y ordena la frase)' : ('«' + rawDe + '»'),
+        main: hasSpoiler ? 'Escucha el audio y ordena las palabras en alemán' : ('«' + rawDe + '»'),
         sub: rawEs
       };
     }
@@ -332,6 +365,7 @@
       const char = getCharacter(artText, theme);
       const taskData = mission.tasks[stepNum - 1] || [];
       const comm = getCommunicativePrompt(taskData);
+      const isHomeTask = stepNum <= Math.floor(mission.tasks.length * 0.6);
 
       const oldH3 = content.querySelector('h3');
       const oldEs = content.querySelector('p.es');
@@ -348,6 +382,9 @@
       scene.innerHTML =
         '<div class="comic-top">' +
           '<span class="comic-badge" style="border:1.5px solid ' + theme.border + ';">' + theme.badge + '</span>' +
+          '<span class="mode-tag ' + (isHomeTask ? 'mode-home' : 'mode-class') + '">' +
+            (isHomeTask ? '🏠 Casa · Práctica autónoma' : '🏫 Clase · Interacción oral') +
+          '</span>' +
           '<span style="font-size:1.5rem;letter-spacing:4px;">' + artText + '</span>' +
         '</div>' +
         '<div class="comic-body">' +
@@ -360,7 +397,36 @@
         '</div>';
     }
 
-    // Reto Integrador en Misiones de Jefe (5, 10, 15, 20, 24) en el paso final
+    // Respuesta del personaje en diálogos tras acertar
+    const taskNow = mission.tasks[stepNum - 1] || [];
+    if (taskNow.at(0) === 'dialogue' && content.querySelector('.notice') && !content.querySelector('#npc-reply-box')) {
+      const replies = {
+        1: 'Ich heiße Eule! Und wie heißt du?',
+        3: 'Ja, ich habe ein Buch und einen Bleistift.',
+        4: 'Die Schultasche ist gelb und blau!',
+        6: 'Mein Vater isst Brot und meine Mutter trinkt Milch.',
+        7: 'Das Klassenzimmer ist oben rechts!',
+        8: 'Ein Ball kostet zwei Euro.',
+        9: 'Der Unterricht beginnt um halb neun.',
+        10: 'Mein Großvater weiß die Antwort!',
+        16: 'Heute scheint die Sonne! Wir gehen auf den Sportplatz.',
+        17: 'Der Schulbus fährt an Haltestelle zwei.',
+        18: 'Der Bus fährt zum Sportplatz.',
+        23: 'Ja, natürlich! Ich helfe dir gern.'
+      };
+      const replyDe = replies[id] || 'Sehr gut! Verstanden!';
+      const replyBox = document.createElement('div');
+      replyBox.id = 'npc-reply-box';
+      replyBox.style.cssText = 'background:#ecfdf5;border:2px solid #10b981;border-radius:16px;padding:12px 16px;margin:12px 0;display:flex;justify-content:space-between;align-items:center;gap:10px;';
+      replyBox.innerHTML =
+        '<div><strong style="color:#065f46;font-size:0.82rem;display:block;">💬 Respuesta del personaje:</strong>' +
+        '<span style="font-family:Fredoka,sans-serif;font-size:1.05rem;color:#0f172a;">«' + replyDe + '»</span></div>' +
+        '<button type="button" class="secondary" style="min-height:38px;padding:6px 12px;" onclick="speakPlus(\'' + replyDe.replace(/'/g, "\\'") + '\', false)">🔊 Oír respuesta</button>';
+      const oralEl = content.querySelector('.oral');
+      if (oralEl) oralEl.parentNode.insertBefore(replyBox, oralEl);
+    }
+
+    // Reto Integrador en Misiones de Jefe (5, 10, 15, 20, 24)
     const bossMissions = new Set([5, 10, 15, 20, 24]);
     if (bossMissions.has(id) && stepNum === mission.tasks.length && !content.querySelector('#boss-spiral-box')) {
       const bossBox = document.createElement('div');
@@ -368,21 +434,8 @@
       bossBox.style.cssText = 'background:#fef3c7;border:2px solid #f59e0b;border-radius:16px;padding:14px;margin:14px 0;';
       bossBox.innerHTML =
         '<strong style="color:#92400e;display:block;margin-bottom:4px;">👑 Reto Integrador del Mundo ' + worldNum + ' (Repaso en Espiral):</strong>' +
-        '<p style="font-size:0.88rem;color:#78350f;margin:0;">Antes de reclamar tu tesoro, combina en voz alta <b>una palabra del Mundo anterior</b> + <b>una estructura nueva de este Mundo</b>.</p>';
+        '<p style="font-size:0.88rem;color:#78350f;margin:0;">Antes de reclamar tu tesoro, combina en voz alta una palabra de <b>«📚 Ya sabes»</b> (familia, escuela, cuerpo o deporte) + una estructura nueva de este Mundo.</p>';
       if (scene) scene.parentNode.insertBefore(bossBox, scene.nextSibling);
-    }
-
-    // Reto extra de números hasta 100 / horas en el Mundo 3 (Misión 13 y 15)
-    if ((id === 13 || id === 15) && stepNum === 7 && !content.querySelector('#num-boost-box')) {
-      const numBox = document.createElement('div');
-      numBox.id = 'num-boost-box';
-      numBox.style.cssText = 'background:#e0f2fe;border:2px solid #0284c7;border-radius:16px;padding:14px;margin:14px 0;';
-      numBox.innerHTML =
-        '<strong style="color:#0369a1;display:block;margin-bottom:6px;">🔢 Desafío Extra de Nivel (Números hasta 100):</strong>' +
-        '<p style="font-size:0.88rem;margin:0 0 8px;">Escucha y escribe en cifras el código avanzado del laboratorio:</p>' +
-        '<button type="button" class="secondary" onclick="speakPlus(\'vierundachtzig\', true)">🔊 Escuchar código (84)</button> ' +
-        '<button type="button" class="secondary" onclick="speakPlus(\'siebenunddreißig\', true)">🔊 Escuchar código (37)</button>';
-      if (scene) scene.parentNode.insertBefore(numBox, scene.nextSibling);
     }
 
     const slowBtns = content.querySelectorAll('[data-slow-plus]');
@@ -418,18 +471,17 @@
         optionsBox.style.display = 'none';
         const challenge = document.createElement('div');
         challenge.id = 'write-challenge';
-        challenge.style.cssText = 'background:#f0fdf4;border:2px solid #86efac;border-radius:16px;padding:14px;margin:14px 0;';
-        challenge.innerHTML =
-          '<strong style="color:#166534;display:block;margin-bottom:6px;">✍️ Reto Final de Escritura (Producción):</strong>' +
-          '<input type="text" id="german-input" placeholder="Escribe la respuesta en alemán..." style="width:100%;margin-bottom:8px;padding:10px;border-radius:10px;border:2px solid #86efac;">' +
-          '<div style="display:flex;gap:6px;margin-bottom:10px;">' +
-            ['ä', 'ö', 'ü', 'ß'].map(ch => '<button type="button" class="secondary" style="min-height:36px;padding:4px 12px;" onclick="const i=document.getElementById(\'german-input\');i.value+=\'' + ch + '\';i.focus();">' + ch + '</button>').join('') +
-          '</div>' +
-          '<div id="write-feedback" style="font-size:0.85rem;color:#b45309;font-weight:700;margin-bottom:8px;display:none;"></div>' +
-          '<button type="button" id="check-write-btn" style="background:#16a34a;color:white;padding:8px 16px;border-radius:10px;border:none;font-weight:800;cursor:pointer;">✅ Comprobar</button> ' +
-          '<button type="button" class="secondary" id="show-opts-btn">Ver opciones</button>';
-        optionsBox.parentNode.insertBefore(challenge, optionsBox);
-
+challenge.style.cssText = 'background:#f0fdf4;border:2px solid #86efac;border-radius:16px;padding:14px;margin:14px 0;';
+challenge.innerHTML =
+'✍️ Reto Final de Escritura (Producción):' +
+'' +
+'' +
+['ä', 'ö', 'ü', 'ß'].map(ch => '' + ch + '').join('') +
+'' +
+'' +
+'✅ Comprobar ' +
+'Ver opciones';
+optionsBox.parentNode.insertBefore(challenge, optionsBox);
 document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
 document.getElementById('check-write-btn').onclick = function() {
 const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
