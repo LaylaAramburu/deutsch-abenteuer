@@ -4,41 +4,26 @@
   const mission = window.DEUTSCH_MISSIONS && window.DEUTSCH_MISSIONS[id];
   if (!mission) return;
 
-  // 1. ESTILOS LIMPIOS Y SEPARACIÓN DE BOTONES
   const style = document.createElement('style');
   style.textContent =
-    '#content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 18px 0 !important; align-items: center !important; width: 100% !important; clear: both !important; }' +
-    '#content .footer { display: flex !important; justify-content: space-between !important; align-items: center !important; gap: 16px !important; margin-top: 24px !important; padding-top: 16px !important; border-top: 2px dashed #cbd5e1 !important; width: 100% !important; clear: both !important; }' +
-    '#content button[data-check] { display: inline-block !important; margin: 14px 0 !important; background: #10b981 !important; color: white !important; padding: 10px 20px !important; border-radius: 12px !important; font-weight: 800 !important; }' +
-    '.rec-bar { display: flex !important; flex-wrap: wrap !important; align-items: center !important; gap: 10px !important; background: #f0f9ff !important; border: 2px solid #7dd3fc !important; padding: 10px 14px !important; border-radius: 14px !important; margin: 14px 0 !important; }' +
-    '.rec-bar button { min-height: 40px !important; padding: 8px 14px !important; font-size: 0.9rem !important; color: white !important; border-radius: 10px !important; border: none !important; cursor: pointer !important; font-weight: 800 !important; }';
+    '.comic-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }' +
+    '.comic-badge { background: white; padding: 4px 12px; border-radius: 99px; font-size: 0.82rem; font-weight: 800; color: #334155; }' +
+    '.comic-body { display: flex; align-items: center; gap: 14px; text-align: left; }' +
+    '.comic-avatar { background: white; border-radius: 50%; width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; font-size: 2.3rem; flex-shrink: 0; box-shadow: 0 4px 8px rgba(0,0,0,0.08); }' +
+    '.comic-bubble { background: white; border: 2px solid #cbd5e1; border-radius: 18px; padding: 14px 18px; flex: 1; box-shadow: 0 3px 0 #e2e8f0; }' +
+    '#content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 18px 0 !important; width: 100% !important; clear: both !important; }' +
+    '#content .footer { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-top: 22px !important; padding-top: 16px !important; border-top: 2px dashed #cbd5e1 !important; width: 100% !important; clear: both !important; }' +
+    '.rec-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; background: #f0f9ff; border: 2px solid #7dd3fc; padding: 10px 14px; border-radius: 14px; margin: 14px 0; }';
   document.head.appendChild(style);
 
-  // 2. REGLAS GRAMATICALES POR MUNDO
   const GRAMMAR_PILLS = {
-    1: {
-      title: 'Mundo 1 · Verbos y Artículos (der / die / das)',
-      rule: 'El verbo siempre va en <b>2.ª posición</b>: <i>Ich <b>heiße</b> Felix.</i><br>Colores: <span style="color:#2563eb;font-weight:800">der (azul)</span> · <span style="color:#dc2626;font-weight:800">die (rojo)</span> · <span style="color:#16a34a;font-weight:800">das (verde)</span>.'
-    },
-    2: {
-      title: 'Mundo 2 · Preguntas con W-Fragen',
-      rule: 'La pregunta va <b>primero</b> y el verbo va en <b>2.ª posición</b>:<br>• <b>Wer</b> isst? (¿Quién?) · <b>Was</b> trinkt er? (¿Qué?)<br>• <b>Wo</b> ist es? (¿Dónde?) · <b>Wie viel</b> kostet das? (¿Cuánto?)'
-    },
-    3: {
-      title: 'Mundo 3 · Acusativo, Negación y Verbos Fuertes',
-      rule: '• <b>Acusativo:</b> Solo cambia masculino (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>).<br>• <b>Negación:</b> <i>kein / keine / keinen</i>.<br>• <b>Cambio vocálico:</b> <i>er <b>liest</b>, er <b>sieht</b>, er <b>spricht</b>.</i>'
-    },
-    4: {
-      title: 'Mundo 4 · Tiempo, Transporte y Calendario',
-      rule: '• <b>Días:</b> <i><b>am</b> Montag</i> · <b>Meses:</b> <i><b>im</b> Juli</i> · <b>Horas:</b> <i><b>um</b> 8 Uhr</i>.<br>• <b>Transporte:</b> <i><b>mit dem</b> Zug / Bus</i>.'
-    },
-    5: {
-      title: 'Mundo 5 · Lugar, Verbos Modales y Cortesía',
-      rule: '• <b>Modal <i>können</i>:</b> El segundo verbo va al final: <i><b>Können</b> Sie das Tor <b>öffnen</b>?</i><br>• <b>Cortesía:</b> <i>Sie</i> (usted) siempre con mayúscula.'
-    }
+    1: { title: 'Mundo 1 · Verbos y Artículos', rule: 'El verbo siempre va en <b>2.ª posición</b>: <i>Ich <b>heiße</b> Felix.</i><br>Colores: <span style="color:#2563eb;font-weight:800">der</span> · <span style="color:#dc2626;font-weight:800">die</span> · <span style="color:#16a34a;font-weight:800">das</span>.' },
+    2: { title: 'Mundo 2 · Preguntas con W-Fragen', rule: 'La pregunta va <b>primero</b> y el verbo va en <b>2.ª posición</b>:<br>• <b>Wer</b> isst? · <b>Was</b> trinkt er? · <b>Wo</b> ist es? · <b>Wie viel</b>?' },
+    3: { title: 'Mundo 3 · Acusativo y Negación', rule: '• <b>Acusativo:</b> Solo cambia masculino (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>).<br>• <b>Negación:</b> <i>kein / keine</i>. • <b>Verbos:</b> <i>er <b>liest</b>, er <b>sieht</b>.</i>' },
+    4: { title: 'Mundo 4 · Tiempo y Transporte', rule: '• <b>Días:</b> <i><b>am</b> Montag</i> · <b>Meses:</b> <i><b>im</b> Juli</i> · <b>Horas:</b> <i><b>um</b> 8 Uhr</i>.<br>• <b>Transporte:</b> <i><b>mit dem</b> Zug / Bus</i>.' },
+    5: { title: 'Mundo 5 · Lugar, Modales y Cortesía', rule: '• <b>Modal <i>können</i>:</b> El segundo verbo va al final: <i><b>Können</b> Sie das Tor <b>öffnen</b>?</i><br>• <b>Cortesía:</b> <i>Sie</i> siempre con mayúscula.' }
   };
 
-  // 3. OBJETIVOS PARA EL NIÑO
   const KID_GOALS = {
     1: '🎯 Tu reto: Presentarte en alemán y ayudar a Félix a encontrar su brújula.',
     2: '🎯 Tu reto: Seguir las pistas del mapa usando izquierda, derecha y centro.',
@@ -50,10 +35,10 @@
     8: '🎯 Tu reto: Comprar en el mercado del castillo contando euros en alemán.',
     9: '🎯 Tu reto: Reparar el gran reloj diciendo las horas y momentos del día.',
     10: '🎯 Tu reto: Resolver el acertijo final de la reina combinando W-Fragen.',
-    11: '🎯 Tu reto: Reparar el robot pidiendo las piezas en acusativo (einen/eine/ein).',
+    11: '🎯 Tu reto: Reparar el robot pidiendo las piezas en acusativo.',
     12: '🎯 Tu reto: Clasificar los experimentos secretos usando kein y keine.',
     13: '🎯 Tu reto: Descifrar el código de las máquinas con números hasta 100.',
-    14: '🎯 Tu reto: Recuperar los datos usando verbos irregulares (liest, sieht, spricht).',
+    14: '🎯 Tu reto: Recuperar los datos usando verbos irregulares (liest, sieht).',
     15: '🎯 Tu reto: Superar el gran acertijo del laboratorio combinando todo lo aprendido.',
     16: '🎯 Tu reto: Calmar el torbellino describiendo el clima en alemán.',
     17: '🎯 Tu reto: Viajar al pasado usando los medios de transporte (mit dem Zug).',
@@ -66,20 +51,19 @@
     24: '🎯 Tu reto: Completar la aventura final demostrando todo tu alemán A1.'
   };
 
-  // 4. CINCO PALABRAS EXTRA POR MISIÓN (ICONO ⚡ PARA ACCIONES)
   const EXTRA_VOCAB = {
     1: [['der Weg', 'el camino', 'm'], ['die Freundschaft', 'la amistad', 'f'], ['das Abenteuer', 'la aventura', 'n'], ['suchen', 'buscar', 'v'], ['finden', 'encontrar', 'v']],
     2: [['der Norden', 'el norte', 'm'], ['die Richtung', 'la dirección', 'f'], ['das Ziel', 'la meta', 'n'], ['gehen', 'ir / caminar', 'v'], ['zeigen', 'mostrar', 'v']],
     3: [['der Stift', 'el lápiz', 'm'], ['die Flasche', 'la botella', 'f'], ['das Heft', 'el cuaderno', 'n'], ['packen', 'empacar', 'v'], ['brauchen', 'necesitar', 'v']],
     4: [['der Pinsel', 'el pincel', 'm'], ['die Farbe', 'el color', 'f'], ['das Bild', 'el cuadro', 'n'], ['malen', 'pintar', 'v'], ['mischen', 'mezclar', 'v']],
     5: [['der Schritt', 'el paso', 'm'], ['die Bewegung', 'el movimiento', 'f'], ['das Spiel', 'el juego', 'n'], ['laufen', 'correr', 'v'], ['springen', 'saltar', 'v']],
-    6: [['der Hunger', 'el hambre', 'm'], ['die Gabel', 'la tenedor', 'f'], ['das Messer', 'el cuchillo', 'n'], ['essen', 'comer', 'v'], ['trinken', 'beber', 'v']],
+    6: [['der Hunger', 'el hambre', 'm'], ['die Gabel', 'el tenedor', 'f'], ['das Messer', 'el cuchillo', 'n'], ['essen', 'comer', 'v'], ['trinken', 'beber', 'v']],
     7: [['der Garten', 'el jardín', 'm'], ['die Treppe', 'la escalera', 'f'], ['das Dach', 'el techo', 'n'], ['wohnen', 'vivir', 'v'], ['schlafen', 'dormir', 'v']],
     8: [['der Preis', 'el precio', 'm'], ['die Tasche', 'la bolsa', 'f'], ['das Geld', 'el dinero', 'n'], ['kaufen', 'comprar', 'v'], ['kosten', 'costar', 'v']],
     9: [['der Morgen', 'la mañana', 'm'], ['die Stunde', 'la hora', 'f'], ['das Viertel', 'el cuarto', 'n'], ['warten', 'esperar', 'v'], ['beginnen', 'empezar', 'v']],
     10: [['der König', 'el rey', 'm'], ['die Antwort', 'la respuesta', 'f'], ['das Rätsel', 'el acertijo', 'n'], ['fragen', 'preguntar', 'v'], ['wissen', 'saber', 'v']],
     11: [['der Knopf', 'el botón', 'm'], ['die Schraube', 'el tornillo', 'f'], ['das Werkzeug', 'la herramienta', 'n'], ['reparieren', 'reparar', 'v'], ['bauen', 'construir', 'v']],
-    12: [['der Versuch', 'el experimento', 'm'], ['die Mischung', 'la mezcla', 'f'], ['das Glas', 'el vaso / frasco', 'n'], ['prüfen', 'comprobar', 'v'], ['ordnen', 'ordenar', 'v']],
+    12: [['der Versuch', 'el experimento', 'm'], ['die Mischung', 'la mezcla', 'f'], ['das Glas', 'el vaso', 'n'], ['prüfen', 'comprobar', 'v'], ['ordnen', 'ordenar', 'v']],
     13: [['der Fehler', 'el error', 'm'], ['die Zahl', 'el número', 'f'], ['das Licht', 'la luz', 'n'], ['rechnen', 'calcular', 'v'], ['schreiben', 'escribir', 'v']],
     14: [['der Text', 'el texto', 'm'], ['die Nachricht', 'el mensaje', 'f'], ['das Wort', 'la palabra', 'n'], ['lesen', 'leer', 'v'], ['sprechen', 'hablar', 'v']],
     15: [['der Erfolg', 'el éxito', 'm'], ['die Lösung', 'la solución', 'f'], ['das Geheimnis', 'el secreto', 'n'], ['verstehen', 'entender', 'v'], ['lösen', 'resolver', 'v']],
@@ -88,7 +72,7 @@
     18: [['der Platz', 'la plaza', 'm'], ['die Straße', 'la calle', 'f'], ['das Gebäude', 'el edificio', 'n'], ['fliegen', 'volar', 'v'], ['besuchen', 'visitar', 'v']],
     19: [['der Monat', 'el mes', 'm'], ['die Woche', 'la semana', 'f'], ['das Jahr', 'el año', 'n'], ['feiern', 'celebrar', 'v'], ['planen', 'planear', 'v']],
     20: [['der Moment', 'el momento', 'm'], ['die Zeit', 'el tiempo', 'f'], ['das Tor', 'el portal', 'n'], ['öffnen', 'abrir', 'v'], ['schließen', 'cerrar', 'v']],
-    21: [['der Stein', 'la piedra', 'm'], ['die Brücke', 'la puente', 'f'], ['das Blatt', 'la hoja', 'n'], ['stehen', 'estar de pie', 'v'], ['liegen', 'estar tumbado', 'v']],
+    21: [['der Stein', 'la piedra', 'm'], ['die Brücke', 'el puente', 'f'], ['das Blatt', 'la hoja', 'n'], ['stehen', 'estar de pie', 'v'], ['liegen', 'estar tumbado', 'v']],
     22: [['der Grund', 'el motivo', 'm'], ['die Idee', 'la idea', 'f'], ['das Gespräch', 'la charla', 'n'], ['erklären', 'explicar', 'v'], ['erzählen', 'contar', 'v']],
     23: [['der Gast', 'el invitado', 'm'], ['die Einladung', 'la invitación', 'f'], ['das Geschenk', 'el regalo', 'n'], ['helfen', 'ayudar', 'v'], ['danken', 'agradecer', 'v']],
     24: [['der Sieger', 'el ganador', 'm'], ['die Erinnerung', 'el recuerdo', 'f'], ['das Ende', 'el final', 'n'], ['schaffen', 'lograr', 'v'], ['verabschieden', 'despedirse', 'v']]
@@ -115,7 +99,6 @@
     return { icon: worldTheme.char, name: worldTheme.name };
   }
 
-  // EXTRAER VOCABULARIO SIN REPETIDOS NI DATIVOS
   function extractVocab() {
     const map = new Map();
     const regex = /(?<!\b(?:in|auf|an|unter|über|vor|hinter|neben|zwischen|bei|mit|nach|seit|von|zu|aus)\s)\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/g;
@@ -190,7 +173,7 @@
     if (!document.getElementById('kid-goal-banner')) {
       const goalDiv = document.createElement('div');
       goalDiv.id = 'kid-goal-banner';
-      goalDiv.style.cssText = 'background:#dbeafe;border:2px solid #3b82f6;color:#1e3a8a;padding:12px 16px;border-radius:16px;font-weight:800;margin-bottom:14px;font-size:1rem;';
+      goalDiv.style.cssText = 'background:#dbeafe;border:2px solid #3b82f6;color:#1e3a8a;padding:12px 16px;border-radius:16px;font-weight:800;margin-bottom:14px;font-size:1rem;display:block;';
       goalDiv.textContent = KID_GOALS[id] || ('🎯 Tu reto hoy: Completar "' + mission.es + '" en alemán.');
       story.parentNode.insertBefore(goalDiv, story);
 
@@ -239,17 +222,15 @@
       aside.insertBefore(box, aside.firstChild);
     }
   }
-
   function enhanceStep() {
     const content = document.getElementById('content');
     if (!content) return;
 
-    // 1. Obtener el número real de actividad (1 a 10) sin mezclar con el total
     const stepText = content.querySelector('.step')?.textContent || 'Aufgabe 1';
     const matchStep = stepText.match(/Aufgabe\s+(\d+)/i);
     const stepNum = matchStep ? parseInt(matchStep.at(1), 10) : 1;
 
-    // 2. Viñeta de cómic con la pregunta real dentro del globo
+    // 1. Viñeta de cómic con globo formado usando clases limpias
     const scene = content.querySelector('.scene');
     if (scene && !scene.dataset.upgraded) {
       scene.dataset.upgraded = '1';
@@ -260,96 +241,106 @@
       const promptDe = taskData.at(3) || 'Hör zu!';
       const promptEs = taskData.at(2) || '';
 
-      // Ocultar la pregunta duplicada de abajo
       const oldH3 = content.querySelector('h3');
       const oldEs = content.querySelector('p.es');
       if (oldH3) oldH3.style.display = 'none';
       if (oldEs) oldEs.style.display = 'none';
 
-      scene.style.cssText = 'background:' + theme.bg + ';border:3px solid ' + theme.border + ';border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 6px 0 rgba(0,0,0,0.06);';
+      scene.style.background = theme.bg;
+      scene.style.border = '3px solid ' + theme.border;
+      scene.style.borderRadius = '22px';
+      scene.style.padding = '18px';
+      scene.style.margin = '14px 0';
+      scene.style.minHeight = 'auto';
+
       scene.innerHTML =
-        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">' +
-'' + theme.badge + '' +
-'' + artText + '' +
-'' +
-'' +
-'' + char.icon + '' +
-'' +
-'💬 ' + char.name + ' dice:' +
-'«' + promptDe + '»' +
-'' + promptEs + '' +
-'' +
-'';
-}
-// 3. Un solo botón Langsam
-const slowBtns = content.querySelectorAll('[data-slow-plus]');
-if (slowBtns.length > 1) {
-for (let i = 1; i < slowBtns.length; i++) slowBtns[i].remove();
-}
-const sayBtn = content.querySelector('[data-say]');
-if (sayBtn && !content.querySelector('[data-slow]') && !content.querySelector('[data-slow-plus]')) {
-const phrase = sayBtn.getAttribute('data-say');
-const slowBtn = document.createElement('button');
-slowBtn.type = 'button';
-slowBtn.className = 'secondary';
-slowBtn.setAttribute('data-slow-plus', '1');
-slowBtn.innerHTML = '🐢 Langsam Despacio';
-slowBtn.onclick = function() { window.speakPlus(phrase, true); };
-sayBtn.parentNode.insertBefore(slowBtn, sayBtn.nextSibling);
-}
-// 4. Barra de grabación de voz antes del pie de página
-const footer = content.querySelector('.footer');
-if (footer && !content.querySelector('.rec-bar')) {
-const recDiv = document.createElement('div');
-recDiv.className = 'rec-bar';
-recDiv.innerHTML =
-'🎙️ Grabar mi voz' +
-'Practica pronunciando en voz alta y escúchate';
-footer.parentNode.insertBefore(recDiv, footer);
-}
-// 5. Reto de Escritura SOLO en los últimos pasos (8, 9 o 10) para respetar la secuencia didáctica
-const optionsBox = content.querySelector('.options');
-if (optionsBox && stepNum >= 8 && !content.querySelector('#write-challenge') && !optionsBox.querySelector('button[disabled]')) {
-const targetBtn = Array.from(optionsBox.querySelectorAll('button')).find(b => b.dataset.answer !== undefined);
-if (targetBtn) {
-optionsBox.style.display = 'none';
-const challenge = document.createElement('div');
-challenge.id = 'write-challenge';
-challenge.style.cssText = 'background:#f0fdf4;border:2px solid #86efac;border-radius:16px;padding:14px;margin:14px 0;';
-challenge.innerHTML =
-'✍️ Reto Final de Escritura (Producción):' +
-'' +
-'' +
-['ä', 'ö', 'ü', 'ß'].map(ch => '' + ch + '').join('') +
-'' +
-'' +
-'✅ Comprobar ' +
-'Ver opciones';
-optionsBox.parentNode.insertBefore(challenge, optionsBox);
-document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
-document.getElementById('check-write-btn').onclick = function() {
-const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
-const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
-if (match) {
-match.click();
-} else {
-const fb = document.getElementById('write-feedback');
-fb.textContent = '💡 Casi... Revisa las terminaciones o artículos en tu Entdecker-Box a la derecha e inténtalo de nuevo.';
-fb.style.display = 'block';
-}
-};
-}
-}
-}
-initSequenceUI();
-enhanceStep();
-const contentEl = document.getElementById('content');
-if (contentEl) {
-const observer = new MutationObserver(() => {
-observer.disconnect();
-enhanceStep();
-observer.observe(contentEl, { childList: true });
-});
-observer.observe(contentEl, { childList: true });
-}
+        '<div class="comic-top">' +
+          '<span class="comic-badge" style="border:1.5px solid ' + theme.border + ';">' + theme.badge + '</span>' +
+          '<span style="font-size:1.5rem;letter-spacing:4px;">' + artText + '</span>' +
+        '</div>' +
+        '<div class="comic-body">' +
+          '<div class="comic-avatar" style="border:3px solid ' + theme.border + ';">' + char.icon + '</div>' +
+          '<div class="comic-bubble">' +
+            '<div style="font-size:0.8rem;font-weight:800;color:#64748b;margin-bottom:4px;">💬 ' + char.name + ' dice:</div>' +
+            '<div style="font-family:Fredoka,sans-serif;font-size:1.2rem;color:#0f172a;line-height:1.3;">«' + promptDe + '»</div>' +
+            '<div style="font-size:0.9rem;color:#475569;margin-top:4px;">' + promptEs + '</div>' +
+          '</div>' +
+        '</div>';
+    }
+
+    // 2. Un solo botón Langsam
+    const slowBtns = content.querySelectorAll('[data-slow-plus]');
+    if (slowBtns.length > 1) {
+      for (let i = 1; i < slowBtns.length; i++) slowBtns[i].remove();
+    }
+    const sayBtn = content.querySelector('[data-say]');
+    if (sayBtn && !content.querySelector('[data-slow]') && !content.querySelector('[data-slow-plus]')) {
+      const phrase = sayBtn.getAttribute('data-say');
+      const slowBtn = document.createElement('button');
+      slowBtn.type = 'button';
+      slowBtn.className = 'secondary';
+      slowBtn.setAttribute('data-slow-plus', '1');
+      slowBtn.innerHTML = '🐢 Langsam <small>Despacio</small>';
+      slowBtn.onclick = function() { window.speakPlus(phrase, true); };
+      sayBtn.parentNode.insertBefore(slowBtn, sayBtn.nextSibling);
+    }
+
+    // 3. Barra de grabación de voz antes del pie de página
+    const footerDiv = content.querySelector('.footer');
+    if (footerDiv && !content.querySelector('.rec-bar')) {
+      const recDiv = document.createElement('div');
+      recDiv.className = 'rec-bar';
+      recDiv.innerHTML =
+        '<button type="button" style="background:#0284c7;" onclick="toggleVoiceRec(this)">🎙️ Grabar mi voz</button>' +
+        '<span style="font-size:0.85rem;color:#0369a1;font-weight:700;">Practica pronunciando en voz alta y escúchate</span>';
+      footerDiv.parentNode.insertBefore(recDiv, footerDiv);
+    }
+
+    // 4. Reto de Escritura SOLO en los últimos pasos (8, 9 o 10)
+    const optionsBox = content.querySelector('.options');
+    if (optionsBox && stepNum >= 8 && !content.querySelector('#write-challenge') && !optionsBox.querySelector('button[disabled]')) {
+      const targetBtn = Array.from(optionsBox.querySelectorAll('button')).find(b => b.dataset.answer !== undefined);
+      if (targetBtn) {
+        optionsBox.style.display = 'none';
+        const challenge = document.createElement('div');
+        challenge.id = 'write-challenge';
+        challenge.style.cssText = 'background:#f0fdf4;border:2px solid #86efac;border-radius:16px;padding:14px;margin:14px 0;';
+        challenge.innerHTML =
+          '<strong style="color:#166534;display:block;margin-bottom:6px;">✍️ Reto Final de Escritura (Producción):</strong>' +
+          '<input type="text" id="german-input" placeholder="Escribe la respuesta en alemán..." style="width:100%;margin-bottom:8px;padding:10px;border-radius:10px;border:2px solid #86efac;">' +
+          '<div style="display:flex;gap:6px;margin-bottom:10px;">' +
+            ['ä', 'ö', 'ü', 'ß'].map(ch => '<button type="button" class="secondary" style="min-height:36px;padding:4px 12px;" onclick="const i=document.getElementById(\'german-input\');i.value+=\'' + ch + '\';i.focus();">' + ch + '</button>').join('') +
+          '</div>' +
+          '<div id="write-feedback" style="font-size:0.85rem;color:#b45309;font-weight:700;margin-bottom:8px;display:none;"></div>' +
+          '<button type="button" id="check-write-btn" style="background:#16a34a;color:white;padding:8px 16px;border-radius:10px;border:none;font-weight:800;cursor:pointer;">✅ Comprobar</button> ' +
+          '<button type="button" class="secondary" id="show-opts-btn">Ver opciones</button>';
+        optionsBox.parentNode.insertBefore(challenge, optionsBox);
+
+        document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
+        document.getElementById('check-write-btn').onclick = function() {
+          const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
+          const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
+          if (match) {
+            match.click();
+          } else {
+            const fb = document.getElementById('write-feedback');
+            fb.textContent = '💡 Casi... Revisa las terminaciones o artículos en tu Entdecker-Box a la derecha e inténtalo de nuevo.';
+            fb.style.display = 'block';
+          }
+        };
+      }
+    }
+  }
+
+  initSequenceUI();
+  enhanceStep();
+  const contentEl = document.getElementById('content');
+  if (contentEl) {
+    const observer = new MutationObserver(() => {
+      observer.disconnect();
+      enhanceStep();
+      observer.observe(contentEl, { childList: true });
+    });
+    observer.observe(contentEl, { childList: true });
+  }
 })();
