@@ -71,7 +71,7 @@
   // 4. EXTRAER VOCABULARIO CON CÓDIGO DE COLORES (DER/DIE/DAS)
   function extractVocab() {
     const words = [], seen = new Set();
-    const regex = /\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/g;
+    const regex = /(?<!\b(?:in|auf|an|unter|über|vor|hinter|neben|zwischen|bei|mit|nach|seit|von|zu|aus)\s)\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/g;
     mission.tasks.forEach(t => {
       const text = [t.at(3), t.at(4), ...(Array.isArray(t.at(5)) ? t.at(5) : [])].join(' ');
       let match;
