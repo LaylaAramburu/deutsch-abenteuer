@@ -73,7 +73,7 @@
     const words = [], seen = new Set();
     const regex = /(?<!\b(?:in|auf|an|unter|über|vor|hinter|neben|zwischen|bei|mit|nach|seit|von|zu|aus)\s)\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/g;
     mission.tasks.forEach(t => {
-      const text = [t.at(3), t.at(4), ...(Array.isArray(t.at(5)) ? t.at(5) : [])].join(' ');
+      const text = String(t.at(4) || '');
       let match;
       while ((match = regex.exec(text)) !== null) {
         const art = match.at(1).toLowerCase(), noun = match.at(2), key = art + ' ' + noun;
