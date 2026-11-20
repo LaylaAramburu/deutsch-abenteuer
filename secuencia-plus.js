@@ -207,6 +207,29 @@
     }
   };
 
+    const SPIRAL_CATS = {
+    '👨‍👩‍👧 Familia y Amigos': ['der Bruder', 'die Schwester', 'das Kind', 'der Freund', 'die Freundin', 'der Vater', 'die Mutter', 'der Großvater', 'die Großmutter', 'der Onkel', 'die Tante', 'der Cousin', 'die Cousine', 'die Familie'],
+    '🏫 Escuela': ['der Bleistift', 'die Schere', 'das Lineal', 'der Radiergummi', 'die Schultasche', 'das Mäppchen', 'der Raum', 'die Schule', 'das Klassenzimmer', 'der Unterricht', 'die Pause', 'die Hausaufgabe', 'das Heft', 'der Lehrer', 'die Tafel', 'der Satz', 'das Wort', 'die Bibliothek', 'die Lehrerin'],
+    '⚽ Cuerpo y Deporte': ['das Team', 'der Kopf', 'die Hand', 'das Bein', 'der Ball', 'das Trikot', 'das Training', 'der Fuß', 'die Schulter', 'das Knie', 'der Sportler', 'die Mannschaft', 'das Ziel', 'der Sportplatz', 'das Schwimmbad', 'der Arm', 'die Nase', 'das Auge', 'das Hobby', 'der Trainer'],
+    '⚡ Acciones': ['heißen', 'wohnen', 'gehen', 'suchen', 'packen', 'brauchen', 'malen', 'finden', 'laufen', 'springen', 'essen', 'trinken', 'lernen', 'sitzen', 'kaufen', 'kosten', 'beginnen', 'warten', 'fragen', 'wissen', 'bewegen', 'helfen', 'prüfen', 'ordnen', 'rechnen', 'zählen', 'lesen', 'schreiben', 'gewinnen', 'lösen', 'schwimmen', 'spielen', 'fahren', 'ankommen', 'treffen', 'besuchen', 'feiern', 'planen', 'einladen', 'tanzen', 'stehen', 'zeigen', 'erklären', 'erzählen', 'danken', 'mitbringen']
+  };
+
+  function getSpiralByCategory() {
+    const past = [];
+    for (let m = 1; m < id; m++) {
+      if (EXTRA_VOCAB[m]) EXTRA_VOCAB[m].forEach(item => past.push(item));
+    }
+    if (!past.length) return {};
+    const grouped = { '👨‍👩‍👧 Familia y Amigos': [], '🏫 Escuela': [], '⚽ Cuerpo y Deporte': [], '⚡ Acciones': [] };
+    past.forEach(([de, es, tp]) => {
+      if (tp === 'v') grouped['⚡ Acciones'].push([de, es, tp]);
+      else if (SPIRAL_CATS['👨‍👩‍👧 Familia y Amigos'].includes(de)) grouped['👨‍👩‍👧 Familia y Amigos'].push([de, es, tp]);
+      else if (SPIRAL_CATS['🏫 Escuela'].includes(de)) grouped['🏫 Escuela'].push([de, es, tp]);
+      else grouped['⚽ Cuerpo y Deporte'].push([de, es, tp]);
+    });
+    return grouped;
+  }
+
   function initSequenceUI() {
     const aside = document.querySelector('aside');
     const story = document.getElementById('intro');
@@ -232,7 +255,7 @@
     if (!document.getElementById('entdecker-box-fixed')) {
       const vocabList = extractVocab();
       const extras = EXTRA_VOCAB[id] || [];
-      const spiralList = getSpiralVocab();
+      const groupedSpiral = getSpiralByCategory();
       const typeColor = { m: '#2563eb', f: '#dc2626', n: '#16a34a', v: '#334155' };
 
       const missionVocabHtml = vocabList.length
@@ -242,17 +265,21 @@
           '</div>'
         : '';
 
-      const spiralHtml = spiralList.length
+      const catKeys = Object.keys(groupedSpiral).filter(k => groupedSpiral[k].length > 0);
+      const spiralHtml = catKeys.length
         ? '<details style="margin-top:12px;background:#f1f5f9;padding:8px 10px;border-radius:12px;border:1.5px solid #cbd5e1;">' +
-            '<summary style="font-weight:800;font-size:0.82rem;color:#475569;cursor:pointer;">📚 Ya sabes (Vocabulario anterior · ' + spiralList.length + ')</summary>' +
-            '<div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;">' +
-              spiralList.map(([de, es, tp]) => {
-                const c = typeColor[tp] || '#334155';
-                return '<button type="button" onclick="speakPlus(\'' + de.replace(/'/g, "\\'") + '\', false)" title="' + es + '" ' +
-                  'style="background:white;color:' + c + ';border:1px solid ' + c + ';padding:3px 7px;border-radius:8px;font-size:0.75rem;min-height:auto;font-weight:700;">' +
-                  de + '</button>';
-              }).join('') +
-            '</div>' +
+            '<summary style="font-weight:800;font-size:0.82rem;color:#475569;cursor:pointer;">📚 Ya sabes (por categorías)</summary>' +
+            catKeys.map(cat =>
+              '<div style="margin-top:8px;"><div style="font-size:0.75rem;font-weight:800;color:#64748b;margin-bottom:4px;">' + cat + '</div>' +
+              '<div style="display:flex;flex-wrap:wrap;gap:4px;">' +
+                groupedSpiral[cat].map(([de, es, tp]) => {
+                  const c = typeColor[tp] || '#334155';
+                  return '<button type="button" onclick="speakPlus(\'' + de.replace(/'/g, "\\'") + '\', false)" title="' + es + '" ' +
+                    'style="background:white;color:' + c + ';border:1px solid ' + c + ';padding:3px 7px;border-radius:8px;font-size:0.74rem;min-height:auto;font-weight:700;">' +
+                    de + '</button>';
+                }).join('') +
+              '</div></div>'
+            ).join('') +
           '</details>'
         : '';
 
@@ -265,21 +292,297 @@
           '<strong style="color:#6d28d9;display:block;margin-bottom:4px;">💡 ' + grammar.title + '</strong>' + grammar.rule +
         '</div>' +
         missionVocabHtml +
-        '<strong style="font-size:0.85rem;color:#0f172a;display:block;margin-bottom:6px;">✨ 5 Palabras Nuevas (Familia, Escuela, Cuerpo):</strong>' +
-        '<div style="display:flex;flex-direction:column;gap:5px;">' +
+        '<strong style="font-size:0.85rem;color:#0f172a;display:block;margin-bottom:6px;">✨ 5 Palabras Nuevas:</strong>' +
+        '<div style="display:flex;flex-direction:column;gap:6px;">' +
           extras.map(([de, es, tp]) => {
             const c = typeColor[tp] || '#334155';
             const icon = tp === 'v' ? '⚡' : '🔊';
-            const tag = tp === 'v' ? 'acción' : tp === 'm' ? 'der' : tp === 'f' ? 'die' : 'das';
             return '<button type="button" onclick="speakPlus(\'' + de.replace(/'/g, "\\'") + '\', false)" ' +
-              'style="display:flex;justify-content:space-between;align-items:center;background:white;color:' + c + ';border:1.5px solid ' + c + ';padding:5px 10px;border-radius:10px;font-size:0.82rem;min-height:auto;font-weight:800;text-align:left;">' +
-'' + icon + ' ' + de + '' + es + ' (' + tag + ')';
-}).join('') +
+              'style="display:flex;justify-content:space-between;align-items:center;gap:8px;background:white;color:' + c + ';border:1.5px solid ' + c + ';padding:6px 10px;border-radius:10px;font-size:0.82rem;min-height:auto;font-weight:800;text-align:left;">' +
+              '<span>' + icon + ' ' + de + '</span>' +
+              '<span style="color:#64748b;font-weight:600;font-size:0.75rem;margin-left:auto;"> · ' + es + '</span></button>';
+          }).join('') +
+        '</div>' +
+        spiralHtml;
+      aside.insertBefore(box, aside.firstChild);
+    }
+  }
+  // BANCO DE EMPAREJAMIENTO PREGUNTA-RESPUESTA POR MUNDO
+  const MATCH_SETS = {
+    1: [['Wie heißt du?', 'Ich heiße Mia.'], ['Wer ist das?', 'Das ist mein Bruder.'], ['Wo wohnst du?', 'Ich wohne in Berlin.']],
+    2: [['Wer isst das Brot?', 'Mein Vater isst es.'], ['Wo ist der Ball?', 'Er ist im Garten.'], ['Wie spät ist es?', 'Es ist halb neun.']],
+    3: [['Was brauchst du?', 'Ich brauche einen Stift.'], ['Hast du ein Heft?', 'Nein, ich habe kein Heft.'], ['Was liest du?', 'Ich lese eine Geschichte.']],
+    4: [['Wie ist das Wetter?', 'Die Sonne scheint!'], ['Wohin fährst du?', 'Ich fahre zur Schule.'], ['Wann ist das Training?', 'Am Freitag um vier Uhr.']],
+    5: [['Wo liegt der Ball?', 'Unter dem Tisch.'], ['Warum lernst du Deutsch?', 'Weil es Spaß macht!'], ['Können Sie mir helfen?', 'Ja, natürlich, gern!']]
+  };
+
+  // BANCO DE PUZZLE DE DIÁLOGO POR MUNDO
+  const DIALOG_PUZZLES = {
+    1: ['Hallo! Ich bin Felix. Wie heißt du?', 'Hallo Felix! Ich heiße Leo. Das ist meine Schwester.', 'Super! Kommt, wir suchen zusammen den Weg!'],
+    2: ['Guten Morgen! Wo ist heute der Unterricht?', 'Guten Morgen! Der Unterricht ist im Klassenzimmer zwei.', 'Danke! Wann beginnt die Pause?'],
+    3: ['Hast du deinen Bleistift und dein Heft?', 'Ich habe das Heft, aber ich habe keinen Bleistift.', 'Kein Problem! Hier, ich habe zwei Stifte.'],
+    4: ['Wie ist das Wetter heute am Samstag?', 'Es ist sonnig und warm! Gehen wir in den Park?', 'Ja! Ich fahre mit dem Fahrrad zum Sportplatz.'],
+    5: ['Entschuldigung, können Sie mir bitte helfen?', 'Ja, gern! Was suchst du denn?', 'Ich suche meine Schultasche. Sie liegt neben der Tür!']
+  };
+
+  function renderMatchWidget(container, worldId) {
+    if (container.querySelector('#match-mini-game')) return;
+    const pairs = MATCH_SETS[worldId] || MATCH_SETS[1];
+    const rights = pairs.map((p, idx) => ({ text: p[1], idx })).sort(() => Math.random() - 0.5);
+    let selectedLeft = null, solvedCount = 0;
+
+    const box = document.createElement('div');
+    box.id = 'match-mini-game';
+    box.style.cssText = 'background:#fefce8;border:2px solid #eab308;border-radius:16px;padding:14px;margin:14px 0;';
+    box.innerHTML =
+      '<strong style="color:#854d0e;display:block;margin-bottom:4px;">🔗 Reto previo: Une cada pregunta con su respuesta</strong>' +
+      '<p style="font-size:0.84rem;color:#713f12;margin:0 0 10px;">Haz clic en una pregunta de la izquierda y luego en su pareja de la derecha:</p>' +
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">' +
+        '<div id="match-left" style="display:flex;flex-direction:column;gap:8px;">' +
+          pairs.map((p, i) => '<button type="button" data-l="' + i + '" class="secondary" style="text-align:left;padding:8px 12px;min-height:42px;font-size:0.85rem;">' + p[0] + '</button>').join('') +
+        '</div>' +
+        '<div id="match-right" style="display:flex;flex-direction:column;gap:8px;">' +
+          rights.map(r => '<button type="button" data-r="' + r.idx + '" class="secondary" style="text-align:left;padding:8px 12px;min-height:42px;font-size:0.85rem;">' + r.text + '</button>').join('') +
+        '</div>' +
+      '</div>' +
+      '<div id="match-status" style="margin-top:8px;font-size:0.85rem;font-weight:800;color:#15803d;"></div>';
+
+    container.insertBefore(box, container.querySelector('.options') || container.querySelector('.footer'));
+
+    box.querySelectorAll('[data-l]').forEach(btn => {
+      btn.onclick = () => {
+        if (btn.disabled) return;
+        box.querySelectorAll('[data-l]').forEach(b => b.style.borderColor = '#cbd5e1');
+        btn.style.borderColor = '#8b5cf6';
+        selectedLeft = btn;
+      };
+    });
+
+    box.querySelectorAll('[data-r]').forEach(btn => {
+      btn.onclick = () => {
+        if (!selectedLeft || btn.disabled) return;
+        if (selectedLeft.dataset.l === btn.dataset.r) {
+          selectedLeft.style.background = '#dcfce7'; selectedLeft.style.borderColor = '#16a34a'; selectedLeft.disabled = true;
+          btn.style.background = '#dcfce7'; btn.style.borderColor = '#16a34a'; btn.disabled = true;
+          speakPlus(selectedLeft.textContent + ' ' + btn.textContent, false);
+          selectedLeft = null;
+          solvedCount++;
+          if (solvedCount === pairs.length) {
+            document.getElementById('match-status').textContent = '🎉 ¡Excelente! Ahora resuelve la actividad principal:';
+          }
+        } else {
+          document.getElementById('match-status').textContent = '🤔 No coincide, fíjate en el verbo o la palabra pregunta.';
+          setTimeout(() => { if (solvedCount < pairs.length) document.getElementById('match-status').textContent = ''; }, 2000);
+        }
+      };
+    });
+  }
+
+  function renderDialogPuzzle(container, worldId) {
+    if (container.querySelector('#dialog-puzzle-game')) return;
+    const lines = DIALOG_PUZZLES[worldId] || DIALOG_PUZZLES[1];
+    const shuffled = lines.map((txt, idx) => ({ txt, idx })).sort(() => Math.random() - 0.5);
+    let nextExpected = 0;
+
+    const box = document.createElement('div');
+    box.id = 'dialog-puzzle-game';
+    box.style.cssText = 'background:#f0fdf4;border:2px solid #22c55e;border-radius:16px;padding:14px;margin:14px 0;';
+    box.innerHTML =
+      '<strong style="color:#166534;display:block;margin-bottom:4px;">🧩 Puzzle de Diálogo: Ordena la conversación (1 -> 2 -> 3)</strong>' +
+      '<p style="font-size:0.84rem;color:#15803d;margin:0 0 10px;">Pulsa las frases en el orden lógico en que ocurre la charla:</p>' +
+      '<div id="puzzle-btns" style="display:flex;flex-direction:column;gap:8px;">' +
+        shuffled.map(item => '<button type="button" data-pidx="' + item.idx + '" class="secondary" style="text-align:left;padding:10px 14px;min-height:44px;font-size:0.88rem;">💬 ' + item.txt + '</button>').join('') +
+      '</div>' +
+      '<div id="puzzle-status" style="margin-top:8px;font-size:0.85rem;font-weight:800;color:#166534;"></div>';
+
+    container.insertBefore(box, container.querySelector('.options') || container.querySelector('.footer'));
+
+    box.querySelectorAll('[data-pidx]').forEach(btn => {
+      btn.onclick = () => {
+        if (btn.disabled) return;
+        if (Number(btn.dataset.pidx) === nextExpected) {
+          nextExpected++;
+          btn.style.background = '#dcfce7';
+          btn.style.borderColor = '#16a34a';
+          btn.textContent = '✅ ' + nextExpected + '. ' + btn.textContent.replace(/^💬\s*/, '');
+          btn.disabled = true;
+          speakPlus(lines[nextExpected - 1], false);
+          if (nextExpected === lines.length) {
+            document.getElementById('puzzle-status').textContent = '🏆 ¡Diálogo reconstruido con éxito!';
+          }
+        } else {
+          document.getElementById('puzzle-status').textContent = '💡 Pista: Busca primero el saludo o la pregunta inicial.';
+        }
+      };
+    });
+  }
+
+  function renderPhaseMenu(stepNum, totalTasks) {
+    const nav = document.getElementById('nav');
+    if (!nav) return;
+
+    let bar = document.getElementById('phase-menu-bar');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'phase-menu-bar';
+      bar.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px;margin-bottom:12px;';
+      nav.parentNode.insertBefore(bar, nav);
+    }
+
+    const q1 = 0, q2 = Math.floor(totalTasks * 0.3), q3 = Math.floor(totalTasks * 0.6), q4 = Math.max(q3 + 1, totalTasks - 2);
+    const phases = [
+      { label: '🧭 1. Entdecken', sub: 'Descubrir · 🏠', start: q1, active: stepNum - 1 < q2 },
+      { label: '🎮 2. Üben', sub: 'Practicar · 🏠', start: q2, active: stepNum - 1 >= q2 && stepNum - 1 < q3 },
+      { label: '🎤 3. Sprechen', sub: 'Hablar · 🏫', start: q3, active: stepNum - 1 >= q3 && stepNum - 1 < q4 },
+      { label: '🏆 4. Schatz', sub: 'Tesoro · 🏫/🏠', start: q4, active: stepNum - 1 >= q4 }
+    ];
+
+    bar.innerHTML = phases.map(p => {
+      const bg = p.active ? '#8b5cf6' : '#ffffff', color = p.active ? '#ffffff' : '#334155', border = p.active ? '#6d28d9' : '#cbd5e1';
+      return '<button type="button" onclick="document.querySelector(\'#nav [data-go=\\\'' + p.start + '\\\']\')?.click()" ' +
+        'style="background:' + bg + ';color:' + color + ';border:2px solid ' + border + ';border-radius:14px;padding:8px 10px;text-align:center;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,0.06);">' +
+        '<div style="font-family:Fredoka,sans-serif;font-size:1rem;">' + p.label + '</div>' +
+        '<div style="font-size:0.74rem;opacity:0.82;font-family:Nunito,sans-serif;">' + p.sub + '</div>' +
+      '</button>';
+    }).join('');
+  }
+
+  function getCommunicativePrompt(taskData) {
+    const kind = taskData.at(0);
+    const rawDe = String(taskData.at(3) || 'Hör zu!');
+    const rawEs = String(taskData.at(2) || '');
+    const targetPhrase = String(taskData.at(4) || '');
+
+    if (kind === 'dialogue') {
+      const hasSpoiler = /^(Frag|Sag)/i.test(rawDe);
+      const topicMatch = targetPhrase.match(/\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/);
+      const topicHint = topicMatch ? (' sobre «' + topicMatch.at(0) + '»') : '';
+      return {
+        tag: '🗣️ Mini-Dialog · Tu objetivo comunicativo',
+        main: hasSpoiler ? (rawEs + topicHint) : ('«' + rawDe + '»'),
+        sub: 'Elige cómo iniciar la conversación en alemán y luego pronúncialo en voz alta.'
+      };
+    }
+    if (kind === 'order') {
+      const hasSpoiler = rawDe.includes(':');
+      return {
+        tag: '🧩 Satzbau · Ordena la oración',
+        main: hasSpoiler ? 'Escucha el audio y ordena las palabras en alemán' : ('«' + rawDe + '»'),
+        sub: rawEs
+      };
+    }
+    return { tag: null, main: '«' + rawDe + '»', sub: rawEs };
+  }
+
+  function enhanceStep() {
+    const content = document.getElementById('content');
+    if (!content) return;
+
+    const stepText = content.querySelector('.step')?.textContent || 'Aufgabe 1';
+    const matchStep = stepText.match(/Aufgabe\s+(\d+)/i);
+const stepNum = matchStep ? parseInt(matchStep.at(1), 10) : 1;
+renderPhaseMenu(stepNum, mission.tasks.length);
+const scene = content.querySelector('.scene');
+if (scene && !scene.dataset.upgraded) {
+scene.dataset.upgraded = '1';
+const theme = WORLD_THEMES[worldNum];
+const artText = scene.querySelector('.scene-art')?.textContent || '';
+const char = getCharacter(artText, theme);
+const taskData = mission.tasks[stepNum - 1] || [];
+const comm = getCommunicativePrompt(taskData);
+const isHomeTask = stepNum <= Math.floor(mission.tasks.length * 0.6);
+const oldH3 = content.querySelector('h3'), oldEs = content.querySelector('p.es');
+if (oldH3) oldH3.style.display = 'none';
+if (oldEs) oldEs.style.display = 'none';
+scene.style.cssText = 'background:' + theme.bg + ';border:3px solid ' + theme.border + ';border-radius:22px;padding:18px;margin:14px 0;min-height:auto;';
+scene.innerHTML =
 '' +
-spiralHtml;
-aside.insertBefore(box, aside.firstChild);
+'' + theme.badge + '' +
+'' +
+(isHomeTask ? '🏠 Casa · Práctica autónoma' : '🏫 Clase · Interacción oral') +
+'' +
+'' + artText + '' +
+'' +
+'' +
+'' + char.icon + '' +
+'' +
+'' + (comm.tag || ('💬 ' + char.name + ' sagt:')) + '' +
+'' + comm.main + '' +
+'' + comm.sub + '' +
+'' +
+'';
+}
+// Insertar las 2 nuevas mecánicas en la fase 2. Üben (Pasos 4 y 5)
+if (stepNum === 4) renderMatchWidget(content, worldNum);
+if (stepNum === 5) renderDialogPuzzle(content, worldNum);
+const slowBtns = content.querySelectorAll('[data-slow-plus]');
+if (slowBtns.length > 1) {
+for (let i = 1; i < slowBtns.length; i++) slowBtns[i].remove();
+}
+const sayBtn = content.querySelector('[data-say]');
+if (sayBtn && !content.querySelector('[data-slow]') && !content.querySelector('[data-slow-plus]')) {
+const phrase = sayBtn.getAttribute('data-say');
+const slowBtn = document.createElement('button');
+slowBtn.type = 'button';
+slowBtn.className = 'secondary';
+slowBtn.setAttribute('data-slow-plus', '1');
+slowBtn.innerHTML = '🐢 Langsam Despacio';
+slowBtn.onclick = function() { window.speakPlus(phrase, true); };
+sayBtn.parentNode.insertBefore(slowBtn, sayBtn.nextSibling);
+}
+const footerDiv = content.querySelector('.footer');
+if (footerDiv && !content.querySelector('.rec-bar')) {
+const recDiv = document.createElement('div');
+recDiv.className = 'rec-bar';
+recDiv.innerHTML =
+'🎙️ Grabar mi voz' +
+'Practica pronunciando en voz alta y escúchate';
+footerDiv.parentNode.insertBefore(recDiv, footerDiv);
+}
+const optionsBox = content.querySelector('.options');
+if (optionsBox && stepNum >= 8 && !content.querySelector('#write-challenge') && !optionsBox.querySelector('button[disabled]')) {
+const targetBtn = Array.from(optionsBox.querySelectorAll('button')).find(b => b.dataset.answer !== undefined);
+if (targetBtn) {
+optionsBox.style.display = 'none';
+const challenge = document.createElement('div');
+challenge.id = 'write-challenge';
+challenge.style.cssText = 'background:#f0fdf4;border:2px solid #86efac;border-radius:16px;padding:14px;margin:14px 0;';
+challenge.innerHTML =
+'✍️ Reto Final de Escritura (Producción):' +
+'' +
+'' +
+['ä', 'ö', 'ü', 'ß'].map(ch => '' + ch + '').join('') +
+'' +
+'' +
+'✅ Comprobar ' +
+'Ver opciones';
+optionsBox.parentNode.insertBefore(challenge, optionsBox);
+document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
+document.getElementById('check-write-btn').onclick = function() {
+const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
+const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
+if (match) match.click();
+else {
+const fb = document.getElementById('write-feedback');
+fb.textContent = '💡 Casi... Revisa las terminaciones o artículos en tu Entdecker-Box a la derecha e inténtalo de nuevo.';
+fb.style.display = 'block';
+}
+};
 }
 }
+}
+initSequenceUI();
+enhanceStep();
+const contentEl = document.getElementById('content');
+if (contentEl) {
+const observer = new MutationObserver(() => {
+observer.disconnect();
+enhanceStep();
+observer.observe(contentEl, { childList: true });
+});
+observer.observe(contentEl, { childList: true });
+}
+})();
     function renderPhaseMenu(stepNum, totalTasks) {
     const nav = document.getElementById('nav');
     if (!nav) return;
