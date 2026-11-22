@@ -900,7 +900,6 @@ window.DEUTSCH_MISSIONS={
       ]
     ]
   },
-
     "9": {
     "title": "Der Tagesablauf im Schloss",
     "es": "La rutina del castillo (Horas · Uhr + minutos)",
@@ -1021,7 +1020,6 @@ window.DEUTSCH_MISSIONS={
       ]
     ]
   },
-
     "10": {
     "title": "Das königliche Festbankett",
     "es": "El gran banquete real (Síntesis Mundo 2)",
