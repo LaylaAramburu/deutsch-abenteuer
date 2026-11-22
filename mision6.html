@@ -1,1 +1,58 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deutsch Abenteuer!</title><link rel="stylesheet" href="mission-style.css"></head><body data-mission="6"><header><a href="index.html">🏠 Weltkarte <small>Mapa de mundos</small></a><div><h1 id="heading"></h1><span id="heading-es"></span></div><label>Speichermodus <small>Modo de guardado</small><select id="mode"><option value="auto">Automatisch</option><option value="manual">Manuell</option><option value="off">Ohne Speichern</option></select></label><button id="save">Speichern <small>Guardar</small></button><button id="teacher-toggle" aria-expanded="false">Lehrkraft <small>Profesora</small></button><a class="worksheet-download" href="Mision_06.pdf" download>📄 Arbeitsblatt 06 · Descargar ficha PDF</a></header><main><section class="story" id="intro"></section><nav id="nav" aria-label="Aufgaben · Actividades"></nav><div class="columns"><article id="content"></article><aside><h3>🎒 Inventar <small>Inventario</small></h3><p id="inventory"></p><div id="teacher" hidden><h3>Lehrkraft <small>Guion docente</small></h3><p id="teacher-script"></p><button id="reset">Neu beginnen <small>Reiniciar</small></button></div><p class="count">Fortschritt <small>Progreso</small> <strong id="counter"></strong></p></aside></div></main><script src="aventura-core.js"></script><script src="missions-data.js"></script><script src="mission-engine.js"></script><a href="tarjetas-interactivas.html?m=6" style="display:inline-block;margin:8px;padding:10px 14px;background:#f1e8ff;color:#432a77;border-radius:12px">🃏 Tarjetas interactivas · Misión 6</a><script src="secuencia-plus.js"></script></body></script></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misión 6 · Das Festessen im Schloss</title>
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Baloo+2:wght@600;800&family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="mission-style.css">
+</head>
+<body data-mission="6">
+  <header class="topbar">
+    <a class="back" href="index.html">🗺️ Weltkarte <small>Mapa de mundos</small></a>
+    <div class="title-wrap">
+      <h1>🍽️ Das Festessen im Schloss</h1>
+      <p>El banquete en el castillo · Mundo 2</p>
+    </div>
+    <div class="controls">
+      <label class="mode-box">
+        <span>Speichermodus <small>Modo de guardado</small></span>
+        <select id="saveMode">
+          <option value="auto">Automatisch</option>
+          <option value="manual">Manuell</option>
+        </select>
+      </label>
+      <button id="saveBtn" class="top-btn" type="button">💾 Speichern <small>Guardar</small></button>
+      <button id="teacherBtn" class="top-btn" type="button">👩‍🏫 Lehrkraft <small>Profesora</small></button>
+      <a class="pdf-btn" href="Mision_06.pdf" download>📄 Arbeitsblatt 06 · Descargar ficha PDF</a>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="board">
+      <div class="story" id="intro"></div>
+      <div class="step-nav" id="nav"></div>
+      <article class="card" id="content"></article>
+    </section>
+
+    <aside class="side">
+      <div class="box">
+        <h2>🎒 Inventar <small>Inventario</small></h2>
+        <div id="inv">Noch leer · Todavía vacío</div>
+      </div>
+      <div class="box">
+        <h2>⭐ Fortschritt <small>Progreso</small></h2>
+        <div id="prog">0 / 10</div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="missions-data.js"></script>
+  <script src="mundo2-override.js"></script>
+  <script src="mission-engine.js"></script>
+  <script src="secuencia-plus.js"></script>
+</body>
+</html>
+
