@@ -540,603 +540,775 @@ window.DEUTSCH_MISSIONS={
       ]
     ]
   },
-    "6": {
-    "title": "Das Festessen im Schloss",
-    "es": "El banquete en el castillo",
+  "6": {
+    "title": "Das königliche Fest",
+    "es": "El banquete real",
     "icon": "🍽️",
-    "intro": "Der Koch bereitet das Festessen vor. Felix hilft und fragt: Wer isst was und was trinken die Gäste?",
-    "introEs": "El cocinero prepara el banquete. Félix ayuda y pregunta: ¿Quién come qué y qué beben los invitados?",
-    "reward": "🥄 der goldene Löffel",
+    "intro": "Die Königin hat Hunger, aber die Speisekarte ist durcheinander. Finde das richtige Essen und bestelle höflich!",
+    "introEs": "La reina tiene hambre, pero el menú está desordenado. Descifra la carta y pide comida.",
+    "reward": "🍎 der Festapfel",
     "tasks": [
       [
-        "listen",
-        "Der Koch kocht",
-        "Escucha al cocinero y elige qué prepara",
-        "Ich koche heute Suppe und Brot für das Fest.",
-        "Ich koche heute Suppe und Brot für das Fest.",
-        ["Suppe und Brot", "Milch und Käse", "Apfel und Kuchen"],
-        0,
-        "Escucha las dos comidas: Suppe y Brot.",
-        "🧑‍🍳🍲🥖"
+        "choice",
+        "Der Speisesaal",
+        "Reconoce el comedor",
+        "Wo essen wir?",
+        "Wir essen im Speisesaal.",
+        [
+          "Im Garten.",
+          "Im Speisesaal.",
+          "Im Turm."
+        ],
+        1,
+        "Pedir localizar el comedor con Wo essen wir?"
       ],
       [
-        "listen",
-        "Die Königin hat Hunger",
-        "Escucha qué pide la Reina y deduce",
-        "Ich habe Hunger und Durst. Ich nehme einen Apfel und ein Glas Wasser.",
-        "Ich nehme einen Apfel und ein Glas Wasser.",
-        ["Einen Apfel und Wasser", "Eine Suppe und Milch", "Käse und Brot"],
-        0,
-        "Apfel = manzana, Wasser = agua.",
-        "👑🍎💧"
+        "sort",
+        "Der Tisch wird gedeckt",
+        "Clasifica alimentos y bebidas",
+        "Was essen wir? Was trinken wir?",
+        "Wir essen Brot, Käse und einen Apfel. Wir trinken Wasser, Milch und Saft.",
+        [
+          "🥛 die Milch",
+          "🍞 das Brot",
+          "💧 das Wasser",
+          "🧀 der Käse",
+          "🧃 der Saft",
+          "🍎 der Apfel"
+        ],
+        [
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "La profesora pide: Was trinkst du? Was isst du? Verificar diferencia essen/trinken y artículos de los seis sustantivos.",
+        [
+          "🥣 Essen",
+          "🥤 Trinken"
+        ]
       ],
       [
         "choice",
-        "Was oder Wer?",
-        "Completa la pregunta correcta sobre la comida",
-        "___ isst der König?",
+        "Der König isst",
+        "Escucha y elige",
         "Was isst der König?",
-        ["Was isst der König?", "Wer isst der König?", "Wo isst der König?"],
-        0,
-        "Para preguntar por una cosa o comida usamos WAS.",
-        "🦊❓🍲"
-      ],
-      [
-        "choice",
-        "Wer trinkt?",
-        "Completa la pregunta correcta sobre la persona",
-        "___ trinkt die Milch?",
-        "Wer trinkt die Milch?",
-        ["Wer trinkt die Milch?", "Was trinkt die Milch?", "Wann trinkt die Milch?"],
-        0,
-        "Para preguntar por una persona usamos WER.",
-        "👦❓🥛"
-      ],
-      [
-        "choice",
-        "essen · konjugieren",
-        "Elige las dos formas verbales correctas",
-        "Der Vater ___ Käse und Brot, und wir ___ zusammen.",
-        "Der Vater isst Käse und Brot, und wir essen zusammen.",
-        ["isst / essen", "esse / isst", "esst / isst"],
-        0,
-        "Con er/sie (der Vater) cambia la vocal: e -> i (isst). Con wir: essen.",
-        "🍽️🥖🧀"
+        "Der König isst Brot.",
+        [
+          "Er trinkt Brot.",
+          "Er isst Brot.",
+          "Er essen Brot."
+        ],
+        1,
+        "Distinguir isst de ist, pedir Was isst der König?"
       ],
       [
         "order",
-        "Satzbau · Essen & Trinken",
-        "Ordena la frase completa del invitado",
-        "Ordena las palabras:",
-        "Das Kind isst einen Apfel und trinkt Apfelsaft.",
-        ["Das Kind", "isst", "einen Apfel", "und trinkt", "Apfelsaft."],
-        0,
-        "Sujeto + verbo 1 + objeto + und + verbo 2 + objeto.",
-        "🧩🧃🍎"
+        "Ich möchte ...",
+        "Construye un pedido",
+        "Baue den Satz: Ich möchte Wasser.",
+        "Ich möchte Wasser.",
+        [
+          "Wasser.",
+          "möchte",
+          "Ich"
+        ],
+        [
+          "Ich",
+          "möchte",
+          "Wasser."
+        ],
+        "Practicar Ich möchte Wasser, bitte; respuesta Danke."
       ],
       [
         "dialogue",
-        "Beim Koch bestellen",
-        "Fórmula: Ich möchte ___ und ___, bitte.",
-        "Der Koch fragt: Was möchtest du essen und trinken?",
-        "Ich möchte Suppe und Wasser, bitte.",
-        ["Ich möchte Suppe und Wasser, bitte.", "Ich heiße Felix und wohne im Wald.", "Der Ball ist rot und blau."],
-        0,
-        "Usa la fórmula: Ich möchte [comida] und [bebida], bitte.",
-        "🧑‍🍳🗣️"
+        "Der Kellner",
+        "Pide al camarero",
+        "Frag: Haben Sie Wasser?",
+        "Haben Sie Wasser?",
+        [
+          "Wo wohnst du?",
+          "Haben Sie Wasser?",
+          "Wie heißt der König?"
+        ],
+        1,
+        "Es una pregunta formal: Haben Sie Wasser? Responder Ja, bitte."
       ],
       [
-        "dialogue",
-        "Die Königin fragen",
-        "Fórmula: Was möchten Sie trinken?",
-        "Frag die Königin höflich nach ihrem Getränk!",
-        "Was möchten Sie trinken?",
-        ["Was möchten Sie trinken?", "Wo wohnen Sie?", "Wie spät ist es?"],
-        0,
-        "Para preguntar qué quiere beber con cortesía: Was möchten Sie trinken?",
-        "👑🗣️"
+        "hotspot",
+        "Die richtige Tafel",
+        "Busca la mesa",
+        "Die Königin möchte Suppe. Wohin gehst du?",
+        "Die Suppe steht auf dem mittleren Tisch.",
+        [
+          "🍰 links: Kuchen",
+          "🥣 Mitte: Suppe",
+          "🥖 rechts: Brot"
+        ],
+        1,
+        "Pedir señalar el centro y nombrar Suppe."
       ],
       [
         "choice",
-        "Wer ist das? · Logik",
-        "Lee las pistas y descubre quién es (Vater: Suppe+Brot | Mutter: Apfel+Wasser | Kind: Kuchen+Milch)",
-        "Diese Person trinkt keine Milch. Sie isst Suppe und Brot.",
-        "Der Vater isst Suppe und Brot.",
-        ["Der Vater", "Die Mutter", "Das Kind"],
-        0,
-        "Compara las pistas con cada miembro de la familia.",
-        "🕵️‍♂️🍽️"
+        "Du isst",
+        "Selecciona la forma",
+        "Du ... einen Apfel.",
+        "Du isst einen Apfel.",
+        [
+          "esse",
+          "isst",
+          "esst"
+        ],
+        1,
+        "Comparar du isst / er isst, y la grafía de essen."
       ],
       [
-        "speak",
-        "Dein Menü bestellen",
-        "Elige 2 comidas (Suppe, Brot, Käse, Apfel, Kuchen) y 1 bebida (Wasser, Milch, Apfelsaft) y pídelas con: Ich möchte..., bitte!",
-        "Ich möchte Käse, Brot und Apfelsaft, bitte.",
-        "Ich möchte Käse, Brot und Apfelsaft, bitte.",
-        ["¡Listo! Ya pedí mi menú completo en voz alta"],
-        0,
-        "Combina 2 comidas + und + 1 bebida + bitte.",
-        "🎤👑"
+        "oral",
+        "Dein Menü",
+        "Elige tu comida",
+        "Was möchtest du essen und trinken?",
+        "Ich möchte Brot essen und Wasser trinken.",
+        null,
+        null,
+        "Aceptar menú propio, comprobar essen y trinken."
+      ],
+      [
+        "oral",
+        "Für die Königin",
+        "Ayuda a la reina",
+        "Sag: Die Königin isst Suppe.",
+        "Die Königin isst Suppe.",
+        null,
+        null,
+        "Solicitar sujeto y verbo: Die Königin isst Suppe."
+      ],
+      [
+        "oral",
+        "Das Fest beginnt",
+        "Entrega el pedido",
+        "Bestelle höflich und bedanke dich.",
+        "Ich möchte bitte Wasser. Danke schön!",
+        null,
+        null,
+        "Simular una compra: Guten Tag, Ich möchte ..., bitte. Danke."
       ]
     ]
   },
   "7": {
-    "title": "Die Räume im Schloss",
-    "es": "Las salas del castillo (Wo? · Dativo)",
+    "title": "Die verschwundenen Zimmer",
+    "es": "Las habitaciones desaparecidas",
     "icon": "🏰",
-    "intro": "Die Königin sucht alle im Schloss. Felix erklärt: Mit 'Wo?' benutzen wir 'im' (der/das) und 'in der' (die)!",
-    "introEs": "La Reina busca a todos en el castillo. Félix explica: Con 'Wo?' usamos 'im' (der/das) e 'in der' (die).",
-    "reward": "🗺️ der Schloss-Plan",
+    "intro": "Die Türen im Schloss haben ihre Schilder verloren. Ordne die Zimmer zu und finde das Gästezimmer!",
+    "introEs": "Las puertas del castillo perdieron sus letreros. Identifica las habitaciones y encuentra el cuarto de invitados.",
+    "reward": "🗝️ der Zimmerschlüssel",
     "tasks": [
       [
-        "listen",
-        "Wo ist der Koch?",
-        "Escucha dónde trabaja el cocinero",
-        "Wo ist der Koch? Er kocht heute in der Küche.",
-        "Er kocht heute in der Küche.",
-        ["In der Küche", "Im Park", "Im Bad"],
+        "choice",
+        "Im Schloss",
+        "Identifica el lugar",
+        "Wo schlafen wir?",
+        "Wir schlafen im Schlafzimmer.",
+        [
+          "Im Schlafzimmer.",
+          "In der Küche.",
+          "Im Bad."
+        ],
         0,
-        "die Küche (femenino) -> con Wo cambia a IN DER Küche.",
-        "🏰🍳👑"
-      ],
-      [
-        "map",
-        "Der Weg zur Bibliothek",
-        "Sigue la ruta: Geh zuerst links am Garten vorbei, dann geradeaus bis zur Mitte und dort rechts!",
-        "Wohin kommst du?",
-        "rechts: Bibliothek",
-        ["links: Garten", "Mitte: Hof", "rechts: Bibliothek"],
-        2,
-        "Sigue los tres pasos: 1. links, 2. geradeaus, 3. rechts.",
-        "🗺️🏰"
+        "Dormitorio frente a cocina y baño."
       ],
       [
         "choice",
-        "Dativ · der Park -> im Park",
-        "Elige la forma correcta con Wo? (der Park = masculino)",
-        "Wo spielen die Kinder nach der Schule? Sie spielen ___ Park.",
-        "Sie spielen im Park.",
-        ["im", "in der", "in die"],
-        0,
-        "der Park es masculino (der) -> in + dem = im Park.",
-        "🔵🌳"
-      ],
-      [
-        "choice",
-        "Dativ · die Schule -> in der Schule",
-        "Elige la forma correcta con Wo? (die Schule = femenino)",
-        "Wo lernen Felix und Leo Deutsch? Sie lernen ___ Schule.",
-        "Sie lernen in der Schule.",
-        ["in der", "im", "in das"],
-        0,
-        "die Schule es femenino (die) -> con Wo cambia a in der Schule.",
-        "🔴🏫"
-      ],
-      [
-        "choice",
-        "Dativ · das Klassenzimmer -> im Klassenzimmer",
-        "Elige la forma correcta con Wo? (das Klassenzimmer = neutro)",
-        "Wo schreibt der Lehrer an die Tafel? Er ist ___ Klassenzimmer.",
-        "Er ist im Klassenzimmer.",
-        ["im", "in der", "in den"],
-        0,
-        "das Klassenzimmer es neutro (das) -> in + dem = im Klassenzimmer.",
-        "🟢📚"
-      ],
-      [
-        "choice",
-        "Dativ-Training · im oder in der?",
-        "Completa las dos ubicaciones correctamente",
-        "Der Koch ist ___ Küche und der König ist ___ Garten.",
-        "Der Koch ist in der Küche und der König ist im Garten.",
-        ["in der / im", "im / in der", "im / im"],
-        0,
-        "die Küche (f) -> in der Küche; der Garten (m) -> im Garten.",
-        "🔴🍳"
+        "In der Küche",
+        "Escucha la pista",
+        "Wo kocht der Koch?",
+        "Der Koch kocht in der Küche.",
+        [
+          "Im Garten.",
+          "In der Küche.",
+          "Im Flur."
+        ],
+        1,
+        "Escuchar Küche y repetir la frase."
       ],
       [
         "order",
-        "Satzbau · Wo ist sie?",
-        "Ordena la respuesta sobre ubicación",
-        "Ordena las palabras:",
-        "Meine Schwester ist in der Bibliothek.",
-        ["Meine Schwester", "ist", "in der", "Bibliothek."],
-        0,
-        "Sujeto + ist + in der + lugar femenino.",
-        "🧩🏰"
+        "Das Bad ist ...",
+        "Construye la descripción",
+        "Baue den Satz!",
+        "Das Bad ist links.",
+        [
+          "links.",
+          "Das Bad",
+          "ist"
+        ],
+        [
+          "Das Bad",
+          "ist",
+          "links."
+        ],
+        "Reutilizar rechts y in der Mitte."
+      ],
+      [
+        "hotspot",
+        "Drei Türen",
+        "Elige la puerta",
+        "Das Gästezimmer ist rechts. Welche Tür?",
+        "Das Gästezimmer ist rechts.",
+        [
+          "🚪 links",
+          "🚪 Mitte",
+          "🚪 rechts"
+        ],
+        2,
+        "La puerta equivocada lleva al pasillo; volver a la pista."
       ],
       [
         "dialogue",
-        "Wo bist du?",
-        "Fórmula: Ich bin im ___ / Ich bin in der ___",
-        "Die Königin fragt: Wo bist du jetzt?",
-        "Ich bin in der Schule.",
-        ["Ich bin in der Schule.", "Ich gehe die Schule.", "Ich habe eine Schule."],
-        0,
-        "Recuerda: die Schule (f) -> Ich bin in der Schule.",
-        "👑🗣️"
+        "Die Schlosswache",
+        "Pregunta al guardia",
+        "Frag: Wo ist das Gästezimmer?",
+        "Wo ist das Gästezimmer?",
+        [
+          "Was isst du?",
+          "Wo ist das Gästezimmer?",
+          "Wie alt bist du?"
+        ],
+        1,
+        "Validar pregunta y responder Es ist rechts."
       ],
       [
-        "dialogue",
-        "Den Weg erklären",
-        "Fórmula: Geh zuerst ___, dann ___!",
-        "Ein Freund fragt: Wie komme ich zur Küche?",
-        "Geh zuerst geradeaus, dann links!",
-        ["Geh zuerst geradeaus, dann links!", "Ich trinke gern Wasser.", "Der Apfel kostet zwei Euro."],
-        0,
-        "Usa: geradeaus (recto), links (izquierda), rechts (derecha).",
-        "🦊🗺️"
+        "choice",
+        "Wo oder wer?",
+        "Elige la pregunta",
+        "Du suchst die Küche. Welche Frage passt?",
+        "Wo ist die Küche?",
+        [
+          "Wer ist die Küche?",
+          "Wo ist die Küche?",
+          "Was ist die Küche?"
+        ],
+        1,
+        "Distinguir Wo lugar, Wer persona, Was cosa."
       ],
       [
-        "speak",
-        "Wo sind alle im Schloss?",
-        "Di en voz alta dónde están 3 personas usando IM y IN DER (ej. Der Koch ist in der Küche, mein Freund ist im Park...)",
-        "Der Koch ist in der Küche und mein Freund ist im Park.",
-        "Der Koch ist in der Küche und mein Freund ist im Park.",
-        ["¡Listo! Ya ubiqué a 3 personas usando im y in der"],
-        0,
-        "Combina al menos un lugar femenino (in der) y uno masculino/neutro (im).",
-        "🎤🏰"
+        "sort",
+        "Die Schlosskarte",
+        "Clasifica los lugares y las personas para encontrar la llave",
+        "Was ist ein Raum? Wer ist eine Person?",
+        "Das Schlafzimmer, die Küche und das Bad sind Räume. Die Köchin und der Wächter sind Personen.",
+        [
+          "🛏️ das Schlafzimmer",
+          "👩‍🍳 die Köchin",
+          "🍳 die Küche",
+          "💂 der Wächter",
+          "🛁 das Bad",
+          "👑 die Königin"
+        ],
+        [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1
+        ],
+        "Pedir dos frases: Das Bad ist ein Raum. Die Köchin ist eine Person.",
+        [
+          "🚪 Räume",
+          "👥 Personen"
+        ]
+      ],
+      [
+        "oral",
+        "Dein Zimmer",
+        "Describe un espacio",
+        "Wo ist dein Zimmer? Beschreibe dein Zimmer.",
+        "Mein Zimmer ist oben. Es ist klein und hell.",
+        null,
+        null,
+        "Permitir: Mein Zimmer ist links/rechts; no exigir neben."
+      ],
+      [
+        "oral",
+        "Eine Wegbeschreibung",
+        "Da indicaciones",
+        "Wie kommt Felix zum Bad?",
+        "Geh nach links. Das Bad ist dort.",
+        null,
+        null,
+        "El niño da dos instrucciones con gestos."
+      ],
+      [
+        "oral",
+        "Der Schlüssel",
+        "Abre la habitación",
+        "Frag und antworte: Wo ist das Zimmer?",
+        "Wo ist das Zimmer? Es ist rechts.",
+        null,
+        null,
+        "Validar pregunta y respuesta antes de entregar llave."
       ]
     ]
   },
   "8": {
-    "title": "Der große Markt",
-    "es": "El gran mercado (50 € de presupuesto)",
-    "icon": "🏪",
-    "intro": "Die Königin gibt Felix eine Einkaufsliste und 50 Euro: Kauf alles auf der Liste, aber gib nicht mehr als 50 Euro aus!",
-    "introEs": "La Reina le da a Félix una lista de compras y 50 euros: ¡Compra todo lo de la lista sin pasarte de 50 euros!",
-    "reward": "💰 der Goldbeutel",
+    "title": "Der Markt im Burghof",
+    "es": "El mercado del patio",
+    "icon": "🪙",
+    "intro": "Auf dem Markt fehlen die Preisschilder. Hilf den Händlern, Zahlen und Einkäufe zu ordnen!",
+    "introEs": "Faltan los precios del mercado. Recupera las etiquetas y compra los objetos necesarios.",
+    "reward": "🪙 die Goldmünze",
     "tasks": [
       [
-        "listen",
-        "Was kostet die Schultasche?",
-        "Escucha el precio de la mochila en el puesto",
-        "Die Schultasche kostet vierundzwanzig Euro.",
-        "Die Schultasche kostet vierundzwanzig Euro.",
-        ["24 Euro", "42 Euro", "14 Euro"],
+        "choice",
+        "Der Markt",
+        "Reconoce el precio",
+        "Was kostet zwei Euro?",
+        "Der Apfel kostet zwei Euro.",
+        [
+          "Der Apfel: 2 €",
+          "Das Buch: 8 €",
+          "Der Ball: 5 €"
+        ],
         0,
-        "vier (4) + und + zwanzig (20) = 24.",
-        "🧑‍🌾🎒"
+        "Identificar la etiqueta del objeto nombrado."
       ],
       [
         "choice",
-        "Singular · Wie viel kostet...?",
-        "Elige el verbo correcto para 1 objeto (der Ball)",
-        "Wie viel ___ der Ball?",
+        "Fünf Euro",
+        "Comprende un número",
         "Wie viel kostet der Ball?",
-        ["kostet", "kosten", "koste"],
-        0,
-        "Para 1 objeto usamos singular: kostet.",
-        "⚽💶"
-      ],
-      [
-        "choice",
-        "Plural · Wie viel kosten...?",
-        "Elige el verbo correcto para varios objetos (die Hefte)",
-        "Wie viel ___ die Hefte?",
-        "Wie viel kosten die Hefte?",
-        ["kosten", "kostet", "kostest"],
-        0,
-        "Para varios objetos usamos plural: kosten.",
-        "📓💶"
-      ],
-      [
-        "choice",
-        "Rechnen auf dem Markt",
-        "Calcula el total: Ball (14 €) + Buch (12 €) + Brot (5 €)",
-        "Wie viel kosten der Ball, das Buch und das Brot zusammen?",
-        "Sie kosten einunddreißig Euro.",
-        ["Einunddreißig Euro (31 €)", "Dreiundzwanzig Euro (23 €)", "Vierzig Euro (40 €)"],
-        0,
-        "Suma: 14 + 12 + 5 = 31 (einunddreißig).",
-        "🧮🛒"
+        "Der Ball kostet fünf Euro.",
+        [
+          "3 €",
+          "5 €",
+          "9 €"
+        ],
+        1,
+        "Repetir fünf y contar cinco dedos."
       ],
       [
         "order",
-        "Satzbau · Nach dem Preis fragen",
-        "Ordena la pregunta del comprador",
-        "Ordena las palabras:",
-        "Wie viel kosten der Käse und das Brot?",
-        ["Wie viel", "kosten", "der Käse", "und das Brot?"],
-        0,
-        "W-Frage (Wie viel) + verbo plural (kosten) + los dos productos.",
-        "🧩💶"
-      ],
-      [
-        "choice",
-        "Budget-Check (50 Euro)",
-        "Lista: Schultasche (24 €) + Ball (14 €) + Käse (8 €) = 46 €. Tienes 50 €. ¿Qué puedes añadir?",
-        "Was kannst du noch kaufen?",
-        "Ich kann noch einen Apfel oder ein Heft kaufen.",
-        ["Einen Apfel (2 €) oder ein Heft (4 €)", "Ein Buch (12 €)", "Einen Kuchen (11 €)"],
-        0,
-        "Si llevas 46 € y tienes 50 €, solo te quedan 4 €.",
-        "📜💰"
+        "Ein Preis",
+        "Construye una frase",
+        "Baue den Satz!",
+        "Das Buch kostet acht Euro.",
+        [
+          "acht Euro.",
+          "kostet",
+          "Das Buch"
+        ],
+        [
+          "Das Buch",
+          "kostet",
+          "acht Euro."
+        ],
+        "Señalar la estructura Was kostet…?"
       ],
       [
         "dialogue",
-        "Nach dem Preis fragen",
-        "Fórmula: Entschuldigung, wie viel kostet / kosten ___?",
-        "Frag den Verkäufer nach dem Preis!",
-        "Entschuldigung, wie viel kostet der Käse?",
-        ["Entschuldigung, wie viel kostet der Käse?", "Wo ist das Klassenzimmer?", "Ich bin neun Jahre alt."],
+        "Die Händlerin",
+        "Pregunta el precio",
+        "Frag: Was kostet der Apfel?",
+        "Was kostet der Apfel?",
+        [
+          "Was kostet der Apfel?",
+          "Wo ist mein Zimmer?",
+          "Wie heißt du?"
+        ],
         0,
-        "Empieza con Entschuldigung + wie viel kostet...",
-        "🧑‍🌾🗣️"
+        "Validar pregunta oral; responder Zwei Euro."
       ],
       [
-        "dialogue",
-        "Einkaufen mit Liste",
-        "Fórmula: Ich möchte ___ und ___, bitte.",
-        "Der Verkäufer fragt: Was möchten Sie kaufen?",
-        "Ich möchte einen Ball und ein Brot, bitte.",
-        ["Ich möchte einen Ball und ein Brot, bitte.", "Es ist sieben Uhr dreißig.", "Wir spielen im Garten."],
-        0,
-        "Acusativo masculino: der Ball -> einen Ball.",
-        "🛍️🗣️"
+        "budget",
+        "Der Einkaufswagen",
+        "Elige productos sin superar tu presupuesto",
+        "Du hast sieben Euro. Kaufe einen Apfel und einen Ball!",
+        "Der Apfel kostet zwei Euro. Der Ball kostet fünf Euro. Zusammen sind das sieben Euro.",
+        [
+          "🍎 der Apfel · 2 €",
+          "⚽ der Ball · 5 €",
+          "📕 das Buch · 8 €",
+          "🧸 der Teddy · 4 €"
+        ],
+        [
+          0,
+          1
+        ],
+        "Pedir que justifique: Ich kaufe einen Apfel und einen Ball. Zwei plus fünf ist sieben.",
+        [
+          2,
+          5,
+          8,
+          4
+        ],
+        7
       ],
       [
         "choice",
-        "Wechselgeld prüfen",
-        "Pagas una compra de 43 € con un billete de 50 €. ¿Cuánto cambio recibes?",
-        "Wie viel Euro bekommst du zurück?",
-        "Du bekommst sieben Euro zurück.",
-        ["Sieben Euro (7 €)", "Siebzehn Euro (17 €)", "Drei Euro (3 €)"],
-        0,
-        "50 - 43 = 7 (sieben Euro).",
-        "🧾✅"
+        "Zwei plus drei",
+        "Calcula escuchando",
+        "Wie viel ist zwei plus drei? Wähle die Zahl.",
+        "Zwei plus drei ist fünf.",
+        [
+          "vier",
+          "fünf",
+          "sechs"
+        ],
+        1,
+        "Contar con fichas; usar números 1–10."
       ],
       [
-        "speak",
-        "Rollenspiel · Auf dem Markt",
-        "Haz la compra en voz alta: 1) Saluda (Guten Tag!), 2) Pregunta precio de 2 cosas (Wie viel kostet...?), 3) Compra y agradece (Ich möchte..., bitte. Danke!).",
-        "Guten Tag! Wie viel kostet der Ball? Ich möchte einen Ball, bitte. Danke!",
-        "Guten Tag! Wie viel kostet der Ball? Ich möchte einen Ball, bitte. Danke!",
-        ["¡Listo! Ya hice toda la compra en voz alta"],
-        0,
-        "Usa las tres fórmulas: saludo + pregunta de precio + pedido con bitte.",
-        "🎤🏪"
+        "choice",
+        "Ein oder zwei?",
+        "Distingue singular y plural",
+        "Wie viele Äpfel?",
+        "Ich habe zwei Äpfel.",
+        [
+          "ein Apfel",
+          "zwei Äpfel",
+          "drei Äpfel"
+        ],
+        1,
+        "Explicar plural Äpfel como vocabulario de esta escena."
+      ],
+      [
+        "oral",
+        "Dein Einkauf",
+        "Compra dos cosas",
+        "Was möchtest du kaufen?",
+        "Ich möchte einen Apfel und einen Ball.",
+        null,
+        null,
+        "Aceptar dos objetos disponibles y artículos correctos."
+      ],
+      [
+        "oral",
+        "Das Wechselgeld",
+        "Cuenta el dinero",
+        "Du hast zehn Euro. Das Buch kostet acht. Wie viel bleibt?",
+        "Zwei Euro bleiben übrig.",
+        null,
+        null,
+        "Usar monedas dibujadas o dedos; validar resultado 2."
+      ],
+      [
+        "oral",
+        "Der Handel",
+        "Cierra la compra",
+        "Frag nach dem Preis und kaufe etwas.",
+        "Was kostet der Ball? Fünf Euro. Ich nehme den Ball.",
+        null,
+        null,
+        "Validar pregunta + decisión, entregar moneda."
       ]
     ]
   },
-    "9": {
-    "title": "Der Tagesablauf im Schloss",
-    "es": "La rutina del castillo (Horas · Uhr + minutos)",
+  "9": {
+    "title": "Die große Schlossuhr",
+    "es": "El gran reloj del castillo",
     "icon": "🕰️",
-    "intro": "Die Eule zeigt Felix den Tagesablauf im Schloss: Wann beginnt der Unterricht und wann ist das Training?",
-    "introEs": "El Búho muestra a Félix la rutina del castillo: ¿Cuándo empiezan las clases y cuándo es el entrenamiento?",
-    "reward": "⏰ die goldene Uhr",
+    "intro": "Die Uhr im Schloss steht still. Ordne die Tageszeiten und die Uhrzeiten, damit das Fest pünktlich beginnt!",
+    "introEs": "El reloj del castillo se detuvo. Ordena horas y rutinas para que la fiesta empiece a tiempo.",
+    "reward": "⏰ das Uhrzahnrad",
     "tasks": [
       [
-        "listen",
-        "Wie spät ist es jetzt?",
-        "Escucha al Búho y elige la hora exacta",
-        "Guten Morgen! Es ist sieben Uhr dreißig. Zeit für das Frühstück!",
-        "Es ist sieben Uhr dreißig.",
-        ["7:30 Uhr", "7:15 Uhr", "8:30 Uhr"],
+        "choice",
+        "Guten Morgen",
+        "Comprende la mañana",
+        "Wann frühstückt Felix?",
+        "Felix frühstückt am Morgen.",
+        [
+          "am Morgen",
+          "am Abend",
+          "in der Nacht"
+        ],
         0,
-        "sieben (7) + Uhr + dreißig (30) = 7:30.",
-        "🦉⏰🥣"
-      ],
-      [
-        "listen",
-        "Wann beginnt der Unterricht?",
-        "Escucha cuándo empieza la clase en el castillo",
-        "Der Unterricht beginnt um acht Uhr fünfzehn im Klassenzimmer.",
-        "Der Unterricht beginnt um acht Uhr fünfzehn.",
-        ["Um 8:15 Uhr", "Um 8:50 Uhr", "Um 9:15 Uhr"],
-        0,
-        "acht (8) + Uhr + fünfzehn (15) = 8:15. Con horas usamos UM.",
-        "🏫⏰📚"
+        "Vincular Morgen con desayuno."
       ],
       [
         "choice",
-        "Uhrzeit lesen · 16:30",
-        "Elige cómo se dice 16:30 en alemán",
-        "Es ist 16:30 Uhr. Wie sagt man das?",
-        "Es ist sechzehn Uhr dreißig.",
-        ["Es ist sechzehn Uhr dreißig.", "Es ist sechs Uhr dreizehn.", "Es ist sechzig Uhr drei."],
+        "Die Uhrzeit",
+        "Reconoce la hora",
+        "Wie spät ist es?",
+        "Es ist acht Uhr.",
+        [
+          "08:00",
+          "12:00",
+          "18:00"
+        ],
         0,
-        "16 = sechzehn · 30 = dreißig -> sechzehn Uhr dreißig.",
-        "⚽⏰🌳"
-      ],
-      [
-        "choice",
-        "Präposition · UM + Uhrzeit",
-        "Completa la frase con la preposición correcta para horas",
-        "Wir essen ___ dreizehn Uhr zusammen Mittagessen.",
-        "Wir essen um dreizehn Uhr zusammen Mittagessen.",
-        ["um", "am", "im"],
-        0,
-        "Para decir 'a las...' con una hora exacta siempre usamos UM.",
-        "🍲⏰👑"
-      ],
-      [
-        "choice",
-        "Logik · Tagesablauf",
-        "Lee la rutina y responde: 7:30 Frühstück | 8:15 Schule | 13:00 Mittagessen | 16:30 Training",
-        "Was macht Felix um sechzehn Uhr dreißig?",
-        "Er hat Training.",
-        ["Er hat Training.", "Er isst Frühstück.", "Er geht schlafen."],
-        0,
-        "Busca 16:30 (sechzehn Uhr dreißig) en el horario.",
-        "🦊📅⏰"
+        "Escuchar acht Uhr antes de leer."
       ],
       [
         "order",
-        "Satzbau · Wann beginnt...?",
-        "Ordena la pregunta sobre el horario",
-        "Ordena las palabras:",
-        "Wann beginnt heute das Training?",
-        ["Wann", "beginnt", "heute", "das Training?"],
-        0,
-        "W-Frage (Wann) + verbo en 2.ª posición (beginnt) + sujeto.",
-        "🧩⏰⚽"
+        "Es ist ...",
+        "Construye la hora",
+        "Baue den Satz!",
+        "Es ist zehn Uhr.",
+        [
+          "zehn Uhr.",
+          "Es",
+          "ist"
+        ],
+        [
+          "Es",
+          "ist",
+          "zehn Uhr."
+        ],
+        "Diferenciar Es ist… de Ich bin…"
       ],
       [
         "dialogue",
-        "Nach der Uhrzeit fragen",
-        "Fórmula: Entschuldigung, wie spät ist es?",
-        "Du hast keine Uhr. Frag die Eule nach der Zeit!",
-        "Entschuldigung, wie spät ist es?",
-        ["Entschuldigung, wie spät ist es?", "Wie viel kostet das Brot?", "Wo ist der Sportplatz?"],
-        0,
-        "Para preguntar '¿Qué hora es?' usamos: Wie spät ist es?",
-        "🦉🗣️"
+        "Die Uhrmacherin",
+        "Pregunta la hora",
+        "Frag: Wie spät ist es?",
+        "Wie spät ist es?",
+        [
+          "Wo ist die Uhr?",
+          "Wie spät ist es?",
+          "Was isst du?"
+        ],
+        1,
+        "Validar pregunta oral; responder Es ist zwölf Uhr."
       ],
       [
-        "dialogue",
-        "Über den Tagesablauf sprechen",
-        "Fórmula: Ich stehe um ___ Uhr auf und gehe um ___ Uhr zur Schule.",
-        "Felix fragt: Wann gehst du zur Schule?",
-        "Ich gehe um acht Uhr zur Schule.",
-        ["Ich gehe um acht Uhr zur Schule.", "Ich möchte eine Suppe, bitte.", "Der Ball ist unter dem Tisch."],
-        0,
-        "Usa UM + la hora + zur Schule.",
-        "🦊🗣️"
+        "route",
+        "Der Stundenzeiger",
+        "Elige el reloj",
+        "Das Fest beginnt um sechs Uhr.",
+        "Das Fest beginnt um sechs Uhr.",
+        [
+          "🕒 03:00",
+          "🕕 06:00",
+          "🕘 09:00"
+        ],
+        1,
+        "Elegir el reloj de las seis para reactivar mecanismo."
+      ],
+      [
+        "sort",
+        "Der Tagesplan",
+        "Ordena las actividades de la mañana y la tarde",
+        "Was machst du am Morgen? Was machst du am Abend?",
+        "Am Morgen stehe ich auf und frühstücke. Am Abend esse ich zu Abend und lese.",
+        [
+          "🌅 ich stehe auf",
+          "🌙 ich lese am Abend",
+          "🥣 ich frühstücke",
+          "🍽️ ich esse zu Abend"
+        ],
+        [
+          0,
+          1,
+          0,
+          1
+        ],
+        "El alumno describe su rutina real; las tarjetas son ejemplos, no obligaciones.",
+        [
+          "🌅 am Morgen",
+          "🌙 am Abend"
+        ]
       ],
       [
         "choice",
-        "Pünktlich oder zu spät?",
-        "La clase empieza a las 8:15 (acht Uhr fünfzehn). Son las 8:30 (acht Uhr dreißig). ¿Cómo llega Leo?",
-        "Es ist acht Uhr dreißig. Leo kommt...",
-        "zu spät (tarde)",
-        ["zu spät (tarde)", "pünktlich (puntual)", "am Abend (por la noche)"],
-        0,
-        "8:30 es después de 8:15 -> llega tarde (zu spät).",
-        "🏃‍♂️⏰🏫"
+        "Wann?",
+        "Selecciona la pregunta",
+        "Du möchtest wissen, wann das Fest beginnt. Welche Frage passt?",
+        "Wann beginnt das Fest?",
+        [
+          "Wer beginnt das Fest?",
+          "Wann beginnt das Fest?",
+          "Was beginnt jetzt?"
+        ],
+        1,
+        "Diferenciar Wann y Wie spät."
       ],
       [
-        "speak",
-        "Mein Tagesablauf",
-        "Cuenta tu rutina en voz alta usando UM + hora + minutos (ej. Ich esse um sieben Uhr dreißig Frühstück und gehe um acht Uhr fünfzehn zur Schule.)",
-        "Ich esse um sieben Uhr dreißig Frühstück und gehe um acht Uhr fünfzehn zur Schule.",
-        "Ich esse um sieben Uhr dreißig Frühstück und gehe um acht Uhr fünfzehn zur Schule.",
-        ["¡Listo! Ya conté mi rutina con horas en alemán"],
-        0,
-        "Usa al menos dos horas con 'um ... Uhr ...'.",
-        "🎤⏰"
+        "oral",
+        "Mein Morgen",
+        "Describe tu mañana",
+        "Was machst du am Morgen?",
+        "Am Morgen stehe ich auf und frühstücke.",
+        null,
+        null,
+        "Aceptar rutinas reales del niño."
+      ],
+      [
+        "oral",
+        "Mein Tag",
+        "Ordena tres acciones",
+        "Sag drei Dinge in der richtigen Reihenfolge.",
+        "Zuerst stehe ich auf. Dann frühstücke ich. Danach spiele ich.",
+        null,
+        null,
+        "Ayudar con tarjetas primero/después."
+      ],
+      [
+        "oral",
+        "Das Fest beginnt",
+        "Activa el reloj",
+        "Sag, wann das Fest beginnt.",
+        "Das Fest beginnt um sechs Uhr.",
+        null,
+        null,
+        "Validar frase y entregar engranaje."
       ]
     ]
   },
-    "10": {
-    "title": "Das königliche Festbankett",
-    "es": "El gran banquete real (Síntesis Mundo 2)",
+  "10": {
+    "title": "Das Rätsel der Königin",
+    "es": "El acertijo de la reina",
     "icon": "👑",
-    "intro": "Das große Fest im Schloss beginnt! Felix, die Königin und der Koch feiern zusammen. Kombiniere alle W-Fragen und bestelle von der Speisekarte!",
-    "introEs": "¡Empieza el gran banquete en el castillo! Félix, la Reina y el Cocinero celebran juntos. ¡Combina todas las W-Fragen y pide de la carta real!",
-    "reward": "👑 die Goldene Krone",
+    "intro": "Die Königin hat drei Hinweise versteckt. Nur wer Fragen stellt und Menschen und Dinge beschreibt, öffnet das Schlosstor!",
+    "introEs": "La reina escondió tres pistas. Haz preguntas y describe personas y objetos para abrir el portón.",
+    "reward": "👑 das Königssiegel",
     "tasks": [
       [
-        "listen",
-        "Einladung zum Festbankett",
-        "Escucha la invitación de la Reina y elige la hora y el lugar",
-        "Das Festbankett beginnt um achtzehn Uhr dreißig im großen Saal!",
-        "Das Festbankett beginnt um achtzehn Uhr dreißig im großen Saal!",
-        ["Um 18:30 Uhr im großen Saal", "Um 8:30 Uhr in der Küche", "Um 16:00 Uhr im Park"],
-        0,
-        "achtzehn Uhr dreißig = 18:30; im großen Saal = en el gran salón.",
-        "👑🎺🏰"
+        "choice",
+        "Die Königin",
+        "Identifica a la persona",
+        "Wer trägt die Krone?",
+        "Die Königin trägt die Krone.",
+        [
+          "Der Koch.",
+          "Die Königin.",
+          "Der Händler."
+        ],
+        1,
+        "Wer pregunta por persona."
       ],
       [
         "choice",
-        "W-Fragen · Das große Quiz",
-        "Elige la palabra interrogativa correcta para cada pregunta",
-        "Completa: '___ kocht die Suppe?' (persona) y '___ kostet das Menü?' (precio)",
-        "Wer kocht die Suppe? / Wie viel kostet das Menü?",
-        ["Wer / Wie viel", "Was / Wo", "Wann / Wer"],
+        "Der goldene Schlüssel",
+        "Identifica un objeto",
+        "Was ist auf dem Tisch?",
+        "Ein Schlüssel liegt auf dem Tisch.",
+        [
+          "Ein Schlüssel.",
+          "Eine Uhr.",
+          "Ein Apfel."
+        ],
         0,
-        "Wer = quién (persona); Wie viel = cuánto (precio).",
-        "🦊❓👑"
-      ],
-      [
-        "choice",
-        "Königliche Speisekarte · Was isst du?",
-        "Lee la carta real: Suppe (4 €) · Hähnchen (9 €) · Nudeln (7 €) · Salat (5 €) · Kuchen (5 €) · Eis (4 €) · Apfelsaft (3 €) · Wasser (2 €). ¿Cuánto cuestan Hähnchen, Salat und Apfelsaft?",
-        "Wie viel kosten das Hähnchen, der Salat und der Apfelsaft zusammen?",
-        "Sie kosten siebzehn Euro.",
-        ["Siebzehn Euro (17 €)", "Fünfzehn Euro (15 €)", "Zwanzig Euro (20 €)"],
-        0,
-        "Suma los tres precios de la carta: 9 + 5 + 3 = 17 (siebzehn).",
-        "📜🍗🥗"
-      ],
-      [
-        "choice",
-        "Dativ-Check im Schloss",
-        "Recuerda la regla de Félix: ¿Dónde está cada cosa en el banquete?",
-        "Der Kuchen steht ___ Küche und die Gäste sitzen ___ Garten.",
-        "Der Kuchen steht in der Küche und die Gäste sitzen im Garten.",
-        ["in der / im", "im / in der", "in die / in den"],
-        0,
-        "die Küche (femenino) -> in der Küche; der Garten (masculino) -> im Garten.",
-        "🍰🌳🏰"
+        "Was pregunta por cosa."
       ],
       [
         "order",
-        "Satzbau · Höflich bestellen",
-        "Ordena la frase completa para pedir en el banquete",
-        "Ordena las palabras:",
-        "Ich möchte bitte Nudeln, Salat und ein Glas Wasser.",
-        ["Ich möchte", "bitte", "Nudeln, Salat", "und ein Glas Wasser."],
-        0,
-        "Ich möchte + bitte + los platos + und + la bebida.",
-        "🧩🍝💧"
-      ],
-      [
-        "choice",
-        "Budget-Challenge (35 Euro)",
-        "Tienes 35 € para invitar a un amigo: 2x Hähnchen (18 €) + 2x Apfelsaft (6 €) = 24 €. ¿Qué dos postres de la carta (Kuchen 5 € / Eis 4 €) alcanzan?",
-        "Was kannst du für dich und deinen Freund noch bestellen?",
-        "Zwei Kuchen (10 €) oder zwei Eis (8 €)",
-        ["Zwei Kuchen (10 €) oder zwei Eis (8 €)", "Noch zwei Hähnchen (18 €)", "Drei Kuchen (15 €)"],
-        0,
-        "35 - 24 = 11 € disponibles. Dos pasteles cuestan 10 € y dos helados 8 €.",
-        "💰🍨🍰"
+        "Die erste Frage",
+        "Construye la pregunta",
+        "Baue die Frage!",
+        "Wo ist der Schlüssel?",
+        [
+          "der Schlüssel?",
+          "Wo",
+          "ist"
+        ],
+        [
+          "Wo",
+          "ist",
+          "der Schlüssel?"
+        ],
+        "Usar entonación interrogativa."
       ],
       [
         "dialogue",
-        "Im Restaurant bestellen",
-        "Fórmula: Guten Abend! Ich hätte gern ___ und ___, bitte.",
-        "Der Kellner im Schloss fragt: Was darf ich Ihnen bringen?",
-        "Guten Abend! Ich hätte gern Hähnchen und Apfelsaft, bitte.",
-        ["Guten Abend! Ich hätte gern Hähnchen und Apfelsaft, bitte.", "Mein Bruder heißt Leo.", "Der Bleistift ist blau."],
-        0,
-        "Usa la fórmula cortés: Ich hätte gern [plato] und [bebida], bitte.",
-        "🧑‍🍳🗣️"
+        "Die Königin fragt",
+        "Responde con pregunta",
+        "Frag: Wer hat den Schlüssel?",
+        "Wer hat den Schlüssel?",
+        [
+          "Wann ist das Fest?",
+          "Wer hat den Schlüssel?",
+          "Wie viel kostet das?"
+        ],
+        1,
+        "Validar pregunta oral; la reina responde Der Wächter hat ihn."
       ],
       [
-        "dialogue",
-        "Nach der Rechnung fragen",
-        "Fórmula: Entschuldigung, zahlen bitte! Wie viel macht das zusammen?",
-        "Ihr seid fertig mit dem Essen. Frag nach der Rechnung!",
-        "Entschuldigung, zahlen bitte! Wie viel macht das zusammen?",
-        ["Entschuldigung, zahlen bitte! Wie viel macht das zusammen?", "Wie spät ist es jetzt?", "Wo ist mein Heft?"],
-        0,
-        "Para pedir la cuenta en alemán: Zahlen bitte! Wie viel macht das zusammen?",
-        "💶🗣️"
+        "route",
+        "Drei Truhen",
+        "Busca el sello",
+        "Die goldene Truhe ist in der Mitte.",
+        "Die goldene Truhe ist in der Mitte.",
+        [
+          "🧰 links",
+          "✨ Mitte",
+          "📦 rechts"
+        ],
+        1,
+        "Decisión desbloquea segunda pista."
       ],
       [
         "choice",
-        "Welt-Check · W-Fragen & Uhrzeit",
-        "Lee la nota final del Búho: 'Um neunzehn Uhr treffen wir die Königin im Park. Sie bringt Kuchen für alle!'",
-        "Wann und wo treffen sie die Königin?",
-        "Um 19:00 Uhr im Park.",
-        ["Um 19:00 Uhr im Park.", "Um 9:00 Uhr in der Schule.", "Um 17:00 Uhr im Bad."],
+        "Welche Frage?",
+        "Elige la pregunta correcta",
+        "Du möchtest den Preis wissen.",
+        "Was kostet die Krone?",
+        [
+          "Was kostet die Krone?",
+          "Wo kostet die Krone?",
+          "Wer kostet die Krone?"
+        ],
         0,
-        "neunzehn Uhr = 19:00; im Park = en el parque.",
-        "🦉📜👑"
+        "Recuperación espaciada de misión 8."
       ],
       [
-        "speak",
-        "Das große Bankett · Rollenspiel",
-        "Juego de rol final en clase: 1) Saluda y pide 2 platos y 1 bebida de la carta real (Suppe, Hähnchen, Nudeln, Salat, Kuchen, Eis, Wasser, Apfelsaft), 2) Pregunta cuánto cuesta todo y 3) Despídete dando las gracias.",
-        "Guten Abend! Ich möchte Nudeln, Eis und Apfelsaft, bitte. Wie viel macht das zusammen? Vielen Dank!",
-        "Guten Abend! Ich möchte Nudeln, Eis und Apfelsaft, bitte. Wie viel macht das zusammen? Vielen Dank!",
-        ["¡Misión 10 y Mundo 2 completados!"],
+        "choice",
+        "Der Wächter",
+        "Comprende la descripción",
+        "Wer ist groß und trägt einen Schlüssel?",
+        "Der Wächter ist groß und hat einen Schlüssel.",
+        [
+          "Der Wächter.",
+          "Die Köchin.",
+          "Die Eule."
+        ],
         0,
-        "Usa las fórmulas: Ich möchte..., bitte + Wie viel macht das zusammen? + Vielen Dank!",
-        "🎤👑"
+        "Describir atributos sin suponer estereotipos."
+      ],
+      [
+        "questionmatch",
+        "Die drei Fragen",
+        "Ayuda a la reina: relaciona cada pregunta con la información que necesitas.",
+        "Welche Frage passt?",
+        "Wer hat den Schlüssel? Wo ist der Schlüssel? Was ist auf dem Tisch?",
+        [
+          "Wer",
+          "Wo",
+          "Was"
+        ],
+        [
+          0,
+          1,
+          2
+        ],
+        "La profesora pide formular tres preguntas completas: Wer hat den Schlüssel? Wo ist der Schlüssel? Was ist auf dem Tisch?",
+        [
+          "👤 ¿Quién tiene la llave?",
+          "📍 ¿Dónde está la llave?",
+          "📦 ¿Qué hay sobre la mesa?"
+        ]
+      ],
+      [
+        "oral",
+        "Die Antwort",
+        "Resuelve el acertijo",
+        "Beschreibe den Schlüssel und seinen Ort.",
+        "Der Schlüssel ist goldfarben. Er liegt auf dem Tisch.",
+        null,
+        null,
+        "Aceptar Der Schlüssel ist auf dem Tisch como A1."
+      ],
+      [
+        "oral",
+        "Das Schlosstor",
+        "Abre el portón",
+        "Frag die Königin nach dem Siegel und erkläre die Lösung.",
+        "Entschuldigung, wo ist das Siegel? Es ist in der mittleren Truhe.",
+        null,
+        null,
+        "Validar pregunta y solución; entregar sello."
       ]
     ]
   },
