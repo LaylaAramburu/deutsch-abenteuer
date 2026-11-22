@@ -466,8 +466,12 @@
     }).join('');
   }
 
-  function getCommunicativePrompt(taskData) {
+     function getCommunicativePrompt(taskData) {
     const kind = taskData.at(0), rawDe = String(taskData.at(3) || 'Hör zu!'), rawEs = String(taskData.at(2) || ''), targetPhrase = String(taskData.at(4) || '');
+    const isListeningTask = /escucha|hör/i.test(rawEs) || (rawDe === targetPhrase && rawDe.length > 15);
+    if (isListeningTask && kind !== 'dialogue' && kind !== 'order') {
+      return { tag: '🎧 Hörverstehen · Escucha con atención', main: '«Hör gut zu! Klicke auf Anhören.»', sub: rawEs };
+    }
     if (kind === 'dialogue') {
       const hasSpoiler = /^(Frag|Sag)/i.test(rawDe);
       const topicMatch = targetPhrase.match(/\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/);
