@@ -304,37 +304,69 @@
       };
     }
   }
-  const MINI_READINGS = {
-    1: { title: '💬 Chat de Félix', text: 'Hallo! Ich heiße Felix. Ich bin neun Jahre alt und wohne im Wald. Das ist mein Freund Leo. Leo hat eine Schwester.', q: '¿Cómo se llama el amigo de Félix?', opts: ['Leo', 'Max'], ans: 'Leo' },
-    2: { title: '🗺️ Nota en el mapa', text: 'Der Weg zum Sportplatz ist leicht: Geh zuerst links, dann geradeaus. Der Kompass liegt rechts neben dem Baum.', q: '¿Dónde está la brújula?', opts: ['A la derecha, junto al árbol', 'A la izquierda'], ans: 'A la derecha, junto al árbol' },
-    3: { title: '🎒 Lista de la mochila', text: 'Heute ist Schule! Ich packe meine Schultasche: Ich brauche einen Bleistift, ein Heft, ein Lineal und eine Flasche Wasser.', q: '¿Qué lleva en la mochila?', opts: ['Un lápiz, un cuaderno, una regla y agua', 'Una pelota y un casco'], ans: 'Un lápiz, un cuaderno, una regla y agua' },
-    4: { title: '🎨 Cartel de colores', text: 'Unsere Team-Kleidung: Das Trikot ist blau und gelb. Der Ball ist rot und weiß. Die Schuhe sind grün.', q: '¿De qué color es la pelota?', opts: ['Roja y blanca', 'Azul y amarilla'], ans: 'Roja y blanca' },
-    5: { title: '⚽ Entrenamiento', text: 'Im Training bewegen wir den ganzen Körper: Wir laufen schnell, wir springen hoch und wir schießen den Ball mit dem Fuß.', q: '¿Con qué patean la pelota?', opts: ['Con el pie (mit dem Fuß)', 'Con la mano'], ans: 'Con el pie (mit dem Fuß)' },
-    6: { title: '🍽️ Menú del banquete', text: 'Heute kocht der Koch für die Familie: Der Vater isst Suppe und Brot. Die Mutter trinkt Wasser und isst einen Apfel.', q: '¿Qué bebe la madre?', opts: ['Agua (Wasser)', 'Leche (Milch)'], ans: 'Agua (Wasser)' },
-    7: { title: '🏫 Plano de la escuela', text: 'Wo sind alle? Der Lehrer ist im Klassenzimmer. Die Kinder spielen in der Pause im Garten. Das Bad ist unten links.', q: '¿Dónde están los niños en el recreo?', opts: ['En el jardín (im Garten)', 'En el aula'], ans: 'En el jardín (im Garten)' },
-    8: { title: '🏪 Ticket de compra', text: 'Auf dem Markt: Ein Ball kostet fünf Euro. Zwei Hefte kosten vier Euro. Eine Flasche Wasser kostet nur einen Euro.', q: '¿Cuánto cuesta una pelota?', opts: ['5 euros', '4 euros'], ans: '5 euros' },
-    9: { title: '🕰️ Horario del día', text: 'Der Unterricht beginnt um acht Uhr. Um halb elf haben wir Pause. Am Nachmittag um vier Uhr beginnt das Fußball-Training.', q: '¿A qué hora empieza el entrenamiento?', opts: ['A las 4:00 (um vier Uhr)', 'A las 8:30 (halb neun)'], ans: 'A las 4:00 (um vier Uhr)' },
-    10: { title: '👑 Acertijo de la Reina', text: 'Mein Großvater und meine Großmutter wohnen im Schloss. Sie wissen alles! Frag sie: Wer hat den goldenen Schlüssel?', q: '¿Quién vive en el castillo?', opts: ['Los abuelos (Großvater und Großmutter)', 'El revisor'], ans: 'Los abuelos (Großvater und Großmutter)' },
-    11: { title: '🤖 Ficha del Robot', text: 'Robo-X hat ein Problem: Sein rechter Arm und sein linkes Bein funktionieren nicht. Wir brauchen eine neue Batterie!', q: '¿Qué necesita el robot?', opts: ['Una batería nueva', 'Un cuaderno'], ans: 'Una batería nueva' },
-    12: { title: '🧪 Notas del Laboratorio', text: 'Achtung! In dieser Flasche ist kein Wasser und keine Milch. Das ist eine geheime Mischung für das Experiment!', q: '¿Hay agua en la botella?', opts: ['No, no hay agua (kein Wasser)', 'Sí, hay leche'], ans: 'No, no hay agua (kein Wasser)' },
-    13: { title: '🔢 Código de Seguridad', text: 'Der Lehrer schreibt drei Zahlen an die Tafel: fünfundzwanzig, vierzig und achtundsechzig. Das ist der Code!', q: '¿Qué número es "fünfundzwanzig"?', opts: ['25', '52'], ans: '25' },
-    14: { title: '📖 Diario de Clase', text: 'In der Bibliothek: Mia liest eine spannende Geschichte. Tom schreibt einen Satz in sein Heft. Alle sprechen leise.', q: '¿Qué hace Mia en la biblioteca?', opts: ['Lee una historia (liest eine Geschichte)', 'Corre rápido'], ans: 'Lee una historia (liest eine Geschichte)' },
-    15: { title: '🏆 Reporte Final', text: 'Unsere Mannschaft hat dreißig Punkte und keinen Fehler! Wir lösen das letzte Rätsel und gewinnen das Spiel.', q: '¿Cuántos errores tiene el equipo?', opts: ['Ninguno (keinen Fehler)', 'Treinta (dreißig)'], ans: 'Ninguno (keinen Fehler)' },
-    16: { title: '🌦️ Pronóstico del Clima', text: 'Am Samstag scheint die Sonne und es ist warm: Wir gehen auf den Sportplatz. Am Sonntag regnet es: Wir bleiben zu Hause.', q: '¿Qué hacen el sábado si hace sol?', opts: ['Van a la cancha (Sportplatz)', 'Se quedan en casa'], ans: 'Van a la cancha (Sportplatz)' },
-    17: { title: '🚌 Camino a la Escuela', text: 'Wie kommst du zur Schule? Ich fahre oft mit dem Schulbus. Mein Freund Leo fährt lieber mit dem Fahrrad.', q: '¿Cómo va Leo a la escuela?', opts: ['En bicicleta (mit dem Fahrrad)', 'En tren'], ans: 'En bicicleta (mit dem Fahrrad)' },
-    18: { title: '🏙️ Plan de la Tarde', text: 'Wohin gehen wir heute? Zuerst gehen wir in die Bibliothek. Danach treffen wir unsere Freunde im Park.', q: '¿Adónde van primero?', opts: ['A la biblioteca', 'Al cine'], ans: 'A la biblioteca' },
-    19: { title: '📅 Invitación Familiar', text: 'Im Juli feiert mein Onkel Geburtstag! Am Wochenende besuchen uns meine Tante, mein Cousin und meine Cousine.', q: '¿En qué mes es el cumpleaños del tío?', opts: ['En julio (im Juli)', 'En lunes'], ans: 'En julio (im Juli)' },
-    20: { title: '🌀 Mensaje Temporal', text: 'Wir reisen am Freitag um neun Uhr durch das Portal. Bei gutem Wetter feiern wir ein großes Fest im Garten!', q: '¿Cuándo viajan por el portal?', opts: ['El viernes a las nueve', 'El domingo'], ans: 'El viernes a las nueve' },
-    21: { title: '🌲 De vuelta en el Bosque', text: 'Schau mal! Der Rucksack liegt unter dem Baum. Das Buch liegt auf dem Tisch und der Ball ist neben dem Stein.', q: '¿Dónde está el libro?', opts: ['Sobre la mesa (auf dem Tisch)', 'Debajo del árbol'], ans: 'Sobre la mesa (auf dem Tisch)' },
-    22: { title: '🗣️ Entrevista a un Amigo', text: 'Warum lernst du Deutsch? Weil ich gern reise und neue Freunde treffe! Mein Hobby ist Fußball.', q: '¿Por qué aprende alemán?', opts: ['Porque le gusta viajar y hacer amigos', 'Porque tiene hambre'], ans: 'Porque le gusta viajar y hacer amigos' },
-    23: { title: '🤝 En el Club Deportivo', text: 'Entschuldigung, Herr Trainer, können Sie mir bitte helfen? Ich finde meine Trinkflasche nicht.', q: '¿A quién le pide ayuda?', opts: ['Al entrenador (Herr Trainer)', 'Al cocinero'], ans: 'Al entrenador (Herr Trainer)' },
-    24: { title: '🎉 Gran Final A1', text: 'Wir haben es geschafft! Meine Familie, meine Freunde und Felix feiern zusammen. Ich spreche jetzt schon viel Deutsch!', q: '¿Con quién celebra el final?', opts: ['Con su familia, amigos y Félix', 'Solo en casa'], ans: 'Con su familia, amigos y Félix' }
+    const MINI_READINGS = {
+    1: { title: '💬 Chat von Felix', text: 'Hallo! Ich heiße Felix. Ich bin neun Jahre alt und wohne im Wald. Das ist mein Freund Leo. Leo hat eine Schwester.', q: 'Wie heißt der Freund von Felix?', opts: ['Er heißt Leo.', 'Er heißt Max.'], ans: 'Er heißt Leo.' },
+    2: { title: '🗺️ Notiz auf der Karte', text: 'Der Weg zum Sportplatz ist leicht: Geh zuerst links, dann geradeaus. Der Kompass liegt rechts neben dem Baum.', q: 'Wo liegt der Kompass?', opts: ['Rechts neben dem Baum.', 'Links neben dem Haus.'], ans: 'Rechts neben dem Baum.' },
+    3: { title: '🎒 Meine Schultasche', text: 'Heute ist Schule! Ich packe meine Schultasche: Ich brauche einen Bleistift, ein Heft, ein Lineal und eine Flasche Wasser.', q: 'Was braucht das Kind für die Schule?', opts: ['Einen Bleistift, ein Heft, ein Lineal und Wasser.', 'Einen Ball und einen Helm.'], ans: 'Einen Bleistift, ein Heft, ein Lineal und Wasser.' },
+    4: { title: '🎨 Team-Farben', text: 'Unsere Team-Kleidung: Das Trikot ist blau und gelb. Der Ball ist rot und weiß. Die Schuhe sind grün.', q: 'Welche Farbe hat der Ball?', opts: ['Der Ball ist rot und weiß.', 'Der Ball ist blau und gelb.'], ans: 'Der Ball ist rot und weiß.' },
+    5: { title: '⚽ Im Training', text: 'Im Training bewegen wir den ganzen Körper: Wir laufen schnell, wir springen hoch und wir schießen den Ball mit dem Fuß.', q: 'Womit schießen die Kinder den Ball?', opts: ['Mit dem Fuß.', 'Mit der Hand.'], ans: 'Mit dem Fuß.' },
+    6: { title: '🍽️ Das Festessen im Schloss', text: 'Heute kocht der Koch für die Familie: Der Vater isst Suppe und Brot. Die Mutter trinkt Wasser und isst einen Apfel.', q: 'Was trinkt die Mutter?', opts: ['Sie trinkt Wasser.', 'Sie trinkt Milch.'], ans: 'Sie trinkt Wasser.' },
+    7: { title: '🏰 Wo sind alle?', text: 'Der Lehrer ist im Klassenzimmer. Die Kinder spielen in der Pause im Garten. Der Koch arbeitet in der Küche.', q: 'Wo spielen die Kinder in der Pause?', opts: ['Im Garten.', 'In der Küche.'], ans: 'Im Garten.' },
+    8: { title: '🏪 Auf dem Markt', text: 'Auf dem Markt: Ein Ball kostet vierzehn Euro. Zwei Hefte kosten acht Euro. Eine Flasche Wasser kostet zwei Euro.', q: 'Wie viel kostet ein Ball?', opts: ['Vierzehn Euro.', 'Acht Euro.'], ans: 'Vierzehn Euro.' },
+    9: { title: '🕰️ Tagesablauf im Schloss', text: 'Der Unterricht beginnt um acht Uhr fünfzehn. Um zehn Uhr dreißig haben wir Pause. Am Nachmittag um sechzehn Uhr dreißig beginnt das Training.', q: 'Wann beginnt das Training?', opts: ['Um sechzehn Uhr dreißig.', 'Um acht Uhr fünfzehn.'], ans: 'Um sechzehn Uhr dreißig.' },
+    10: { title: '👑 Das Rätsel der Königin', text: 'Mein Großvater und meine Großmutter wohnen im Schloss. Sie wissen alles! Frag sie: Wer hat den goldenen Schlüssel?', q: 'Wo wohnen Großvater und Großmutter?', opts: ['Im Schloss.', 'Im Park.'], ans: 'Im Schloss.' },
+    11: { title: '🤖 Robo-X hat ein Problem', text: 'Robo-X hat ein Problem: Sein rechter Arm und sein linkes Bein funktionieren nicht. Wir brauchen eine neue Batterie!', q: 'Was braucht Robo-X?', opts: ['Eine neue Batterie.', 'Ein neues Heft.'], ans: 'Eine neue Batterie.' },
+    12: { title: '🧪 Im Geheimlabor', text: 'Achtung! In dieser Flasche ist kein Wasser und keine Milch. Das ist eine geheime Mischung für das Experiment!', q: 'Was ist in der Flasche?', opts: ['Kein Wasser und keine Milch.', 'Viel Apfelsaft.'], ans: 'Kein Wasser und keine Milch.' },
+    13: { title: '🔢 Der Geheimcode', text: 'Der Lehrer schreibt drei Zahlen an die Tafel: fünfundzwanzig, vierzig und achtundsechzig. Das ist der Code!', q: 'Welche Zahl steht an der Tafel?', opts: ['Fünfundzwanzig.', 'Zweiundfünfzig.'], ans: 'Fünfundzwanzig.' },
+    14: { title: '📖 In der Bibliothek', text: 'Mia liest eine spannende Geschichte. Tom schreibt einen Satz in sein Heft. Alle Kinder sprechen leise.', q: 'Was macht Mia in der Bibliothek?', opts: ['Sie liest eine Geschichte.', 'Sie läuft schnell.'], ans: 'Sie liest eine Geschichte.' },
+    15: { title: '🏆 Finale im Labor', text: 'Unsere Mannschaft hat dreißig Punkte und keinen Fehler! Wir lösen das letzte Rätsel und gewinnen das Spiel.', q: 'Wie viele Punkte hat die Mannschaft?', opts: ['Dreißig Punkte.', 'Keinen Punkt.'], ans: 'Dreißig Punkte.' },
+    16: { title: '🌦️ Das Wetter am Wochenende', text: 'Am Samstag scheint die Sonne und es ist warm: Wir gehen auf den Sportplatz. Am Sonntag regnet es: Wir bleiben zu Hause.', q: 'Wohin gehen sie am Samstag?', opts: ['Auf den Sportplatz.', 'Ins Schwimmbad.'], ans: 'Auf den Sportplatz.' },
+    17: { title: '🚌 Der Schulweg', text: 'Wie kommst du zur Schule? Ich fahre oft mit dem Schulbus. Mein Freund Leo fährt lieber mit dem Fahrrad.', q: 'Womit fährt Leo zur Schule?', opts: ['Mit dem Fahrrad.', 'Mit dem Schulbus.'], ans: 'Mit dem Fahrrad.' },
+    18: { title: '🏙️ Plan für den Nachmittag', text: 'Wohin gehen wir heute? Zuerst gehen wir in die Bibliothek. Danach treffen wir unsere Freunde im Park.', q: 'Wohin gehen sie zuerst?', opts: ['In die Bibliothek.', 'Ins Kino.'], ans: 'In die Bibliothek.' },
+    19: { title: '📅 Familienfest im Juli', text: 'Im Juli feiert mein Onkel Geburtstag! Am Wochenende besuchen uns meine Tante, mein Cousin und meine Cousine.', q: 'Wann feiert der Onkel Geburtstag?', opts: ['Im Juli.', 'Im Winter.'], ans: 'Im Juli.' },
+    20: { title: '🌀 Reise durch das Portal', text: 'Wir reisen am Freitag um neun Uhr durch das Portal. Bei gutem Wetter feiern wir ein großes Fest im Garten!', q: 'Wann reisen sie durch das Portal?', opts: ['Am Freitag um neun Uhr.', 'Am Sonntag.'], ans: 'Am Freitag um neun Uhr.' },
+    21: { title: '🌲 Zurück im Wald', text: 'Schau mal! Der Rucksack liegt unter dem Baum. Das Buch liegt auf dem Tisch und der Ball ist neben dem Stein.', q: 'Wo liegt das Buch?', opts: ['Auf dem Tisch.', 'Unter dem Baum.'], ans: 'Auf dem Tisch.' },
+    22: { title: '🗣️ Interview mit Leo', text: 'Warum lernst du Deutsch? Weil ich gern reise und neue Freunde treffe! Mein Hobby ist Fußball.', q: 'Warum lernt Leo Deutsch?', opts: ['Weil er gern reist und Freunde trifft.', 'Weil er Hunger hat.'], ans: 'Weil er gern reist und Freunde trifft.' },
+    23: { title: '🤝 Im Sportclub', text: 'Entschuldigung, Herr Trainer, können Sie mir bitte helfen? Ich finde meine Trinkflasche nicht.', q: 'Was sucht das Kind?', opts: ['Seine Trinkflasche.', 'Seinen Bleistift.'], ans: 'Seine Trinkflasche.' },
+    24: { title: '🎉 Das große Finale', text: 'Wir haben es geschafft! Meine Familie, meine Freunde und Felix feiern zusammen. Ich spreche jetzt schon viel Deutsch!', q: 'Wer feiert zusammen?', opts: ['Familie, Freunde und Felix.', 'Niemand.'], ans: 'Familie, Freunde und Felix.' }
   };
 
   function renderMiniReading(container, missionId) {
     if (container.querySelector('#mini-reading-card')) return;
     const data = MINI_READINGS[missionId];
     if (!data) return;
+
+    const card = document.createElement('div');
+    card.id = 'mini-reading-card';
+    card.style.cssText = 'background:#EBF5FB;border:2px solid #93C5FD;border-radius:18px;padding:16px;margin:16px 0;';
+    card.innerHTML =
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
+        '<strong style="color:#1E40AF;font-size:0.95rem;">📖 Leseverstehen · ' + data.title + '</strong>' +
+        '<button type="button" class="secondary" style="min-height:34px;padding:4px 10px;font-size:0.8rem;" onclick="speakPlus(\'' + data.text.replace(/'/g, "\\'") + '\', true)">🐢 Langsam hören</button>' +
+      '</div>' +
+      '<p style="background:#FAF8F5;padding:12px;border-radius:12px;font-size:0.98rem;line-height:1.5;color:#2D3748;margin:0 0 10px;border:1px solid #CBD5E1;">' + data.text + '</p>' +
+      '<div style="font-weight:800;font-size:0.9rem;color:#2D3748;margin-bottom:8px;">❓ ' + data.q + '</div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:8px;">' +
+        data.opts.map(o => '<button type="button" class="secondary" style="min-height:38px;padding:6px 14px;font-size:0.86rem;" data-ropt="' + o + '">' + o + '</button>').join('') +
+      '</div>' +
+      '<div id="read-fb" style="margin-top:8px;font-size:0.85rem;font-weight:800;"></div>';
+
+    container.insertBefore(card, container.querySelector('.options') || container.querySelector('.footer'));
+
+    card.querySelectorAll('[data-ropt]').forEach(btn => {
+      btn.onclick = () => {
+        const fb = document.getElementById('read-fb');
+        if (btn.dataset.ropt === data.ans) {
+          btn.style.background = '#DCFCE7'; btn.style.borderColor = '#22C55E';
+          fb.style.color = '#15803D';
+          fb.textContent = '✅ Richtig! Sehr gut gelesen.';
+        } else {
+          fb.style.color = '#6D28D9';
+          fb.textContent = '💜 Lies den Text noch einmal genau!';
+        }
+      };
+    });
+  }
 
     const card = document.createElement('div');
     card.id = 'mini-reading-card';
