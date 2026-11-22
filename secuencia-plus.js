@@ -466,7 +466,7 @@
     }).join('');
   }
 
-     function getCommunicativePrompt(taskData) {
+       function getCommunicativePrompt(taskData) {
     const kind = taskData.at(0), rawDe = String(taskData.at(3) || 'Hör zu!'), rawEs = String(taskData.at(2) || ''), targetPhrase = String(taskData.at(4) || '');
     const isListeningTask = /escucha|hör/i.test(rawEs) || (rawDe === targetPhrase && rawDe.length > 15);
     if (isListeningTask && kind !== 'dialogue' && kind !== 'order') {
