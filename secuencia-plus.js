@@ -4,37 +4,45 @@
   const mission = window.DEUTSCH_MISSIONS && window.DEUTSCH_MISSIONS[id];
   if (!mission) return;
 
+  const fontLink = document.createElement('link');
+  fontLink.rel = 'stylesheet';
+  fontLink.href = 'https://googleapis.com';
+  document.head.appendChild(fontLink);
+
   const style = document.createElement('style');
   style.textContent =
-    'body { background: #FAF8F5 !important; color: #2D3748 !important; }' +
+    'body { font-family: "Lexend", sans-serif !important; background: #FAF8F5 !important; color: #2D3748 !important; }' +
+    'h1, h2, h3, button { font-family: "Baloo 2", cursive !important; }' +
     'main, section, article#content, .card { background: #FFFDF9 !important; color: #2D3748 !important; border-color: #CBD5E1 !important; }' +
-    '.comic-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }' +
+    '.comic-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }' +
     '.comic-badge { background: #FAF8F5; padding: 4px 12px; border-radius: 99px; font-size: 0.82rem; font-weight: 800; color: #2D3748; }' +
     '.mode-tag { padding: 4px 12px; border-radius: 99px; font-size: 0.8rem; font-weight: 800; }' +
     '.mode-home { background: #FEF9C3; color: #854D0E; border: 1.5px solid #FACC15; }' +
     '.mode-class { background: #EBF5FB; color: #1E40AF; border: 1.5px solid #93C5FD; }' +
     '.comic-body { display: flex; align-items: center; gap: 14px; text-align: left; }' +
-    '.comic-avatar { background: #FAF8F5; border-radius: 50%; width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; font-size: 2.3rem; flex-shrink: 0; box-shadow: 0 4px 8px rgba(45,55,72,0.08); }' +
+    '.comic-avatar { background: #FAF8F5; border-radius: 50%; width: 66px; height: 66px; display: flex; align-items: center; justify-content: center; font-size: 2.3rem; flex-shrink: 0; overflow: hidden; }' +
     '.comic-bubble { background: #FAF8F5; border: 2px solid #CBD5E1; border-radius: 18px; padding: 14px 18px; flex: 1; }' +
-    'article#content .oral { display: block !important; background: #EBF5FB !important; border: 2px solid #93C5FD !important; border-radius: 16px !important; padding: 14px !important; margin: 18px 0 !important; line-height: 1.6 !important; clear: both !important; }' +
-    'article#content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 18px 0 !important; width: 100% !important; clear: both !important; }' +
-    'article#content .footer { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-top: 24px !important; padding-top: 18px !important; border-top: 2px dashed #CBD5E1 !important; width: 100% !important; clear: both !important; }' +
+    '.felix-tip-card { display: flex; align-items: center; gap: 12px; background: #FEF9C3; border: 2px solid #FACC15; border-radius: 16px; padding: 10px 14px; margin: 12px 0; }' +
+    '.felix-tip-card img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 2px solid #F97316; background: #FFFDF9; flex-shrink: 0; }' +
+    'article#content .oral { display: block !important; background: #EBF5FB !important; border: 2px solid #93C5FD !important; border-radius: 16px !important; padding: 14px !important; margin: 16px 0 !important; line-height: 1.6 !important; clear: both !important; }' +
+    'article#content .actions { display: flex !important; flex-wrap: wrap !important; gap: 12px !important; margin: 16px 0 !important; width: 100% !important; clear: both !important; }' +
+    'article#content .footer { display: flex !important; justify-content: space-between !important; align-items: center !important; margin-top: 22px !important; padding-top: 16px !important; border-top: 2px dashed #CBD5E1 !important; width: 100% !important; clear: both !important; }' +
     'article#content .footer button.primary, button[data-check] { background: #F97316 !important; color: #FFFDF9 !important; border: none !important; }' +
-    '.rec-bar { display: flex !important; flex-wrap: wrap !important; align-items: center !important; gap: 12px !important; background: #E8F8F5 !important; border: 2px solid #6EE7B7 !important; padding: 12px 16px !important; border-radius: 14px !important; margin: 16px 0 !important; width: 100% !important; clear: both !important; }' +
+    '.rec-bar { display: flex !important; flex-wrap: wrap !important; align-items: center !important; gap: 12px !important; background: #E8F8F5 !important; border: 2px solid #6EE7B7 !important; padding: 12px 16px !important; border-radius: 14px !important; margin: 14px 0 !important; width: 100% !important; clear: both !important; }' +
     '.rec-bar button { background: #F97316 !important; color: #FFFDF9 !important; border: none !important; padding: 8px 16px !important; border-radius: 10px !important; font-weight: 800 !important; cursor: pointer !important; min-height: 40px !important; }' +
     '.soft-retry { background: #F3E8FF !important; color: #5B21B6 !important; border: 1.5px solid #C4B5FD !important; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 0.86rem; margin: 8px 0; }';
   document.head.appendChild(style);
   const MISSION_GRAMMAR = {
     1: { title: 'Presentación y amigos (SEIN / HEIßEN)', rule: '• <i>Ich <b>heiße</b>... / Das <b>ist</b> mein Freund.</i><br>• Verbo siempre en <b>2.ª posición</b>.' },
-    2: { title: 'Ubicación con WO y direcciones', rule: '• <i><b>Wo</b> ist der Sportplatz?</i> (¿Dónde está?)<br>• <i>links</i> (izquierda), <i>rechts</i> (derecha), <i>in der Mitte</i> (centro).' },
+    2: { title: 'Ubicación con WO y direcciones', rule: '• <i><b>Wo</b> ist der Sportplatz?</i> (¿Dónde está?)<br>• <i>links</i> (izquierda), <i>rechts</i> (derecha), <i>geradeaus</i> (recto).' },
     3: { title: 'Escuela y mochila en Acusativo', rule: '• Solo cambia masculino (<span style="color:#2563eb;font-weight:800">der -> den / einen</span>):<br><i>Ich habe <b>einen</b> Stift, <b>eine</b> Tasche und <b>ein</b> Heft.</i>' },
     4: { title: 'Adjetivos de color después de SEIN', rule: '• Sin terminación después del verbo:<br><i>Der Ball <b>ist rot</b>. Die Schuhe <b>sind blau</b>.</i>' },
     5: { title: 'Cuerpo y deporte: verbos en presente', rule: '• <i>ich lauf<b>e</b> · du läuf<b>st</b> · er/sie läuf<b>t</b> · wir spiel<b>en</b>.</i><br>• Cambio vocal <b>a -> ä</b> en <i>du</i> y <i>er/sie</i>.' },
-    6: { title: 'W-Fragen: WER (quién) y WAS (qué)', rule: '• <i><b>Wer</b> isst?</i> (Persona) · <i><b>Was</b> trinkt der Koch?</i> (Objeto).<br>• Verbo siempre en <b>2.ª posición</b>.' },
-    7: { title: 'Lugar con Dativo: IN DER / IM', rule: '• <i><b>Wo</b> bist du?</i> -> <i><b>In der</b> Schule</i> (<span style="color:#dc2626">die</span>) · <i><b>Im</b> Park</i> (<span style="color:#2563eb">der</span>) · <i><b>Im</b> Bad</i> (<span style="color:#16a34a">das</span>).' },
-    8: { title: 'Precios y plural: WIE VIEL KOSTET / KOSTEN?', rule: '• Singular: <i>Wie viel <b>kostet</b> der Ball?</i><br>• Plural: <i>Wie viel <b>kosten</b> die Stifte?</i>' },
-    9: { title: 'Horas exactas y medias (WIE SPÄT IST ES?)', rule: '• Exacta: <i>Es ist <b>acht Uhr</b></i> (8:00).<br>• Media: <i>Es ist <b>halb neun</b></i> (8:30, media para las 9).' },
-    10: { title: 'Síntesis de W-Fragen (Mundo 2)', rule: '• <b>Wer</b> · <b>Was</b> · <b>Wo</b> · <b>Wann</b> · <b>Wie viel</b> + Verbo (pos. 2).' },
+    6: { title: 'W-Fragen: WER (quién) y WAS (qué)', rule: '• <i><b>Wer</b> isst?</i> (Persona) · <i><b>Was</b> trinkt der Koch?</i> (Comida/bebida).<br>• Verbo siempre en <b>2.ª posición</b>.' },
+    7: { title: 'Lugar con Dativo: IM vs. IN DER', rule: '• Con <b>Wo?</b> el artículo cambia:<br>🔵 <b>der</b> -> <b>im</b> (<i>im Park, im Garten</i>)<br>🟢 <b>das</b> -> <b>im</b> (<i>im Bad, im Klassenzimmer</i>)<br>🔴 <b>die</b> -> <b>in der</b> (<i>in der Küche, in der Schule</i>).' },
+    8: { title: 'Precios: WIE VIEL KOSTET / KOSTEN?', rule: '• 1 cosa (singular): <i>Wie viel <b>kostet</b> der Ball?</i><br>• Varias cosas (plural): <i>Wie viel <b>kosten</b> die Hefte?</i>' },
+    9: { title: 'Horas exactas + minutos (WIE SPÄT IST ES?)', rule: '• Di la hora y los minutos seguidos:<br>⏰ <b>7:30</b> = <i>sieben Uhr dreißig</i> · ⏰ <b>8:15</b> = <i>acht Uhr fünfzehn</i>.<br>• Para decir "a las...": <i><b>um</b> acht Uhr fünfzehn</i>.' },
+    10: { title: 'Síntesis de W-Fragen y Cortesía (Mundo 2)', rule: '• <b>Wer · Was · Wo · Wann · Wie viel</b> + Verbo (pos. 2).<br>• Para pedir: <i>Ich möchte ___ und ___, bitte.</i>' },
     11: { title: 'Acusativo con objetos y cuerpo', rule: '• <i>Ich brauche <b>den</b> Helm (<span style="color:#2563eb">der</span>) und <b>eine</b> Flasche (<span style="color:#dc2626">die</span>).</i>' },
     12: { title: 'Negación de sustantivos: KEIN / KEINE / KEINEN', rule: '• <i>Das ist <b>kein</b> Heft</i> (<span style="color:#16a34a">das</span>) · <i><b>keine</b> Pause</i> (<span style="color:#dc2626">die</span>) · <i><b>keinen</b> Ball</i> (<span style="color:#2563eb">der</span>).' },
     13: { title: 'Números hasta 100 (Unidad + und + Decena)', rule: '• 24 = <i>vier<b>und</b>zwanzig</i> · 65 = <i>fünf<b>und</b>sechzig</i>.' },
@@ -53,15 +61,15 @@
 
   const KID_GOALS = {
     1: '🎯 Tu reto: Presentarte a ti, a tus amigos y a tu familia en alemán.',
-    2: '🎯 Tu reto: Seguir las pistas del mapa usando izquierda, derecha y centro.',
+    2: '🎯 Tu reto: Seguir las pistas del mapa usando izquierda, derecha y recto.',
     3: '🎯 Tu reto: Preparar la mochila de la escuela usando ein, eine y einen.',
     4: '🎯 Tu reto: Devolver los colores a la ropa y objetos deportivos.',
     5: '🎯 Tu reto: Dominar las partes del cuerpo y las acciones de deporte.',
-    6: '🎯 Tu reto: Descubrir quién come y bebe qué en familia usando Wer y Was.',
-    7: '🎯 Tu reto: Encontrar las habitaciones de la casa y la escuela con Wo.',
-    8: '🎯 Tu reto: Comprar material escolar y deportivo contando euros en alemán.',
-    9: '🎯 Tu reto: Organizar el horario escolar y deportivo diciendo las horas.',
-    10: '🎯 Tu reto: Resolver el acertijo final combinando todas las W-Fragen.',
+    6: '🎯 Tu reto: Descubrir quién come y bebe qué en el banquete usando Wer y Was.',
+    7: '🎯 Tu reto: Ubicar a todos en el castillo y la escuela usando im e in der.',
+    8: '🎯 Tu reto: Comprar en el Gran Mercado calculando bien tu presupuesto.',
+    9: '🎯 Tu reto: Organizar la rutina del castillo diciendo las horas con Uhr + minutos.',
+    10: '🎯 Tu reto: Celebrar el gran festín final combinando todas las W-Fragen.',
     11: '🎯 Tu reto: Revisar el equipo deportivo y el cuerpo usando el acusativo.',
     12: '🎯 Tu reto: Clasificar objetos de la escuela y familia usando kein y keine.',
     13: '🎯 Tu reto: Descifrar los códigos matemáticos con números hasta 100.',
@@ -104,7 +112,7 @@
     24: [['der Sieger', 'el ganador', 'm'], ['die Familie', 'la familia', 'f'], ['das Abenteuer', 'la aventura', 'n'], ['schaffen', 'lograr', 'v'], ['verabschieden', 'despedirse', 'v']]
   };
   const worldNum = id <= 5 ? 1 : id <= 10 ? 2 : id <= 15 ? 3 : id <= 20 ? 4 : 5;
-  const grammar = MISSION_GRAMMAR[id] || MISSION_GRAMMAR[6];
+  const grammar = MISSION_GRAMMAR[id] || MISSION_GRAMMAR;
 
   const WORLD_THEMES = {
     1: { bg: 'linear-gradient(135deg, #E8F8F5 0%, #FAF8F5 100%)', border: '#6EE7B7', badge: '🌲 Der Zauberwald', char: '🦊', name: 'Felix' },
@@ -115,15 +123,16 @@
   };
 
   function getCharacter(emojis, worldTheme) {
-    if (emojis.includes('🧑‍🍳')) return { icon: '🧑‍🍳', name: 'Der Koch (El cocinero)' };
-    if (emojis.includes('👨‍✈️')) return { icon: '👨‍✈️', name: 'Der Schaffner (El revisor)' };
-    if (emojis.includes('👩‍✈️')) return { icon: '👩‍✈️', name: 'Die Reisende (La viajera)' };
-    if (emojis.includes('🧑‍🌾')) return { icon: '🧑‍🌾', name: 'Der Verkäufer (El vendedor)' };
-    if (emojis.includes('🧑‍🔧')) return { icon: '🧑‍🔧', name: 'Der Techniker (El técnico)' };
-    if (emojis.includes('👩')) return { icon: '👩', name: 'Die Nachbarin (La vecina)' };
-    if (emojis.includes('👦')) return { icon: '👦', name: 'Der Freund (El amigo)' };
-    if (emojis.includes('👑')) return { icon: '👑', name: 'Die Königin (La reina)' };
-    if (emojis.includes('🦉')) return { icon: '🦉', name: 'Die Eule (El búho)' };
+    if (id === 8 || emojis.includes('🧑‍🌾')) return { icon: '🧑‍🌾', name: 'Der Verkäufer' };
+    if (id === 6 || emojis.includes('🧑‍🍳')) return { icon: '🧑‍🍳', name: 'Der Koch' };
+    if (id === 17 || id === 18 || emojis.includes('👨‍✈️')) return { icon: '👨‍✈️', name: 'Der Schaffner' };
+    if (id === 7 || id === 13 || id === 14) return { icon: '👨‍🏫', name: 'Der Lehrer' };
+    if (id === 5 || id === 15 || id === 23) return { icon: '🧑‍🏫', name: 'Der Trainer' };
+    if (emojis.includes('🧑‍🔧')) return { icon: '🧑‍🔧', name: 'Der Techniker' };
+    if (emojis.includes('👩')) return { icon: '👩', name: 'Die Nachbarin' };
+    if (emojis.includes('👦')) return { icon: '👦', name: 'Der Freund' };
+    if (emojis.includes('👑')) return { icon: '👑', name: 'Die Königin' };
+    if (emojis.includes('🦉')) return { icon: '🦉', name: 'Die Eule' };
     if (emojis.includes('🦊')) return { icon: '🦊', name: 'Felix' };
     return { icon: worldTheme.char, name: worldTheme.name };
   }
@@ -223,8 +232,11 @@
     if (!document.getElementById('kid-goal-banner')) {
       const goalDiv = document.createElement('div');
       goalDiv.id = 'kid-goal-banner';
-      goalDiv.style.cssText = 'background:#EBF5FB;border:2px solid #93C5FD;color:#2D3748;padding:12px 16px;border-radius:16px;font-weight:800;margin-bottom:14px;font-size:1rem;display:block;';
-      goalDiv.textContent = KID_GOALS[id] || ('🎯 Tu reto hoy: Completar "' + mission.es + '" en alemán.');
+      goalDiv.style.cssText = 'display:flex;align-items:center;gap:14px;background:#EBF5FB;border:2px solid #93C5FD;color:#2D3748;padding:10px 14px;border-radius:18px;font-weight:800;margin-bottom:14px;font-size:0.96rem;';
+      const castleImg = worldNum === 2
+        ? '<img src="mundo2-castillo.png" alt="Schloss" onerror="this.style.display=\'none\'" style="width:96px;height:64px;border-radius:12px;object-fit:cover;border:2px solid #93C5FD;flex-shrink:0;">'
+        : '';
+      goalDiv.innerHTML = castleImg + '<div>' + (KID_GOALS[id] || ('🎯 Tu reto hoy: Completar "' + mission.es + '" en alemán.')) + '</div>';
       story.parentNode.insertBefore(goalDiv, story);
 
       const pad = String(id).padStart(2, '0');
@@ -304,7 +316,7 @@
       };
     }
   }
-    const MINI_READINGS = {
+  const MINI_READINGS = {
     1: { title: '💬 Chat von Felix', text: 'Hallo! Ich heiße Felix. Ich bin neun Jahre alt und wohne im Wald. Das ist mein Freund Leo. Leo hat eine Schwester.', q: 'Wie heißt der Freund von Felix?', opts: ['Er heißt Leo.', 'Er heißt Max.'], ans: 'Er heißt Leo.' },
     2: { title: '🗺️ Notiz auf der Karte', text: 'Der Weg zum Sportplatz ist leicht: Geh zuerst links, dann geradeaus. Der Kompass liegt rechts neben dem Baum.', q: 'Wo liegt der Kompass?', opts: ['Rechts neben dem Baum.', 'Links neben dem Haus.'], ans: 'Rechts neben dem Baum.' },
     3: { title: '🎒 Meine Schultasche', text: 'Heute ist Schule! Ich packe meine Schultasche: Ich brauche einen Bleistift, ein Heft, ein Lineal und eine Flasche Wasser.', q: 'Was braucht das Kind für die Schule?', opts: ['Einen Bleistift, ein Heft, ein Lineal und Wasser.', 'Einen Ball und einen Helm.'], ans: 'Einen Bleistift, ein Heft, ein Lineal und Wasser.' },
@@ -367,39 +379,7 @@
       };
     });
   }
-
-    const card = document.createElement('div');
-    card.id = 'mini-reading-card';
-    card.style.cssText = 'background:#EBF5FB;border:2px solid #93C5FD;border-radius:18px;padding:16px;margin:16px 0;';
-    card.innerHTML =
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">' +
-        '<strong style="color:#1E40AF;font-size:0.95rem;">📖 Leseverstehen · ' + data.title + '</strong>' +
-        '<button type="button" class="secondary" style="min-height:34px;padding:4px 10px;font-size:0.8rem;" onclick="speakPlus(\'' + data.text.replace(/'/g, "\\'") + '\', true)">🐢 Oír lectura</button>' +
-      '</div>' +
-      '<p style="background:#FAF8F5;padding:12px;border-radius:12px;font-size:0.98rem;line-height:1.5;color:#2D3748;margin:0 0 10px;border:1px solid #CBD5E1;">' + data.text + '</p>' +
-      '<div style="font-weight:800;font-size:0.88rem;color:#2D3748;margin-bottom:8px;">❓ ' + data.q + '</div>' +
-      '<div style="display:flex;flex-wrap:wrap;gap:8px;">' +
-        data.opts.map(o => '<button type="button" class="secondary" style="min-height:38px;padding:6px 14px;font-size:0.85rem;" data-ropt="' + o + '">' + o + '</button>').join('') +
-      '</div>' +
-      '<div id="read-fb" style="margin-top:8px;font-size:0.85rem;font-weight:800;"></div>';
-
-    container.insertBefore(card, container.querySelector('.options') || container.querySelector('.footer'));
-
-    card.querySelectorAll('[data-ropt]').forEach(btn => {
-      btn.onclick = () => {
-        const fb = document.getElementById('read-fb');
-        if (btn.dataset.ropt === data.ans) {
-          btn.style.background = '#DCFCE7'; btn.style.borderColor = '#22C55E';
-          fb.style.color = '#15803D';
-          fb.textContent = '✅ ¡Richtig! Comprensión perfecta. Ahora completa la actividad de abajo:';
-        } else {
-          fb.style.color = '#6D28D9';
-          fb.textContent = '💜 Casi... Vuelve a leer el texto en el recuadro crema e inténtalo de nuevo.';
-        }
-      };
-    });
-  }
-    function renderCoherentMatch(container) {
+  function renderCoherentMatch(container) {
     if (container.querySelector('#match-mini-game')) return;
     const vocabPairs = (EXTRA_VOCAB[id] || []).slice(0, 4);
     if (vocabPairs.length < 3) return;
@@ -411,7 +391,7 @@
     box.id = 'match-mini-game';
     box.style.cssText = 'background:#E8F8F5;border:2px solid #6EE7B7;border-radius:16px;padding:14px;margin:14px 0;';
     box.innerHTML =
-      '<strong style="color:#065F46;display:block;margin-bottom:4px;">🔗 Wortschatz-Check · Une cada palabra con su significado:</strong>' +
+      '<strong style="color:#065F46;display:block;margin-bottom:4px;">🔗 Wortschatz-Check · Une cada palabra nueva con su significado:</strong>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">' +
         '<div style="display:flex;flex-direction:column;gap:8px;">' +
           vocabPairs.map((p, i) => '<button type="button" data-l="' + i + '" class="secondary" style="text-align:left;padding:8px 12px;min-height:40px;font-size:0.86rem;">🔊 ' + p.at(0) + '</button>').join('') +
@@ -476,8 +456,8 @@
       const bg = p.active ? '#F97316' : '#FFFDF9', color = p.active ? '#FFFDF9' : '#2D3748', border = p.active ? '#EA580C' : '#CBD5E1';
       return '<button type="button" onclick="document.querySelector(\'#nav [data-go=\\\'' + p.start + '\\\']\')?.click()" ' +
         'style="background:' + bg + ';color:' + color + ';border:2px solid ' + border + ';border-radius:14px;padding:8px 10px;text-align:center;cursor:pointer;box-shadow:0 3px 0 rgba(45,55,72,0.06);">' +
-        '<div style="font-family:Fredoka,sans-serif;font-size:1rem;">' + p.label + '</div>' +
-        '<div style="font-size:0.74rem;opacity:0.85;font-family:Nunito,sans-serif;">' + p.sub + '</div>' +
+        '<div style="font-size:1rem;">' + p.label + '</div>' +
+        '<div style="font-size:0.74rem;opacity:0.85;">' + p.sub + '</div>' +
       '</button>';
     }).join('');
   }
@@ -488,7 +468,7 @@
       const hasSpoiler = /^(Frag|Sag)/i.test(rawDe);
       const topicMatch = targetPhrase.match(/\b(der|die|das|ein|eine|einen)\s+([A-ZÄÖÜ][a-zäöüß]+)/);
       const topicHint = topicMatch ? (' sobre «' + topicMatch.at(0) + '»') : '';
-      return { tag: '🗣️ Mini-Dialog · Tu objetivo comunicativo', main: hasSpoiler ? (rawEs + topicHint) : ('«' + rawDe + '»'), sub: 'Elige cómo iniciar la conversación en alemán y luego pronúncialo en voz alta.' };
+      return { tag: '🗣️ Mini-Dialog · Tu objetivo comunicativo', main: hasSpoiler ? (rawEs + topicHint) : ('«' + rawDe + '»'), sub: 'Elige cómo responder en alemán y luego pronúncialo en voz alta.' };
     }
     if (kind === 'order') {
       const hasSpoiler = rawDe.includes(':');
@@ -530,17 +510,29 @@
         '<div class="comic-body">' +
           '<div class="comic-avatar" style="border:3px solid ' + theme.border + ';">' + char.icon + '</div>' +
           '<div class="comic-bubble">' +
-            '<div style="font-size:0.8rem;font-weight:800;color:' + (comm.tag ? '#1E40AF' : '#4A5568') + ';margin-bottom:4px;">' + (comm.tag || ('💬 ' + char.name + ' sagt:')) + '</div>' +
-            '<div style="font-family:Fredoka,sans-serif;font-size:1.18rem;color:#2D3748;line-height:1.3;">' + comm.main + '</div>' +
+            '<div style="font-size:0.82rem;font-weight:800;color:' + (comm.tag ? '#1E40AF' : '#4A5568') + ';margin-bottom:4px;">' + (comm.tag || ('💬 ' + char.name + ' sagt:')) + '</div>' +
+            '<div style="font-size:1.15rem;font-weight:700;color:#2D3748;line-height:1.35;">' + comm.main + '</div>' +
             '<div style="font-size:0.88rem;color:#4A5568;margin-top:4px;">' + comm.sub + '</div>' +
           '</div>' +
         '</div>';
+
+      if (!content.querySelector('#felix-inline-tip')) {
+        const felixTip = document.createElement('div');
+        felixTip.id = 'felix-inline-tip';
+        felixTip.className = 'felix-tip-card';
+        felixTip.innerHTML =
+          '<img src="felix-mentor.png" alt="Felix" onerror="this.style.display=\'none\'">' +
+          '<div style="font-size:0.84rem;line-height:1.4;">' +
+            '<strong style="color:#B45309;display:block;">🦊 Felix-Tipp · ' + grammar.title + ':</strong>' + grammar.rule +
+          '</div>';
+        scene.parentNode.insertBefore(felixTip, scene.nextSibling);
+      }
     }
 
     if (stepNum === 3) renderMiniReading(content, id);
     if (stepNum === 4) renderCoherentMatch(content);
 
-    const bossSet = new Set([5, 10, 15, 20, 24]);
+    const bossSet = new Set();
     if (bossSet.has(id) && stepNum === mission.tasks.length && !content.querySelector('#boss-spiral-box')) {
       const bossBox = document.createElement('div');
       bossBox.id = 'boss-spiral-box';
