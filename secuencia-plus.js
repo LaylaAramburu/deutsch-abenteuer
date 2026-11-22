@@ -4,7 +4,6 @@
   const mission = window.DEUTSCH_MISSIONS && window.DEUTSCH_MISSIONS[id];
   if (!mission) return;
 
-  // 1. ESTILOS 60-30-10 (CREMA CÁLIDO #FAF8F5 + GRIS CARBÓN #2D3748 + PASTELES)
   const style = document.createElement('style');
   style.textContent =
     'body { background: #FAF8F5 !important; color: #2D3748 !important; }' +
@@ -25,8 +24,6 @@
     '.rec-bar button { background: #F97316 !important; color: #FFFDF9 !important; border: none !important; padding: 8px 16px !important; border-radius: 10px !important; font-weight: 800 !important; cursor: pointer !important; min-height: 40px !important; }' +
     '.soft-retry { background: #F3E8FF !important; color: #5B21B6 !important; border: 1.5px solid #C4B5FD !important; padding: 8px 12px; border-radius: 10px; font-weight: 700; font-size: 0.86rem; margin: 8px 0; }';
   document.head.appendChild(style);
-
-  // 2. MICRO-REGLAS GRAMATICALES POR MISIÓN
   const MISSION_GRAMMAR = {
     1: { title: 'Presentación y amigos (SEIN / HEIßEN)', rule: '• <i>Ich <b>heiße</b>... / Das <b>ist</b> mein Freund.</i><br>• Verbo siempre en <b>2.ª posición</b>.' },
     2: { title: 'Ubicación con WO y direcciones', rule: '• <i><b>Wo</b> ist der Sportplatz?</i> (¿Dónde está?)<br>• <i>links</i> (izquierda), <i>rechts</i> (derecha), <i>in der Mitte</i> (centro).' },
@@ -53,7 +50,7 @@
     23: { title: 'Verbo modal KÖNNEN + Trato formal SIE', rule: '• <i><b>Können</b> Sie mir bitte <b>helfen</b>?</i> (2.º verbo al final).' },
     24: { title: 'Gran Síntesis A1 · Conectores UND, ABER, ODER', rule: '• <i>Ich gehe in die Schule, spiele Fußball <b>und</b> spreche Deutsch!</i>' }
   };
-  // 3. OBJETIVOS PEDAGÓGICOS EN LENGUAJE MOTIVADOR PARA 10 AÑOS
+
   const KID_GOALS = {
     1: '🎯 Tu reto: Presentarte a ti, a tus amigos y a tu familia en alemán.',
     2: '🎯 Tu reto: Seguir las pistas del mapa usando izquierda, derecha y centro.',
@@ -80,8 +77,6 @@
     23: '🎯 Tu reto: Pedir ayuda cortésmente en la escuela o club usando können y Sie.',
     24: '🎯 Tu reto: Completar la gran aventura final demostrando todo tu alemán A1.'
   };
-
-  // 4. CINCO PALABRAS NUEVAS POR MISIÓN (FAMILIA · ESCUELA · AMIGOS · CUERPO · DEPORTE)
   const EXTRA_VOCAB = {
     1: [['der Bruder', 'el hermano', 'm'], ['die Schwester', 'la hermana', 'f'], ['das Kind', 'el niño / hijo', 'n'], ['heißen', 'llamarse', 'v'], ['wohnen', 'vivir', 'v']],
     2: [['der Freund', 'el amigo', 'm'], ['die Freundin', 'la amiga', 'f'], ['das Team', 'el equipo', 'n'], ['gehen', 'ir / caminar', 'v'], ['suchen', 'buscar', 'v']],
@@ -109,9 +104,8 @@
     24: [['der Sieger', 'el ganador', 'm'], ['die Familie', 'la familia', 'f'], ['das Abenteuer', 'la aventura', 'n'], ['schaffen', 'lograr', 'v'], ['verabschieden', 'despedirse', 'v']]
   };
   const worldNum = id <= 5 ? 1 : id <= 10 ? 2 : id <= 15 ? 3 : id <= 20 ? 4 : 5;
-  const grammar = MISSION_GRAMMAR[id] || MISSION_GRAMMAR[1];
+  const grammar = MISSION_GRAMMAR[id] || MISSION_GRAMMAR[6];
 
-  // ESCENARIOS EN TONOS PASTELES CALMADOS (REGLA 60-30-10)
   const WORLD_THEMES = {
     1: { bg: 'linear-gradient(135deg, #E8F8F5 0%, #FAF8F5 100%)', border: '#6EE7B7', badge: '🌲 Der Zauberwald', char: '🦊', name: 'Felix' },
     2: { bg: 'linear-gradient(135deg, #EBF5FB 0%, #FAF8F5 100%)', border: '#93C5FD', badge: '🏰 Das Königsschloss', char: '👑', name: 'Die Königin' },
@@ -199,7 +193,6 @@
       alert('No se pudo activar el micrófono. Revisa los permisos del navegador.');
     }
   };
-
   const SPIRAL_CATS = {
     '👨‍👩‍👧 Familia y Amigos': ['der Bruder', 'die Schwester', 'das Kind', 'der Freund', 'die Freundin', 'der Vater', 'die Mutter', 'der Großvater', 'die Großmutter', 'der Onkel', 'die Tante', 'der Cousin', 'die Cousine', 'die Familie'],
     '🏫 Escuela': ['der Bleistift', 'die Schere', 'das Lineal', 'der Radiergummi', 'die Schultasche', 'das Mäppchen', 'der Raum', 'die Schule', 'das Klassenzimmer', 'der Unterricht', 'die Pause', 'die Hausaufgabe', 'das Heft', 'der Lehrer', 'die Tafel', 'der Satz', 'das Wort', 'die Bibliothek', 'die Lehrerin'],
@@ -244,7 +237,6 @@
       story.parentNode.insertBefore(hubBar, story);
     }
 
-    // CAJÓN LATERAL DESLIZABLE (PALETA 60-30-10)
     if (!document.getElementById('entdecker-drawer')) {
       const vocabList = extractVocab();
       const extras = EXTRA_VOCAB[id] || [];
@@ -267,49 +259,51 @@
               '<div style="display:flex;flex-wrap:wrap;gap:4px;">' +
                 groupedSpiral[cat].map(([de, es, tp]) => {
                   const c = typeColor[tp] || '#2D3748';
-return '<button type="button" onclick="speakPlus('' + de.replace(/'/g, "\'") + '', false)" title="' + es + '" ' +
-'style="background:#FAF8F5;color:' + c + ';border:1px solid ' + c + ';padding:3px 7px;border-radius:8px;font-size:0.74rem;min-height:auto;font-weight:700;">' +
-de + '';
-}).join('') +
-''
-).join('') +
-''
-: '';
-const drawer = document.createElement('div');
-drawer.id = 'entdecker-drawer';
-drawer.style.cssText = 'position:fixed;top:90px;right:0;z-index:9999;display:flex;align-items:flex-start;transition:transform 0.3s ease;transform:translateX(330px);';
-drawer.innerHTML =
-'🧭 Entdecker-Box' +
-'' +
-'' +
-'🧭 Entdecker-Box' +
-'✕ Cerrar' +
-'' +
-'' +
-'💡 ' + grammar.title + '' + grammar.rule +
-'' +
-missionVocabHtml +
-'✨ 5 Palabras Nuevas:' +
-'' +
-extras.map(([de, es, tp]) => {
-const c = typeColor[tp] || '#2D3748';
-const icon = tp === 'v' ? '⚡' : '🔊';
-return '<button type="button" onclick="speakPlus('' + de.replace(/'/g, "\'") + '', false)" ' +
-'style="display:flex;justify-content:space-between;align-items:center;gap:8px;background:#FFFDF9;color:' + c + ';border:1.5px solid ' + c + ';padding:6px 10px;border-radius:10px;font-size:0.82rem;min-height:auto;font-weight:800;text-align:left;">' +
-'' + icon + ' ' + de + '' +
-' · ' + es + '';
-}).join('') +
-'' +
-spiralHtml +
-'';
-document.body.appendChild(drawer);
-let isOpen = false;
-document.getElementById('entdecker-toggle').onclick = function() {
-isOpen = !isOpen;
-drawer.style.transform = isOpen ? 'translateX(0)' : 'translateX(330px)';
-};
-}
-}
+                  return '<button type="button" onclick="speakPlus(\'' + de.replace(/'/g, "\\'") + '\', false)" title="' + es + '" ' +
+                    'style="background:#FAF8F5;color:' + c + ';border:1px solid ' + c + ';padding:3px 7px;border-radius:8px;font-size:0.74rem;min-height:auto;font-weight:700;">' +
+                    de + '</button>';
+                }).join('') +
+              '</div></div>'
+            ).join('') +
+          '</details>'
+        : '';
+
+      const drawer = document.createElement('div');
+      drawer.id = 'entdecker-drawer';
+      drawer.style.cssText = 'position:fixed;top:90px;right:0;z-index:9999;display:flex;align-items:flex-start;transition:transform 0.3s ease;transform:translateX(330px);';
+      drawer.innerHTML =
+        '<button type="button" id="entdecker-toggle" style="background:#FACC15;color:#2D3748;border:2px solid #EAB308;border-right:none;border-radius:16px 0 0 16px;padding:14px 10px;font-family:Fredoka,sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;box-shadow:-4px 4px 12px rgba(45,55,72,0.12);writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:1px;">🧭 Entdecker-Box</button>' +
+        '<div style="width:330px;max-height:80vh;overflow-y:auto;background:#FAF8F5;border:3px solid #93C5FD;border-right:none;border-radius:0 0 0 20px;padding:16px;box-shadow:-8px 8px 24px rgba(45,55,72,0.15);">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">' +
+            '<span style="font-family:Fredoka,sans-serif;color:#2D3748;font-size:1.15rem;">🧭 Entdecker-Box</span>' +
+            '<button type="button" onclick="document.getElementById(\'entdecker-toggle\').click()" style="background:#EBF5FB;color:#2D3748;border:1px solid #93C5FD;border-radius:8px;padding:4px 10px;font-weight:800;cursor:pointer;">✕ Cerrar</button>' +
+          '</div>' +
+          '<div style="background:#EBF5FB;padding:10px;border-radius:12px;font-size:0.85rem;margin-bottom:10px;line-height:1.4;border:1.5px solid #93C5FD;">' +
+            '<strong style="color:#1E40AF;display:block;margin-bottom:4px;">💡 ' + grammar.title + '</strong>' + grammar.rule +
+          '</div>' +
+          missionVocabHtml +
+          '<strong style="font-size:0.85rem;color:#2D3748;display:block;margin-bottom:6px;">✨ 5 Palabras Nuevas:</strong>' +
+          '<div style="display:flex;flex-direction:column;gap:6px;">' +
+            extras.map(([de, es, tp]) => {
+              const c = typeColor[tp] || '#2D3748';
+              const icon = tp === 'v' ? '⚡' : '🔊';
+              return '<button type="button" onclick="speakPlus(\'' + de.replace(/'/g, "\\'") + '\', false)" ' +
+                'style="display:flex;justify-content:space-between;align-items:center;gap:8px;background:#FFFDF9;color:' + c + ';border:1.5px solid ' + c + ';padding:6px 10px;border-radius:10px;font-size:0.82rem;min-height:auto;font-weight:800;text-align:left;">' +
+                '<span>' + icon + ' ' + de + '</span>' +
+                '<span style="color:#4A5568;font-weight:600;font-size:0.75rem;margin-left:auto;"> · ' + es + '</span></button>';
+            }).join('') +
+          '</div>' +
+          spiralHtml +
+        '</div>';
+      document.body.appendChild(drawer);
+
+      let isOpen = false;
+      document.getElementById('entdecker-toggle').onclick = function() {
+        isOpen = !isOpen;
+        drawer.style.transform = isOpen ? 'translateX(0)' : 'translateX(330px)';
+      };
+    }
+  }
   const MINI_READINGS = {
     1: { title: '💬 Chat de Félix', text: 'Hallo! Ich heiße Felix. Ich bin neun Jahre alt und wohne im Wald. Das ist mein Freund Leo. Leo hat eine Schwester.', q: '¿Cómo se llama el amigo de Félix?', opts: ['Leo', 'Max'], ans: 'Leo' },
     2: { title: '🗺️ Nota en el mapa', text: 'Der Weg zum Sportplatz ist leicht: Geh zuerst links, dann geradeaus. Der Kompass liegt rechts neben dem Baum.', q: '¿Dónde está la brújula?', opts: ['A la derecha, junto al árbol', 'A la izquierda'], ans: 'A la derecha, junto al árbol' },
@@ -477,7 +471,6 @@ drawer.style.transform = isOpen ? 'translateX(0)' : 'translateX(330px)';
     }
     return { tag: null, main: '«' + rawDe + '»', sub: rawEs };
   }
-
   function enhanceStep() {
     const content = document.getElementById('content');
     if (!content) return;
@@ -547,42 +540,45 @@ drawer.style.transform = isOpen ? 'translateX(0)' : 'translateX(330px)';
 
     const footerDiv = content.querySelector('.footer');
     if (footerDiv && !content.querySelector('.rec-bar')) {
-const recDiv = document.createElement('div');
-recDiv.className = 'rec-bar';
-recDiv.innerHTML = '🎙️ Grabar mi vozPractica pronunciando en voz alta y escúchate';
-footerDiv.parentNode.insertBefore(recDiv, footerDiv);
-}
-const optionsBox = content.querySelector('.options');
-if (optionsBox && stepNum >= 8 && !content.querySelector('#write-challenge') && !optionsBox.querySelector('button[disabled]')) {
-const targetBtn = Array.from(optionsBox.querySelectorAll('button')).find(b => b.dataset.answer !== undefined);
-if (targetBtn) {
-optionsBox.style.display = 'none';
-const challenge = document.createElement('div');
-challenge.id = 'write-challenge';
-challenge.style.cssText = 'background:#E8F8F5;border:2px solid #6EE7B7;border-radius:16px;padding:14px;margin:14px 0;';
-challenge.innerHTML =
-'✍️ Reto Final de Escritura (Producción):' +
-'' +
-'' + ['ä', 'ö', 'ü', 'ß'].map(ch => '' + ch + '').join('') + '' +
-'' +
-'✅ Comprobar ' +
-'Ver opciones';
-optionsBox.parentNode.insertBefore(challenge, optionsBox);
-document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
-document.getElementById('check-write-btn').onclick = function() {
-const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
-const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
-if (match) match.click();
-else { const fb = document.getElementById('write-feedback'); fb.textContent = '💜 Casi... Abre tu pestaña 🧭 Entdecker-Box a la derecha, revisa la regla e inténtalo de nuevo.'; fb.style.display = 'block'; }
-};
-}
-}
-}
-initSequenceUI();
-enhanceStep();
-const contentEl = document.getElementById('content');
-if (contentEl) {
-const observer = new MutationObserver(() => { observer.disconnect(); enhanceStep(); observer.observe(contentEl, { childList: true }); });
-observer.observe(contentEl, { childList: true });
-}
+      const recDiv = document.createElement('div');
+      recDiv.className = 'rec-bar';
+      recDiv.innerHTML = '<button type="button" onclick="toggleVoiceRec(this)">🎙️ Grabar mi voz</button><span style="font-size:0.85rem;color:#065F46;font-weight:700;">Practica pronunciando en voz alta y escúchate</span>';
+      footerDiv.parentNode.insertBefore(recDiv, footerDiv);
+    }
+
+    const optionsBox = content.querySelector('.options');
+    if (optionsBox && stepNum >= 8 && !content.querySelector('#write-challenge') && !optionsBox.querySelector('button[disabled]')) {
+      const targetBtn = Array.from(optionsBox.querySelectorAll('button')).find(b => b.dataset.answer !== undefined);
+      if (targetBtn) {
+        optionsBox.style.display = 'none';
+        const challenge = document.createElement('div');
+        challenge.id = 'write-challenge';
+        challenge.style.cssText = 'background:#E8F8F5;border:2px solid #6EE7B7;border-radius:16px;padding:14px;margin:14px 0;';
+        challenge.innerHTML =
+          '<strong style="color:#065F46;display:block;margin-bottom:6px;">✍️ Reto Final de Escritura (Producción):</strong>' +
+          '<input type="text" id="german-input" placeholder="Escribe la respuesta en alemán..." style="width:100%;margin-bottom:8px;padding:10px;border-radius:10px;border:2px solid #6EE7B7;background:#FAF8F5;color:#2D3748;">' +
+          '<div style="display:flex;gap:6px;margin-bottom:10px;">' + ['ä', 'ö', 'ü', 'ß'].map(ch => '<button type="button" class="secondary" style="min-height:36px;padding:4px 12px;" onclick="const i=document.getElementById(\'german-input\');i.value+=\'' + ch + '\';i.focus();">' + ch + '</button>').join('') + '</div>' +
+          '<div id="write-feedback" class="soft-retry" style="display:none;"></div>' +
+          '<button type="button" id="check-write-btn" style="background:#22C55E;color:#FFFDF9;padding:8px 16px;border-radius:10px;border:none;font-weight:800;cursor:pointer;">✅ Comprobar</button> ' +
+          '<button type="button" class="secondary" id="show-opts-btn">Ver opciones</button>';
+        optionsBox.parentNode.insertBefore(challenge, optionsBox);
+
+        document.getElementById('show-opts-btn').onclick = function() { challenge.remove(); optionsBox.style.display = 'grid'; };
+        document.getElementById('check-write-btn').onclick = function() {
+          const val = document.getElementById('german-input').value.trim().toLowerCase().replace(/[.!?]/g, '');
+          const match = Array.from(optionsBox.querySelectorAll('button')).find(b => b.textContent.trim().toLowerCase().replace(/[.!?]/g, '') === val);
+          if (match) match.click();
+          else { const fb = document.getElementById('write-feedback'); fb.textContent = '💜 Casi... Abre tu pestaña 🧭 Entdecker-Box a la derecha, revisa la regla e inténtalo de nuevo.'; fb.style.display = 'block'; }
+        };
+      }
+    }
+  }
+
+  initSequenceUI();
+  enhanceStep();
+  const contentEl = document.getElementById('content');
+  if (contentEl) {
+    const observer = new MutationObserver(() => { observer.disconnect(); enhanceStep(); observer.observe(contentEl, { childList: true }); });
+    observer.observe(contentEl, { childList: true });
+  }
 })();
