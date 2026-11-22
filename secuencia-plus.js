@@ -399,32 +399,25 @@
       };
     });
   }
-  function renderCoherentMatch(container) {
+    function renderCoherentMatch(container) {
     if (container.querySelector('#match-mini-game')) return;
-    const pairs = [];
-    mission.tasks.forEach(t => {
-      const de = String(t.at(4) || '').trim();
-      const es = String(t.at(2) || '').trim();
-      if (de && es && de.length < 45 && es.length < 45 && pairs.length < 3 && !pairs.some(p => p.at(0) === de)) {
-        pairs.push([de, es]);
-      }
-    });
-    if (pairs.length < 2) return;
+    const vocabPairs = (EXTRA_VOCAB[id] || []).slice(0, 4);
+    if (vocabPairs.length < 3) return;
 
-    const rights = pairs.map((p, idx) => ({ text: p.at(1), idx })).sort(() => Math.random() - 0.5);
+    const rights = vocabPairs.map((p, idx) => ({ text: p.at(1), idx })).sort(() => Math.random() - 0.5);
     let selectedLeft = null, solved = 0;
 
     const box = document.createElement('div');
     box.id = 'match-mini-game';
     box.style.cssText = 'background:#E8F8F5;border:2px solid #6EE7B7;border-radius:16px;padding:14px;margin:14px 0;';
     box.innerHTML =
-      '<strong style="color:#065F46;display:block;margin-bottom:4px;">🔗 Conecta el alemán de esta misión con su significado:</strong>' +
+      '<strong style="color:#065F46;display:block;margin-bottom:4px;">🔗 Wortschatz-Check · Une cada palabra con su significado:</strong>' +
       '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">' +
         '<div style="display:flex;flex-direction:column;gap:8px;">' +
-          pairs.map((p, i) => '<button type="button" data-l="' + i + '" class="secondary" style="text-align:left;padding:8px 12px;min-height:40px;font-size:0.84rem;">🔊 ' + p.at(0) + '</button>').join('') +
+          vocabPairs.map((p, i) => '<button type="button" data-l="' + i + '" class="secondary" style="text-align:left;padding:8px 12px;min-height:40px;font-size:0.86rem;">🔊 ' + p.at(0) + '</button>').join('') +
         '</div>' +
         '<div style="display:flex;flex-direction:column;gap:8px;">' +
-          rights.map(r => '<button type="button" data-r="' + r.idx + '" class="secondary" style="text-align:left;padding:8px 12px;min-height:40px;font-size:0.84rem;">' + r.text + '</button>').join('') +
+          rights.map(r => '<button type="button" data-r="' + r.idx + '" class="secondary" style="text-align:left;padding:8px 12px;min-height:40px;font-size:0.86rem;">' + r.text + '</button>').join('') +
         '</div>' +
       '</div>' +
       '<div id="match-status" style="margin-top:8px;font-size:0.85rem;font-weight:800;"></div>';
@@ -450,10 +443,10 @@
           btn.style.background = '#DCFCE7'; btn.style.borderColor = '#22C55E'; btn.disabled = true;
           selectedLeft = null;
           solved++;
-          if (solved === pairs.length) { st.style.color = '#15803D'; st.textContent = '🎉 ¡Muy bien! Vocabulario de la misión conectado.'; }
+          if (solved === vocabPairs.length) { st.style.color = '#15803D'; st.textContent = '🎉 Super! Jetzt löse die Aufgabe unten:'; }
         } else {
           st.style.color = '#6D28D9';
-          st.textContent = '💜 No coincide, escucha otra vez la frase en alemán.';
+          st.textContent = '💜 Schau noch einmal in die Entdecker-Box!';
         }
       };
     });
