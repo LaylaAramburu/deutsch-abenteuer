@@ -343,10 +343,13 @@
     24: { title: '🎉 Das große Finale', text: 'Wir haben es geschafft! Meine Familie, meine Freunde und Felix feiern zusammen. Ich spreche jetzt schon viel Deutsch!', q: 'Wer feiert zusammen?', opts: ['Familie, Freunde und Felix.', 'Niemand.'], ans: 'Familie, Freunde und Felix.' }
   };
 
-  function renderMiniReading(container, missionId) {
+    function renderMiniReading(container, missionId) {
     if (container.querySelector('#mini-reading-card')) return;
     const data = MINI_READINGS[missionId];
     if (!data) return;
+
+    const optsBox = container.querySelector('.options');
+    if (optsBox) optsBox.style.display = 'none';
 
     const card = document.createElement('div');
     card.id = 'mini-reading-card';
@@ -363,7 +366,7 @@
       '</div>' +
       '<div id="read-fb" style="margin-top:8px;font-size:0.85rem;font-weight:800;"></div>';
 
-    container.insertBefore(card, container.querySelector('.options') || container.querySelector('.footer'));
+    container.insertBefore(card, optsBox || container.querySelector('.footer'));
 
     card.querySelectorAll('[data-ropt]').forEach(btn => {
       btn.onclick = () => {
@@ -371,7 +374,8 @@
         if (btn.dataset.ropt === data.ans) {
           btn.style.background = '#DCFCE7'; btn.style.borderColor = '#22C55E';
           fb.style.color = '#15803D';
-          fb.textContent = '✅ Richtig! Sehr gut gelesen.';
+          fb.textContent = '✅ Richtig! Jetzt beantworte die Frage unten:';
+          if (optsBox) optsBox.style.display = 'grid';
         } else {
           fb.style.color = '#6D28D9';
           fb.textContent = '💜 Lies den Text noch einmal genau!';
